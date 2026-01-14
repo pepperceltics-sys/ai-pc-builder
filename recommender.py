@@ -2,9 +2,6 @@ import pandas as pd
 import numpy as np
 import heapq
 
-# -------------------------
-# Industry templates
-# -------------------------
 FRACTIONS = {
     "gaming":           dict(gpu=0.40, cpu=0.25, ram=0.10, mb=0.10, psu=0.05),
     "office":           dict(cpu=0.35, gpu=0.05, ram=0.15, mb=0.15, psu=0.10),
@@ -30,14 +27,11 @@ def mins(industry):
         return dict(min_cores=8, min_vram=10, min_ram=32, min_psu=650)
     return dict(min_cores=6, min_vram=8,  min_ram=16, min_psu=550)
 
-# -------------------------
-# Helpers
-# -------------------------
 def to_num(s, default=np.nan):
     return pd.to_numeric(s, errors="coerce").fillna(default)
 
 def norm_ddr(x):
-    if pd.isna(x): 
+    if pd.isna(x):
         return "UNKNOWN"
     s = str(x).upper().strip()
     if "DDR5" in s: return "DDR5"
@@ -46,7 +40,7 @@ def norm_ddr(x):
     return "UNKNOWN"
 
 def safe_str(x, default="Unknown"):
-    if pd.isna(x): 
+    if pd.isna(x):
         return default
     s = str(x).strip()
     return s if s else default
@@ -69,7 +63,7 @@ def est_draw(cpu_row, gpu_row) -> float:
     return float(cpu_row["tdp"]) + gpu_watts_proxy(float(gpu_row["vram_gb"])) + 150.0
 
 def norm01(x, lo, hi):
-    if hi <= lo: 
+    if hi <= lo:
         return 0.0
     return float(np.clip((x - lo) / (hi - lo), 0, 1))
 
@@ -79,16 +73,12 @@ def util_score(total_price: float, budget: float, target: float = 0.95) -> float
     u = total_price / budget
     return float(np.clip(1.0 - abs(u - target) / target, 0.0, 1.0))
 
-# -------------------------
-# Load Excel (single file)
-# -------------------------
-def load_enriched_excel(excel_file) -> dict:
-    xls = pd.ExcelFile(excel_file)
+def load_enriched_excel(path: str) -> dict:
+    xls = pd.ExcelFile(path)
     needed = ["CPU", "GPU", "RAM", "Motherboard", "PSU"]
     missing = [s for s in needed if s not in xls.sheet_names]
     if missing:
-        raise ValueError(f"Excel is missing sheet(s): {missing}. Found: {xls.sheet_names}")
-
+        raise ValueError(f"Excel missing sheet(s): {missing}. Found: {xls.sheet_names}")
     return {
         "cpu": pd.read_excel(xls, "CPU"),
         "gpu": pd.read_excel(xls, "GPU"),
@@ -97,17 +87,14 @@ def load_enriched_excel(excel_file) -> dict:
         "psu": pd.read_excel(xls, "PSU"),
     }
 
-# -------------------------
-# Main recommender
-# -------------------------
-def recommend_builds_from_excel(
-    excel_file,
+def recommend_builds_from_excel_path(
+    excel_path: str,
     industry: str,
     total_budget: float,
     top_k: int = 50,
     random_state: int = 42,
 ):
-    dfs = load_enriched_excel(excel_file)
+    dfs = load_enriched_excel(excel_path)
     return recommend_builds(
         dfs["cpu"], dfs["gpu"], dfs["ram"], dfs["mb"], dfs["psu"],
         industry=industry,
@@ -139,12 +126,7 @@ def recommend_builds(
         "psu": total_budget * frac["psu"],
     }
 
-    # --- Copy and standardize
-    cpu_df = cpu_df.copy()
-    gpu_df = gpu_df.copy()
-    ram_df = ram_df.copy()
-    mb_df  = mb_df.copy()
-    psu_df = psu_df.copy()
+    cpu_df, gpu_df, ram_df, mb_df, psu_df = cpu_df.copy(), gpu_df.copy(), ram_df.copy(), mb_df.copy(), psu_df.copy()
 
     # CPU
     cpu_df["model"] = cpu_df.get("model", cpu_df.get("name", "Unknown"))
@@ -166,7 +148,7 @@ def recommend_builds(
     ram_df["total_ram_gb"] = ram_df["modules"] * ram_df["module_gb"]
     ram_df["ram_ddr"] = ram_df.get("module_type", "").apply(norm_ddr)
 
-    # Motherboard
+    # MB
     mb_df["model"] = mb_df.get("model", mb_df.get("name", "Unknown"))
     mb_df["socket"] = mb_df.get("socket", "UNKNOWN")
     mb_df["mb_socket_norm"] = mb_df["socket"].astype(str).str.upper().str.replace(" ", "")
@@ -184,7 +166,7 @@ def recommend_builds(
     mb_df  = priced(mb_df)
     psu_df = priced(psu_df)
 
-    # prune by industry + hard caps (<= per-component budget)
+    # prune by industry + hard caps
     cpu_f = cpu_df[(cpu_df["cores"] >= req["min_cores"]) & (cpu_df["price"] <= bud["cpu"])].copy()
     gpu_f = gpu_df[(gpu_df["vram_gb"] >= req["min_vram"]) & (gpu_df["price"] <= bud["gpu"])].copy()
     ram_f = ram_df[(ram_df["total_ram_gb"].fillna(0) >= req["min_ram"]) & (ram_df["modules"] > 0) & (ram_df["price"] <= bud["ram"])].copy()
@@ -196,14 +178,14 @@ def recommend_builds(
     if any(len(x) == 0 for x in [cpu_f, gpu_f, ram_f, mb_f, psu_f]):
         return pd.DataFrame()
 
-    # performance scores
+    # performance
     cpu_f["cpu_perf"] = cpu_f["cores"] + 0.5 * cpu_f["boost_ghz"].fillna(cpu_f["boost_ghz"].median())
     gpu_f["gpu_perf"] = gpu_f["vram_gb"] + 0.3 * gpu_f["boost_ghz"].fillna(gpu_f["boost_ghz"].median())
     ram_f["ram_perf"] = ram_f["total_ram_gb"].fillna(0)
     mb_f["mb_perf"]   = mb_f["ram_slots"] + (mb_f["mb_ddr"].eq("DDR5") * 0.1)
     psu_f["psu_perf"] = psu_f["wattage"]
 
-    # Candidate pools for speed
+    # Candidate pools
     cpu_top = cpu_f.sort_values(["cpu_perf", "price"], ascending=[False, True]).head(200)
     gpu_top = gpu_f.sort_values(["gpu_perf", "price"], ascending=[False, True]).head(260)
     ram_top = ram_f.sort_values(["ram_perf", "price"], ascending=[False, True]).head(260)
@@ -216,7 +198,7 @@ def recommend_builds(
     mb_lo,  mb_hi  = mb_top["mb_perf"].min(),  mb_top["mb_perf"].max()
     psu_lo, psu_hi = psu_top["psu_perf"].min(), psu_top["psu_perf"].max()
 
-    # Precompute MB+RAM bundles by (socket, ddr)
+    # bundles by (socket, ddr)
     bundles_by_key = {}
     for _, mb in mb_top.iterrows():
         key = (mb["mb_socket_norm"], str(mb["mb_ddr"]).upper())
@@ -231,7 +213,6 @@ def recommend_builds(
         for _, ram in ok_ram.head(6).iterrows():
             bundles_by_key[key].append((mb, ram))
 
-    # compatibility checks
     def socket_ok(cpu_row, mb_row):
         cs = cpu_row["cpu_socket_norm"]
         ms = mb_row["mb_socket_norm"]
@@ -252,7 +233,6 @@ def recommend_builds(
     def psu_ok(cpu_row, gpu_row, psu_row):
         return float(psu_row["wattage"]) >= 0.90 * est_draw(cpu_row, gpu_row)
 
-    # search throttles and scoring blend
     CPU_PER_GPU = 60
     PSU_PER_PAIR = 10
     MBRAM_BUNDLES_PER_PAIR = 22
