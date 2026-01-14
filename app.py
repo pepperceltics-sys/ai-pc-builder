@@ -1,22 +1,22 @@
 import streamlit as st
-from recommender import recommend_builds_from_excel_path
+from recommender import recommend_builds_from_csv_dir
 
 st.set_page_config(page_title="AI PC Builder", layout="wide")
 st.title("AI PC Builder")
-st.caption("Select an industry + budget. Builds are generated from Cleaned_data_enriched.xlsx stored in this repo.")
+st.caption("Select an industry + budget. Builds are generated from CSVs stored in /data.")
 
 industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
 budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
 
 TOP_K = 50
-EXCEL_PATH = "Cleaned_data_enriched.xlsx"
+DATA_DIR = "data"
 
 st.divider()
 
 if st.button("Generate Builds", type="primary"):
     with st.spinner("Generating best builds..."):
-        df = recommend_builds_from_excel_path(
-            excel_path=EXCEL_PATH,
+        df = recommend_builds_from_csv_dir(
+            data_dir=DATA_DIR,
             industry=industry,
             total_budget=float(budget),
             top_k=TOP_K
