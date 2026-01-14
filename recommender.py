@@ -1,22 +1,3 @@
-# ============================
-# AI PC BUILDER (STREAMLIT) - FULL PROJECT FILES
-# Creates: requirements.txt, recommender.py, app.py
-# Then add your CSVs to: data/CPU.csv, data/GPU.csv, data/RAM.csv, data/Motherboard.csv, data/PSU.csv
-# Run locally: pip install -r requirements.txt && streamlit run app.py
-# ============================
-
-# (1) Make data folder
-mkdir -p data
-
-# (2) requirements.txt
-cat > requirements.txt << 'EOF'
-streamlit
-pandas
-numpy
-EOF
-
-# (3) recommender.py
-cat > recommender.py << 'EOF'
 import pandas as pd
 import numpy as np
 import heapq
@@ -56,7 +37,7 @@ def to_num(s, default=np.nan):
     return pd.to_numeric(s, errors="coerce").fillna(default)
 
 def norm_ddr(x):
-    if pd.isna(x):
+    if pd.isna(x): 
         return "UNKNOWN"
     s = str(x).upper().strip()
     if "DDR5" in s: return "DDR5"
@@ -65,7 +46,7 @@ def norm_ddr(x):
     return "UNKNOWN"
 
 def safe_str(x, default="Unknown"):
-    if pd.isna(x):
+    if pd.isna(x): 
         return default
     s = str(x).strip()
     return s if s else default
@@ -88,7 +69,7 @@ def est_draw(cpu_row, gpu_row) -> float:
     return float(cpu_row["tdp"]) + gpu_watts_proxy(float(gpu_row["vram_gb"])) + 150.0
 
 def norm01(x, lo, hi):
-    if hi <= lo:
+    if hi <= lo: 
         return 0.0
     return float(np.clip((x - lo) / (hi - lo), 0, 1))
 
@@ -99,30 +80,43 @@ def util_score(total_price: float, budget: float, target: float = 0.95) -> float
     return float(np.clip(1.0 - abs(u - target) / target, 0.0, 1.0))
 
 # -------------------------
-# Main function (CSV database)
+# Load Excel (single file)
 # -------------------------
-def generate_builds_from_csv(
-    data_dir: str,
+def load_enriched_excel(excel_file) -> dict:
+    xls = pd.ExcelFile(excel_file)
+    needed = ["CPU", "GPU", "RAM", "Motherboard", "PSU"]
+    missing = [s for s in needed if s not in xls.sheet_names]
+    if missing:
+        raise ValueError(f"Excel is missing sheet(s): {missing}. Found: {xls.sheet_names}")
+
+    return {
+        "cpu": pd.read_excel(xls, "CPU"),
+        "gpu": pd.read_excel(xls, "GPU"),
+        "ram": pd.read_excel(xls, "RAM"),
+        "mb":  pd.read_excel(xls, "Motherboard"),
+        "psu": pd.read_excel(xls, "PSU"),
+    }
+
+# -------------------------
+# Main recommender
+# -------------------------
+def recommend_builds_from_excel(
+    excel_file,
     industry: str,
     total_budget: float,
     top_k: int = 50,
     random_state: int = 42,
 ):
-    cpu_df = pd.read_csv(f"{data_dir}/CPU.csv")
-    gpu_df = pd.read_csv(f"{data_dir}/GPU.csv")
-    ram_df = pd.read_csv(f"{data_dir}/RAM.csv")
-    mb_df  = pd.read_csv(f"{data_dir}/Motherboard.csv")
-    psu_df = pd.read_csv(f"{data_dir}/PSU.csv")
-
-    return generate_builds(
-        cpu_df, gpu_df, ram_df, mb_df, psu_df,
+    dfs = load_enriched_excel(excel_file)
+    return recommend_builds(
+        dfs["cpu"], dfs["gpu"], dfs["ram"], dfs["mb"], dfs["psu"],
         industry=industry,
         total_budget=total_budget,
         top_k=top_k,
-        random_state=random_state
+        random_state=random_state,
     )
 
-def generate_builds(
+def recommend_builds(
     cpu_df: pd.DataFrame,
     gpu_df: pd.DataFrame,
     ram_df: pd.DataFrame,
@@ -145,7 +139,7 @@ def generate_builds(
         "psu": total_budget * frac["psu"],
     }
 
-    # ---- Standardize fields (robust to column name differences)
+    # --- Copy and standardize
     cpu_df = cpu_df.copy()
     gpu_df = gpu_df.copy()
     ram_df = ram_df.copy()
@@ -153,35 +147,35 @@ def generate_builds(
     psu_df = psu_df.copy()
 
     # CPU
+    cpu_df["model"] = cpu_df.get("model", cpu_df.get("name", "Unknown"))
     cpu_df["cores"] = to_num(cpu_df.get("cores", cpu_df.get("core_count")), 4).astype(int)
     cpu_df["tdp"] = to_num(cpu_df.get("tdp"), 65)
     cpu_df["boost_ghz"] = to_num(cpu_df.get("boost_clock"), np.nan) / 1e9
     cpu_df["cpu_socket"] = cpu_df.get("cpu_socket", cpu_df.get("socket"))
     cpu_df["cpu_socket_norm"] = cpu_df["cpu_socket"].astype(str).str.upper().str.replace(" ", "")
-    cpu_df["model"] = cpu_df.get("model", cpu_df.get("name", "Unknown"))
 
     # GPU
+    gpu_df["model"] = gpu_df.get("model", gpu_df.get("name", "Unknown"))
     gpu_df["vram_gb"] = to_num(gpu_df.get("vram"), 0) / 1e9
     gpu_df["boost_ghz"] = to_num(gpu_df.get("boost_clock"), np.nan) / 1e9
-    gpu_df["model"] = gpu_df.get("model", gpu_df.get("name", "Unknown"))
 
     # RAM
+    ram_df["model"] = ram_df.get("model", ram_df.get("name", "Unknown"))
     ram_df["modules"] = to_num(ram_df.get("number_of_modules"), 0).astype(int)
     ram_df["module_gb"] = to_num(ram_df.get("module_size"), np.nan) / 1e9
     ram_df["total_ram_gb"] = ram_df["modules"] * ram_df["module_gb"]
     ram_df["ram_ddr"] = ram_df.get("module_type", "").apply(norm_ddr)
-    ram_df["model"] = ram_df.get("model", ram_df.get("name", "Unknown"))
 
-    # MB
-    mb_df["ram_slots"] = to_num(mb_df.get("ram_slots"), 0).astype(int)
+    # Motherboard
+    mb_df["model"] = mb_df.get("model", mb_df.get("name", "Unknown"))
     mb_df["socket"] = mb_df.get("socket", "UNKNOWN")
     mb_df["mb_socket_norm"] = mb_df["socket"].astype(str).str.upper().str.replace(" ", "")
+    mb_df["ram_slots"] = to_num(mb_df.get("ram_slots"), 0).astype(int)
     mb_df["mb_ddr"] = mb_df.get("mb_ddr", mb_df.get("ram_type", "")).apply(norm_ddr)
-    mb_df["model"] = mb_df.get("model", mb_df.get("name", "Unknown"))
 
     # PSU
-    psu_df["wattage"] = to_num(psu_df.get("wattage"), 0)
     psu_df["model"] = psu_df.get("model", psu_df.get("name", "Unknown"))
+    psu_df["wattage"] = to_num(psu_df.get("wattage"), 0)
 
     # priced-only
     cpu_df = priced(cpu_df)
@@ -190,7 +184,7 @@ def generate_builds(
     mb_df  = priced(mb_df)
     psu_df = priced(psu_df)
 
-    # ---- prune by industry + hard caps
+    # prune by industry + hard caps (<= per-component budget)
     cpu_f = cpu_df[(cpu_df["cores"] >= req["min_cores"]) & (cpu_df["price"] <= bud["cpu"])].copy()
     gpu_f = gpu_df[(gpu_df["vram_gb"] >= req["min_vram"]) & (gpu_df["price"] <= bud["gpu"])].copy()
     ram_f = ram_df[(ram_df["total_ram_gb"].fillna(0) >= req["min_ram"]) & (ram_df["modules"] > 0) & (ram_df["price"] <= bud["ram"])].copy()
@@ -202,14 +196,14 @@ def generate_builds(
     if any(len(x) == 0 for x in [cpu_f, gpu_f, ram_f, mb_f, psu_f]):
         return pd.DataFrame()
 
-    # ---- performance
+    # performance scores
     cpu_f["cpu_perf"] = cpu_f["cores"] + 0.5 * cpu_f["boost_ghz"].fillna(cpu_f["boost_ghz"].median())
     gpu_f["gpu_perf"] = gpu_f["vram_gb"] + 0.3 * gpu_f["boost_ghz"].fillna(gpu_f["boost_ghz"].median())
     ram_f["ram_perf"] = ram_f["total_ram_gb"].fillna(0)
     mb_f["mb_perf"]   = mb_f["ram_slots"] + (mb_f["mb_ddr"].eq("DDR5") * 0.1)
     psu_f["psu_perf"] = psu_f["wattage"]
 
-    # Candidate pools (speed)
+    # Candidate pools for speed
     cpu_top = cpu_f.sort_values(["cpu_perf", "price"], ascending=[False, True]).head(200)
     gpu_top = gpu_f.sort_values(["gpu_perf", "price"], ascending=[False, True]).head(260)
     ram_top = ram_f.sort_values(["ram_perf", "price"], ascending=[False, True]).head(260)
@@ -222,7 +216,7 @@ def generate_builds(
     mb_lo,  mb_hi  = mb_top["mb_perf"].min(),  mb_top["mb_perf"].max()
     psu_lo, psu_hi = psu_top["psu_perf"].min(), psu_top["psu_perf"].max()
 
-    # Bundles by (socket, DDR)
+    # Precompute MB+RAM bundles by (socket, ddr)
     bundles_by_key = {}
     for _, mb in mb_top.iterrows():
         key = (mb["mb_socket_norm"], str(mb["mb_ddr"]).upper())
@@ -237,7 +231,7 @@ def generate_builds(
         for _, ram in ok_ram.head(6).iterrows():
             bundles_by_key[key].append((mb, ram))
 
-    # Compatibility checks
+    # compatibility checks
     def socket_ok(cpu_row, mb_row):
         cs = cpu_row["cpu_socket_norm"]
         ms = mb_row["mb_socket_norm"]
@@ -258,7 +252,7 @@ def generate_builds(
     def psu_ok(cpu_row, gpu_row, psu_row):
         return float(psu_row["wattage"]) >= 0.90 * est_draw(cpu_row, gpu_row)
 
-    # Search throttles + scoring blend
+    # search throttles and scoring blend
     CPU_PER_GPU = 60
     PSU_PER_PAIR = 10
     MBRAM_BUNDLES_PER_PAIR = 22
@@ -281,7 +275,6 @@ def generate_builds(
             if score > heap[0][0]:
                 heapq.heapreplace(heap, item)
 
-    # Main bounded loop
     for _, gpu in gpu_top.iterrows():
         for _, cpu in cpu_top.head(CPU_PER_GPU).iterrows():
 
@@ -367,49 +360,3 @@ def generate_builds(
         return pd.DataFrame()
 
     return pd.DataFrame(results).sort_values("final_score", ascending=False)
-EOF
-
-# (4) app.py (ONLY TWO INPUTS)
-cat > app.py << 'EOF'
-import streamlit as st
-from recommender import generate_builds_from_csv
-
-st.set_page_config(page_title="AI PC Builder", layout="wide")
-st.title("AI PC Builder")
-st.caption("Choose an industry and budget. The app returns top compatible builds under budget from your cleaned/enriched CSV database.")
-
-# Exactly TWO inputs
-industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
-budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
-
-TOP_K = 50  # fixed (not a user input)
-
-st.divider()
-
-if st.button("Generate Builds", type="primary"):
-    with st.spinner("Generating best builds..."):
-        df = generate_builds_from_csv(
-            data_dir="data",
-            industry=industry,
-            total_budget=float(budget),
-            top_k=TOP_K
-        )
-
-    if df.empty:
-        st.warning("No compatible builds found under these constraints. Try increasing your budget.")
-    else:
-        st.success(f"Found {len(df)} builds (showing top {min(50, len(df))}).")
-        st.dataframe(df.head(50), use_container_width=True)
-
-        st.download_button(
-            "Download CSV",
-            data=df.to_csv(index=False).encode("utf-8"),
-            file_name=f"top_{TOP_K}_{industry}_{int(budget)}.csv",
-            mime="text/csv"
-        )
-EOF
-
-echo "✅ Files created: requirements.txt, recommender.py, app.py"
-echo "➡️ Next: put your CSVs into ./data/ then run:"
-echo "   pip install -r requirements.txt"
-echo "   streamlit run app.py"
