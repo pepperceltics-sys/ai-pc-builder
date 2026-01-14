@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
 import heapq
+from pathlib import Path
 
+# -------------------------
+# Industry templates
+# -------------------------
 FRACTIONS = {
     "gaming":           dict(gpu=0.40, cpu=0.25, ram=0.10, mb=0.10, psu=0.05),
     "office":           dict(cpu=0.35, gpu=0.05, ram=0.15, mb=0.15, psu=0.10),
@@ -27,6 +31,9 @@ def mins(industry):
         return dict(min_cores=8, min_vram=10, min_ram=32, min_psu=650)
     return dict(min_cores=6, min_vram=8,  min_ram=16, min_psu=550)
 
+# -------------------------
+# Helpers
+# -------------------------
 def to_num(s, default=np.nan):
     return pd.to_numeric(s, errors="coerce").fillna(default)
 
@@ -73,28 +80,43 @@ def util_score(total_price: float, budget: float, target: float = 0.95) -> float
     u = total_price / budget
     return float(np.clip(1.0 - abs(u - target) / target, 0.0, 1.0))
 
-def load_enriched_excel(path: str) -> dict:
-    xls = pd.ExcelFile(path)
-    needed = ["CPU", "GPU", "RAM", "Motherboard", "PSU"]
-    missing = [s for s in needed if s not in xls.sheet_names]
-    if missing:
-        raise ValueError(f"Excel missing sheet(s): {missing}. Found: {xls.sheet_names}")
-    return {
-        "cpu": pd.read_excel(xls, "CPU"),
-        "gpu": pd.read_excel(xls, "GPU"),
-        "ram": pd.read_excel(xls, "RAM"),
-        "mb":  pd.read_excel(xls, "Motherboard"),
-        "psu": pd.read_excel(xls, "PSU"),
+# -------------------------
+# Load CSVs (single folder)
+# -------------------------
+def load_csv_parts(data_dir: str = "data") -> dict:
+    data_path = Path(data_dir)
+
+    files = {
+        "cpu": data_path / "CPU.csv",
+        "gpu": data_path / "GPU.csv",
+        "ram": data_path / "RAM.csv",
+        "mb":  data_path / "Motherboard.csv",
+        "psu": data_path / "PSU.csv",
     }
 
-def recommend_builds_from_excel_path(
-    excel_path: str,
+    missing = [k for k, p in files.items() if not p.exists()]
+    if missing:
+        raise FileNotFoundError(
+            f"Missing CSV(s) in '{data_dir}': {missing}. "
+            f"Expected files: CPU.csv, GPU.csv, RAM.csv, Motherboard.csv, PSU.csv"
+        )
+
+    return {
+        "cpu": pd.read_csv(files["cpu"]),
+        "gpu": pd.read_csv(files["gpu"]),
+        "ram": pd.read_csv(files["ram"]),
+        "mb":  pd.read_csv(files["mb"]),
+        "psu": pd.read_csv(files["psu"]),
+    }
+
+def recommend_builds_from_csv_dir(
+    data_dir: str,
     industry: str,
     total_budget: float,
     top_k: int = 50,
     random_state: int = 42,
 ):
-    dfs = load_enriched_excel(excel_path)
+    dfs = load_csv_parts(data_dir=data_dir)
     return recommend_builds(
         dfs["cpu"], dfs["gpu"], dfs["ram"], dfs["mb"], dfs["psu"],
         industry=industry,
@@ -103,6 +125,9 @@ def recommend_builds_from_excel_path(
         random_state=random_state,
     )
 
+# -------------------------
+# Main recommender
+# -------------------------
 def recommend_builds(
     cpu_df: pd.DataFrame,
     gpu_df: pd.DataFrame,
@@ -233,6 +258,7 @@ def recommend_builds(
     def psu_ok(cpu_row, gpu_row, psu_row):
         return float(psu_row["wattage"]) >= 0.90 * est_draw(cpu_row, gpu_row)
 
+    # Search throttles
     CPU_PER_GPU = 60
     PSU_PER_PAIR = 10
     MBRAM_BUNDLES_PER_PAIR = 22
