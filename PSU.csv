@@ -1,0 +1,2096 @@
+type,brand,model,form_factor,efficiency_rating,wattage,modular,color,price
+PSU,ABS,Majesty,ATX,80+ Gold,1100,Full,,0.0
+PSU,ADATA,XPG CORE Reactor,ATX,80+ Gold,850,Full,Black,159.99
+PSU,ADATA,XPG CORE Reactor,ATX,80+ Gold,650,Full,Black,129.99
+PSU,ADATA,XPG CORE Reactor,ATX,80+ Gold,750,Full,Black,139.99
+PSU,Aerocool,AER-P7-P650W,ATX,80+ Platinum,650,Full,,0.0
+PSU,Aerocool,GT-1050SG,ATX,80+ Gold,1050,Semi,,0.0
+PSU,Aerocool,Integrator,ATX,80+ Bronze,500,No,Black,0.0
+PSU,Aerocool,LUX RGB M,ATX,80+ Bronze,750,Semi,Black,0.0
+PSU,Aerocool,P7 Platinum,ATX,80+ Platinum,850,Full,Black,0.0
+PSU,Aerocool,XPredator GM,ATX,80+ Gold,1000,Semi,Black,1919.61
+PSU,Anima,APII500,ATX,,500,No,Black / Green,0.0
+PSU,Antec,Basiq,ATX,80+,550,Semi,,0.0
+PSU,Antec,Basiq,ATX,,650,No,,0.0
+PSU,Antec,Basiq,ATX,,500,No,,0.0
+PSU,Antec,Basiq,ATX,,350,No,,99.0
+PSU,Antec,Basiq,ATX,80+,430,No,,93.75
+PSU,Antec,EDGE,ATX,80+ Gold,750,Full,,0.0
+PSU,Antec,EDGE,ATX,80+ Gold,550,Full,,0.0
+PSU,Antec,EDGE,ATX,80+ Gold,650,Full,,0.0
+PSU,Antec,EarthWatts Platinum,ATX,80+ Platinum,550,No,,0.0
+PSU,Antec,EarthWatts Platinum,ATX,80+ Platinum,650,No,,0.0
+PSU,Antec,Earthwatts,ATX,80+ Bronze,500,No,,114.98
+PSU,Antec,Earthwatts,ATX,80+ Platinum,750,No,,0.0
+PSU,Antec,Earthwatts,ATX,80+ Bronze,550,No,,0.0
+PSU,Antec,Earthwatts,ATX,80+,750,No,,0.0
+PSU,Antec,Earthwatts,ATX,80+ Bronze,500,No,,176.59
+PSU,Antec,Earthwatts,ATX,80+ Bronze,650,No,,0.0
+PSU,Antec,Earthwatts,ATX,80+ Platinum,450,No,,0.0
+PSU,Antec,Earthwatts Gold Pro,ATX,80+ Gold,550,Semi,Black,87.67
+PSU,Antec,Earthwatts Gold Pro,ATX,80+ Gold,750,Semi,Black,104.99
+PSU,Antec,Earthwatts Gold Pro,ATX,80+ Gold,650,Semi,Black,95.87
+PSU,Antec,Earthwatts Green,ATX,80+ Bronze,450,No,,0.0
+PSU,Antec,Earthwatts Green,ATX,80+,430,No,,0.0
+PSU,Antec,Earthwatts Green,ATX,80+,500,No,,114.73
+PSU,Antec,Earthwatts Green,ATX,80+ Bronze,380,No,,0.0
+PSU,Antec,Earthwatts Green,ATX,80+ Bronze,350,No,,0.0
+PSU,Antec,Earthwatts Green,ATX,80+ Bronze,430,No,,385.0
+PSU,Antec,Earthwatts Green,ATX,80+ Bronze,750,No,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,620,No,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,900,No,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,400,No,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,520,Semi,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,400,Semi,,180.59
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,620,Semi,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,520,No,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,850,Full,Black,0.0
+PSU,Antec,High Current Gamer,ATX,80+ Bronze,750,No,,325.58
+PSU,Antec,High Current Gamer Extreme,ATX,80+ Gold,1000,Full,,0.0
+PSU,Antec,High Current Gamer Extreme,ATX,80+ Gold,850,Full,,202.84
+PSU,Antec,High Current Gamer Gold,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Antec,High Current Gamer Gold,ATX,80+ Gold,750,Full,Black,119.49
+PSU,Antec,High Current Gamer Gold,ATX,80+ Gold,650,Full,Black,109.98
+PSU,Antec,High Current Pro,ATX,80+ Platinum,750,Full,,0.0
+PSU,Antec,High Current Pro,ATX,80+ Gold,850,Semi,,391.59
+PSU,Antec,High Current Pro,ATX,80+ Platinum,1000,Full,,0.0
+PSU,Antec,High Current Pro,ATX,80+ Platinum,850,Full,,0.0
+PSU,Antec,High Current Pro,ATX,80+ Platinum,1300,Full,,0.0
+PSU,Antec,High Current Pro,ATX,80+ Gold,750,Semi,,399.59
+PSU,Antec,High Current Pro,ATX,80+ Gold,1200,No,,0.0
+PSU,Antec,NE450M,ATX,80+ Bronze,450,Semi,,0.0
+PSU,Antec,NeoECO,ATX,80+ Bronze,520,No,,0.0
+PSU,Antec,NeoECO,ATX,80+ Bronze,620,No,,0.0
+PSU,Antec,NeoECO,ATX,80+ Bronze,550,Semi,Black,80.84
+PSU,Antec,NeoECO,ATX,80+,400,No,,0.0
+PSU,Antec,NeoECO Classic,ATX,80+ Bronze,650,No,Black,69.99
+PSU,Antec,NeoECO Classic,ATX,80+ Bronze,550,No,Black,59.99
+PSU,Antec,NeoECO Gold,ATX,80+ Gold,650,Semi,Black,105.98
+PSU,Antec,NeoECO Gold,ATX,80+ Gold,550,Semi,Black,0.0
+PSU,Antec,NeoECO Gold,ATX,80+ Gold,750,Semi,Black,0.0
+PSU,Antec,NeoECO Gold ZEN,ATX,80+ Gold,700,No,Black / Gold,0.0
+PSU,Antec,NeoECO Gold ZEN,ATX,80+ Gold,500,No,Black / Gold,0.0
+PSU,Antec,NeoECO Gold ZEN,ATX,80+ Gold,600,No,Black / Gold,84.99
+PSU,Antec,Signature,ATX,80+ Bronze,850,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Silver,1200,Semi,,0.0
+PSU,Antec,True Power,ATX,80+ Silver,1200,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,650,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Gold,650,No,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,850,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Gold,750,No,,0.0
+PSU,Antec,True Power,ATX,80+ Gold,550,No,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,1000,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,550,Full,,0.0
+PSU,Antec,True Power,ATX,80+ Bronze,750,Full,,0.0
+PSU,Antec,VP,ATX,80+,630,No,,0.0
+PSU,Antec,VP,ATX,,500,No,,0.0
+PSU,Antec,VP,ATX,80+,550,No,,0.0
+PSU,Antec,VP,ATX,,700,No,,0.0
+PSU,Antec,VP,ATX,,600,No,,0.0
+PSU,Antec,VP,ATX,,350,No,,0.0
+PSU,Antec,VP,ATX,,450,No,,0.0
+PSU,Antec,VP PLUS,ATX,80+,550,No,,54.99
+PSU,Antec,VP PLUS,ATX,80+,500,No,,52.62
+PSU,Antec,VP PLUS,ATX,80+,650,No,,84.61
+PSU,Antec,VP-P,ATX,,450,No,,0.0
+PSU,Apevia,AD,ATX,,500,No,Black,0.0
+PSU,Apevia,APEVIA ATX-WR680W 680W ATX12V v2.3 SLI CrossFire Active PFC Power Supply,ATX,,680,Semi,,0.0
+PSU,Apevia,AR,ATX,,500,No,Black,0.0
+PSU,Apevia,ATX-AQ700W-BK,ATX,,700,No,,0.0
+PSU,Apevia,ATX-AS500W-BK,ATX,,500,No,,0.0
+PSU,Apevia,ATX-AS500W-BL,ATX,,500,No,,0.0
+PSU,Apevia,ATX-AS500W-GN,ATX,,500,No,,0.0
+PSU,Apevia,ATX-AS520W-BK,ATX,,520,No,,0.0
+PSU,Apevia,ATX-AS600W-BL,ATX,,600,No,,0.0
+PSU,Apevia,ATX-AS680W-BK,ATX,,680,No,,0.0
+PSU,Apevia,ATX-AS680W-BL,ATX,,680,No,,0.0
+PSU,Apevia,ATX-CB600W,ATX,,600,No,,0.0
+PSU,Apevia,ATX-CB700W,ATX,,700,No,,0.0
+PSU,Apevia,ATX-CW500WP4,ATX,,500,No,,0.0
+PSU,Apevia,ATX-IB680W-BL,ATX,,680,No,,0.0
+PSU,Apevia,ATX-IB680W-GN,ATX,,680,No,,0.0
+PSU,Apevia,ATX-JP1000W,ATX,80+ Bronze,1000,No,,0.0
+PSU,Apevia,ATX-JV650W,ATX,,650,No,,0.0
+PSU,Apevia,ATX-RP500W,ATX,,500,No,,0.0
+PSU,Apevia,ATX-TL450W,ATX,,450,No,,0.0
+PSU,Apevia,ATX-TL450W-BK,ATX,,450,No,,0.0
+PSU,Apevia,ATX-VN500W,ATX,,500,No,,0.0
+PSU,Apevia,ATX-VS450W,ATX,,450,No,,0.0
+PSU,Apevia,ATX-WA750W,ATX,,750,No,,0.0
+PSU,Apevia,ATX-WA900W,ATX,,900,No,,0.0
+PSU,Apevia,Astro,ATX,,500,No,Black,0.0
+PSU,Apevia,Astro,ATX,,450,No,Black,0.0
+PSU,Apevia,Beast,ATX,,550,No,,0.0
+PSU,Apevia,ITX-AP250W,Mini ITX,,250,No,,0.0
+PSU,Apevia,Prestige,ATX,80+ Gold,800,No,Black,0.0
+PSU,Apevia,Prestige,ATX,80+ Gold,600,No,Black,54.99
+PSU,Apevia,Prestige,ATX,80+ Gold,1000,No,Black,0.0
+PSU,Apevia,Raptor,ATX,,450,No,Black / Red,0.0
+PSU,Apevia,Signature,ATX,80+ Bronze,1050,Semi,Black,127.05
+PSU,Apevia,Spirit,ATX,,700,No,,0.0
+PSU,Apevia,Spirit,ATX,,600,No,,0.0
+PSU,Apevia,XG,ATX,,450,No,,0.0
+PSU,Apex,AG,ATX,80+ Gold,750,Full,Black,0.0
+PSU,Apex,AL-8250SFX,SFX,,250,No,,30.98
+PSU,Apex,AL-A350ATX,ATX,,350,No,,0.0
+PSU,Apex,AL-A400ATX,ATX,,400,No,,0.0
+PSU,Apex,AL-D500EXP,ATX,,500,No,,0.0
+PSU,Apex,SL-275TFX,TFX,,275,No,,34.98
+PSU,Asus,ROG STRIX G,ATX,80+ Gold,1000,Full,Black,0.0
+PSU,Asus,ROG STRIX G,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Asus,ROG Strix,ATX,80+ Gold,750,Full,Black / Red,154.99
+PSU,Asus,ROG Strix,ATX,80+ Gold,850,Full,White,248.84
+PSU,Asus,ROG Strix,ATX,80+ Gold,550,Full,Black / Red,123.99
+PSU,Asus,ROG Strix,ATX,80+ Gold,650,Full,Black / Red,135.99
+PSU,Asus,ROG Thor 1200P,ATX,80+ Platinum,1200,Full,Black,677.99
+PSU,Asus,ROG Thor 850,ATX,80+ Platinum,850,Full,Black / Red,374.98
+PSU,Athena Power,AP-MFATX22,Mini ITX,,220,No,,0.0
+PSU,Athena Power,AP-MFATX25,Mini ITX,80+,250,No,,0.0
+PSU,Athena Power,AP-MFATX30,Mini ITX,80+ Bronze,300,No,,0.0
+PSU,Athena Power,AP-MFATX35,Mini ITX,80+ Bronze,350,No,,0.0
+PSU,Athena Power,AP-MFATX40,Mini ITX,80+ Bronze,400,No,,0.0
+PSU,Athena Power,AP-MFATX40P8,Flex ATX,80+ Bronze,400,No,,83.98
+PSU,Athena Power,AP-MFATX50P8,Flex ATX,80+ Silver,500,No,,94.99
+PSU,Athena Power,AP-MPS3ATX30H,ATX,,300,No,,0.0
+PSU,Athena Power,AP-MTFX30,TFX,,300,No,,39.99
+PSU,Athena Power,AP-P4ATX35,ATX,,350,No,,0.0
+PSU,Athena Power,AP-P4ATX55FEC,ATX,,550,No,,0.0
+PSU,Athena Power,AP-P4ATX80FEP8,ATX,80+ Bronze,800,No,,0.0
+PSU,Athena Power,AP-P4ATX85FEP,ATX,,850,No,,0.0
+PSU,Athena Power,AP-P4ATX95FEPC,ATX,80+,950,No,,0.0
+PSU,Athena Power,AP-TFX30,TFX,,300,No,,0.0
+PSU,Athena Power,AP-TFX40,TFX,80+ Bronze,400,No,,0.0
+PSU,Athena Power,APOLLO 600 PLUS,SFX,80+ Bronze,600,No,,149.41
+PSU,Athena Power,Apollo,SFX,,300,No,,49.99
+PSU,Azza,PSAZ-1000A14,ATX,80+ Bronze,1000,No,,0.0
+PSU,Azza,PSAZ-1000PT14,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,Azza,PSAZ-500B12,ATX,,500,No,,0.0
+PSU,Azza,PSAZ-650B14,ATX,,650,No,,0.0
+PSU,Azza,PSAZ-700A14,ATX,80+ Bronze,700,No,,0.0
+PSU,Azza,PSAZ-750PT14,ATX,80+ Platinum,750,Semi,,0.0
+PSU,Azza,PSAZ-850B14,ATX,,850,No,,0.0
+PSU,Azza,PSAZ-850PT14,ATX,80+ Platinum,850,Semi,,0.0
+PSU,Azza,Titan,ATX,80+ Bronze,1000,No,,0.0
+PSU,BFG,BFGR650WGSPSU,ATX,,650,No,,0.0
+PSU,BFG,EX-1000,ATX,80+ Bronze,1000,Full,,0.0
+PSU,BitFenix,Formula Gold,ATX,80+ Gold,750,No,,0.0
+PSU,BitFenix,Formula Gold,ATX,80+ Gold,450,No,,0.0
+PSU,BitFenix,Formula Gold,ATX,80+ Gold,550,No,,0.0
+PSU,BitFenix,Formula Gold,ATX,80+ Gold,650,No,,0.0
+PSU,BitFenix,Fury,ATX,80+ Gold,650,Semi,,0.0
+PSU,BitFenix,Fury,ATX,80+ Gold,750,Semi,,0.0
+PSU,BitFenix,Fury,ATX,80+ Gold,550,Semi,,0.0
+PSU,BitFenix,Whisper M,ATX,80+ Gold,650,Full,,0.0
+PSU,BitFenix,Whisper M,ATX,80+ Gold,550,Full,,0.0
+PSU,BitFenix,Whisper M,ATX,80+ Gold,850,Full,,0.0
+PSU,BitFenix,Whisper M,ATX,80+ Gold,450,Full,,0.0
+PSU,BitFenix,Whisper M,ATX,80+ Gold,750,Full,,0.0
+PSU,Broadway Com Corp,OKIA-BLACK-550,ATX,,550,No,,0.0
+PSU,Broadway Com Corp,OKIA-BLACK-600,ATX,,600,No,,0.0
+PSU,Broadway Com Corp,OKIA-BLACK-680,ATX,,680,No,,0.0
+PSU,Broadway Com Corp,P4-OKIA-550-RB,ATX,,550,No,,0.0
+PSU,Chieftec,GPS-600A8,ATX,80+,600,No,,129.0
+PSU,Chieftec,GPS-700A8,ATX,80+ Bronze,700,No,Black / White,140.0
+PSU,CoolMax,CA-300,ATX,,300,No,,0.0
+PSU,CoolMax,CA-350,ATX,,350,No,,172.28
+PSU,CoolMax,CA-400,ATX,,400,No,,0.0
+PSU,CoolMax,CA-450,ATX,,450,No,,104.28
+PSU,CoolMax,CL-500B,ATX,,500,No,,0.0
+PSU,CoolMax,CL-700B,ATX,,700,No,,0.0
+PSU,CoolMax,CM-300,Micro ATX,,300,No,,0.0
+PSU,CoolMax,CT-450 (silver),ATX,,450,No,,0.0
+PSU,CoolMax,CU-600B,ATX,,600,Semi,,0.0
+PSU,CoolMax,CU-700B,ATX,,700,Semi,,189.85
+PSU,CoolMax,CUG-700B,ATX,,700,Full,,0.0
+PSU,CoolMax,CUG-950B,ATX,,950,Full,,0.0
+PSU,CoolMax,CUL-650B,ATX,,650,Semi,,0.0
+PSU,CoolMax,CUL-750B,ATX,,750,Semi,,0.0
+PSU,CoolMax,CUL-850B,ATX,,850,Semi,,0.0
+PSU,CoolMax,CUL-950B,ATX,,950,Semi,,0.0
+PSU,CoolMax,CUQ-1200B,ATX,80+,1200,No,,0.0
+PSU,CoolMax,CUQ-1350B,ATX,80+,1350,No,,0.0
+PSU,CoolMax,CX-400B,ATX,,400,No,,186.28
+PSU,CoolMax,CX-550B,ATX,,550,No,,0.0
+PSU,CoolMax,CXI-600B,ATX,,600,No,,0.0
+PSU,CoolMax,I-500,ATX,,500,No,,22.67
+PSU,CoolMax,MP-550B,ATX,80+,550,No,,0.0
+PSU,CoolMax,NW-650B,ATX,,650,No,,154.28
+PSU,CoolMax,RM-1000B,ATX,,1000,No,,0.0
+PSU,CoolMax,RM-750B,ATX,,750,No,,0.0
+PSU,CoolMax,V-400,ATX,,400,No,,26.34
+PSU,CoolMax,V-500,ATX,,500,No,,29.93
+PSU,CoolMax,V-600,ATX,,600,No,,118.49
+PSU,CoolMax,VL-600B,ATX,,600,No,,114.28
+PSU,CoolMax,ZP-1000B,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,CoolMax,ZP-750B,ATX,80+ Bronze,750,Semi,,0.0
+PSU,CoolMax,ZP-850B,ATX,80+ Bronze,850,Semi,,0.0
+PSU,CoolMax,ZPG-1000B,ATX,80+ Gold,1000,Semi,,0.0
+PSU,CoolMax,ZPG-1200B,ATX,80+ Gold,1200,Semi,,307.27
+PSU,CoolMax,ZPG-500B,ATX,80+ Gold,500,No,,0.0
+PSU,CoolMax,ZU-1000B,ATX,80+ Bronze,1000,Semi,,112.91
+PSU,CoolMax,ZU-500B,ATX,80+ Bronze,500,Semi,,149.15
+PSU,CoolMax,ZU-600B,ATX,80+ Bronze,600,Semi,,164.28
+PSU,CoolMax,ZU-700B,ATX,80+ Bronze,700,Semi,,189.32
+PSU,CoolMax,ZU-800B,ATX,80+ Bronze,800,Semi,,0.0
+PSU,CoolMax,ZU-900B,ATX,80+ Bronze,900,Semi,,219.28
+PSU,CoolMax,ZX-500,ATX,80+,500,No,,45.78
+PSU,CoolMax,ZX-600,ATX,80+,600,No,,51.01
+PSU,CoolMax,ZX-700,ATX,80+,700,No,,58.07
+PSU,Cooler Master,B,ATX,80+,600,No,Black,0.0
+PSU,Cooler Master,B500 ver.2,ATX,80+,500,No,,0.0
+PSU,Cooler Master,Elite,ATX,,400,No,,0.0
+PSU,Cooler Master,Elite,ATX,,460,No,,0.0
+PSU,Cooler Master,Elite V2,ATX,,550,No,,0.0
+PSU,Cooler Master,Elite V3,ATX,80+,400,No,Black,41.49
+PSU,Cooler Master,Elite V3,ATX,80+,600,No,Black,58.74
+PSU,Cooler Master,Elite V3,ATX,,500,No,Black,49.99
+PSU,Cooler Master,Extreme 2,ATX,,525,No,,0.0
+PSU,Cooler Master,Extreme 2,ATX,,475,No,,0.0
+PSU,Cooler Master,GM,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Cooler Master,GM,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Cooler Master,GM,ATX,80+ Bronze,450,Semi,,0.0
+PSU,Cooler Master,GM,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Cooler Master,GX,ATX,80+,750,Semi,,0.0
+PSU,Cooler Master,GX,ATX,80+ Bronze,750,No,,0.0
+PSU,Cooler Master,GX,ATX,80+,650,No,,0.0
+PSU,Cooler Master,GXII,ATX,80+ Bronze,750,No,,0.0
+PSU,Cooler Master,GXII,ATX,80+ Bronze,550,No,,0.0
+PSU,Cooler Master,MASTERWATT MAKER MIJ,ATX,80+ Titanium,1200,Full,,0.0
+PSU,Cooler Master,MWE,ATX,80+,400,No,Black,0.0
+PSU,Cooler Master,MWE,ATX,80+,500,No,Black,0.0
+PSU,Cooler Master,MWE,ATX,80+,450,No,Black,0.0
+PSU,Cooler Master,MWE,ATX,80+ Bronze,600,No,Black,64.99
+PSU,Cooler Master,MWE,ATX,80+,550,No,,0.0
+PSU,Cooler Master,MWE Bronze,ATX,80+ Bronze,550,No,Black,89.99
+PSU,Cooler Master,MWE Bronze,ATX,80+ Bronze,450,No,Black,79.98
+PSU,Cooler Master,MWE Bronze,ATX,80+ Bronze,650,No,Black,135.99
+PSU,Cooler Master,MWE Bronze,ATX,80+ Bronze,500,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,500,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,700,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,450,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,550,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,600,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,650,No,Black,0.0
+PSU,Cooler Master,MWE Bronze V2,ATX,80+ Bronze,750,No,Black,127.22
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,750,Full,Black,104.99
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,650,Full,Black,99.99
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,550,Full,Black,95.98
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,750,No,Black,149.49
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,550,No,Black,0.0
+PSU,Cooler Master,MWE Gold,ATX,80+ Gold,650,No,Black,0.0
+PSU,Cooler Master,MWE White V2 230V,ATX,80+,450,No,Black,0.0
+PSU,Cooler Master,MWE White V2 230V,ATX,80+,650,No,Black,0.0
+PSU,Cooler Master,MWE White V2 230V,ATX,80+,400,No,Black,0.0
+PSU,Cooler Master,MWE White V2 230V,ATX,80+,550,No,Black,0.0
+PSU,Cooler Master,MasterWatt,ATX,80+ Bronze,450,Semi,Black,0.0
+PSU,Cooler Master,MasterWatt,ATX,80+ Bronze,650,Semi,,64.99
+PSU,Cooler Master,MasterWatt,ATX,80+ Bronze,750,Semi,Black,74.99
+PSU,Cooler Master,MasterWatt,ATX,80+ Bronze,550,Semi,,64.99
+PSU,Cooler Master,MasterWatt Lite 230V,ATX,80+,400,No,,0.0
+PSU,Cooler Master,MasterWatt Lite 230V,ATX,80+,600,No,,0.0
+PSU,Cooler Master,MasterWatt Lite 230V,ATX,80+,500,No,,0.0
+PSU,Cooler Master,MasterWatt Lite 230V,ATX,80+,700,No,,0.0
+PSU,Cooler Master,MasterWatt Lite Full Range,ATX,80+,500,No,,104.85
+PSU,Cooler Master,MasterWatt Lite Full Range,ATX,80+,600,No,,288.76
+PSU,Cooler Master,MasterWatt Maker,ATX,80+ Titanium,1500,Full,,0.0
+PSU,Cooler Master,MasterWatt Maker,ATX,80+ Titanium,1200,Full,,0.0
+PSU,Cooler Master,MasterWatt TUF,ATX,80+ Bronze,750,Semi,Black / Gray,0.0
+PSU,Cooler Master,MasterWatt TUF Gaming Alliance,ATX,80+ Bronze,650,Semi,Black / Gray,0.0
+PSU,Cooler Master,MasterWatt TUF Gaming Alliance,ATX,80+ Bronze,550,Semi,Black / Gray,0.0
+PSU,Cooler Master,New GX,ATX,80+ Bronze,450,No,,0.0
+PSU,Cooler Master,New GX,ATX,80+,550,No,,0.0
+PSU,Cooler Master,RS,ATX,80+ Bronze,650,No,,0.0
+PSU,Cooler Master,Real Power,ATX,80+,620,Semi,,0.0
+PSU,Cooler Master,Silent Pro Gold,ATX,80+ Gold,1200,Semi,,0.0
+PSU,Cooler Master,Silent Pro Gold,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Cooler Master,Silent Pro Gold,ATX,80+ Gold,800,Semi,,0.0
+PSU,Cooler Master,Silent Pro Gold,ATX,80+ Gold,550,No,,0.0
+PSU,Cooler Master,Silent Pro Hybrid,ATX,80+ Gold,1300,Full,,0.0
+PSU,Cooler Master,Silent Pro Hybrid,ATX,80+ Gold,850,Full,,0.0
+PSU,Cooler Master,Silent Pro Hybrid,ATX,80+ Gold,1050,Full,,0.0
+PSU,Cooler Master,Silent Pro M,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Cooler Master,Silent Pro M,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Cooler Master,Silent Pro M,ATX,80+ Bronze,700,Full,,0.0
+PSU,Cooler Master,Silent Pro M,ATX,80+,600,Full,,0.0
+PSU,Cooler Master,Silent Pro M2,ATX,80+ Silver,1500,Semi,,0.0
+PSU,Cooler Master,Silent Pro M2,ATX,80+ Bronze,720,Semi,,0.0
+PSU,Cooler Master,Silent Pro M2,ATX,80+ Bronze,620,Semi,,0.0
+PSU,Cooler Master,Silent Pro M2,ATX,80+ Silver,1000,Semi,,0.0
+PSU,Cooler Master,Silent Pro M2,ATX,80+ Silver,850,Semi,,0.0
+PSU,Cooler Master,Silent Pro Platinum,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,Cooler Master,Silent Pro Platinum,ATX,80+ Platinum,550,Semi,,0.0
+PSU,Cooler Master,Thunder,ATX,,500,No,,0.0
+PSU,Cooler Master,Thunder,ATX,,600,No,,0.0
+PSU,Cooler Master,V Gold,ATX,80+ Gold,750,Full,Black,0.0
+PSU,Cooler Master,V Gold V2,ATX,80+ Gold,750,Full,Black,0.0
+PSU,Cooler Master,V Gold V2,ATX,80+ Gold,650,Full,Black,0.0
+PSU,Cooler Master,V Gold V2,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Cooler Master,V Gold V2,ATX,80+ Gold,550,Full,Black,0.0
+PSU,Cooler Master,V Platinum,ATX,80+ Platinum,850,Full,Black,0.0
+PSU,Cooler Master,V Platinum,ATX,80+ Platinum,1300,Full,Black,0.0
+PSU,Cooler Master,V Platinum,ATX,80+ Platinum,1000,Full,Black,0.0
+PSU,Cooler Master,V SFX Gold,SFX,80+ Gold,850,Full,Black,0.0
+PSU,Cooler Master,V Semi-Modular,ATX,80+ Gold,750,Semi,,0.0
+PSU,Cooler Master,V Semi-Modular,ATX,80+ Gold,550,Semi,,0.0
+PSU,Cooler Master,V Semi-Modular,ATX,80+ Gold,650,Semi,,0.0
+PSU,Cooler Master,V1000,ATX,80+ Gold,1000,Full,,0.0
+PSU,Cooler Master,V1200,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Cooler Master,V450,ATX,80+ Gold,450,Semi,,0.0
+PSU,Cooler Master,V550,ATX,80+ Gold,550,Full,,0.0
+PSU,Cooler Master,V650,ATX,80+ Gold,650,Full,,0.0
+PSU,Cooler Master,V700,ATX,80+ Gold,700,Full,,0.0
+PSU,Cooler Master,V750,ATX,80+ Gold,750,Full,,0.0
+PSU,Cooler Master,V850,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Cooler Master,VS,ATX,80+ Gold,550,Semi,,0.0
+PSU,Cooler Master,VSM,ATX,80+ Gold,750,Semi,,0.0
+PSU,Cooler Master,VSM,ATX,80+ Gold,550,Semi,,0.0
+PSU,Cooler Master,VSM,ATX,80+ Gold,650,Semi,,0.0
+PSU,Cooler Master,eXtreme Power,ATX,,600,No,,0.0
+PSU,Cooler Master,eXtreme Power,ATX,,550,No,,0.0
+PSU,Cooler Master,eXtreme Power Plus,ATX,,460,No,,0.0
+PSU,Cooler Master,eXtreme Power Plus,ATX,,500,No,,206.49
+PSU,Cooler Master,eXtreme Power Plus,ATX,,700,No,,0.0
+PSU,Cooler Master,i500,ATX,80+ Bronze,500,No,,0.0
+PSU,Cooler Master,i600,ATX,80+ Bronze,600,No,,0.0
+PSU,Cooler Master,i700,ATX,80+ Bronze,700,No,,0.0
+PSU,Corsair,240V,ATX,80+ Titanium,1500,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Gold,650,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Gold,750,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Gold,1200,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Gold,850,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Titanium,1000,Full,Black / Silver,397.09
+PSU,Corsair,AX,ATX,80+ Platinum,860,Full,,0.0
+PSU,Corsair,AX,ATX,80+ Titanium,850,Full,Black / Silver,371.5
+PSU,Corsair,AX,ATX,80+ Platinum,760,Full,,0.0
+PSU,Corsair,AXi,ATX,80+ Titanium,1500,Full,,0.0
+PSU,Corsair,AXi,ATX,80+ Platinum,760,Full,,0.0
+PSU,Corsair,AXi,ATX,80+ Platinum,860,Full,,0.0
+PSU,Corsair,AXi,ATX,80+ Titanium,1600,Full,,559.99
+PSU,Corsair,AXi,ATX,80+ Platinum,1200,Full,,927.43
+PSU,Corsair,CSM,ATX,80+ Gold,550,Semi,,0.0
+PSU,Corsair,CSM,ATX,80+ Gold,450,Semi,,0.0
+PSU,Corsair,CSM,ATX,80+ Gold,750,Semi,,600.0
+PSU,Corsair,CSM,ATX,80+ Gold,650,Semi,,0.0
+PSU,Corsair,CSM,ATX,80+ Gold,850,Semi,,0.0
+PSU,Corsair,CV,ATX,80+ Bronze,450,No,Black,44.99
+PSU,Corsair,CV,ATX,80+ Bronze,550,No,Black,47.99
+PSU,Corsair,CV,ATX,80+ Bronze,650,No,Black,69.99
+PSU,Corsair,CX,ATX,80+ Bronze,600,No,,0.0
+PSU,Corsair,CX,ATX,80+ Bronze,750,No,,298.99
+PSU,Corsair,CX,ATX,80+ Bronze,500,No,,179.98
+PSU,Corsair,CX,ATX,80+ Bronze,430,No,,0.0
+PSU,Corsair,CX,ATX,80+ Bronze,500,No,,0.0
+PSU,Corsair,CX,ATX,80+ Bronze,750,No,,0.0
+PSU,Corsair,CX,ATX,80+,400,No,,0.0
+PSU,Corsair,CX (2017),ATX,80+ Bronze,750,No,,94.88
+PSU,Corsair,CX (2017),ATX,80+ Bronze,450,No,,64.94
+PSU,Corsair,CX (2017),ATX,80+ Bronze,550,No,,74.99
+PSU,Corsair,CX (2017),ATX,80+ Bronze,650,No,,85.99
+PSU,Corsair,CXF,ATX,80+ Bronze,550,Full,White / Black,89.99
+PSU,Corsair,CXF,ATX,80+ Bronze,650,Full,White / Black,84.99
+PSU,Corsair,CXF,ATX,80+ Bronze,750,Full,White / Black,0.0
+PSU,Corsair,CXF,ATX,80+ Bronze,750,Full,Black,94.99
+PSU,Corsair,CXF,ATX,80+ Bronze,550,Full,Black,89.99
+PSU,Corsair,CXF,ATX,80+ Bronze,650,Full,Black,84.99
+PSU,Corsair,CXM,ATX,80+ Bronze,550,Semi,,69.99
+PSU,Corsair,CXM,ATX,80+ Bronze,500,Semi,,99.99
+PSU,Corsair,CXM,ATX,80+ Bronze,650,Semi,,84.99
+PSU,Corsair,CXM,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Corsair,CXM,ATX,80+ Bronze,750,Semi,,94.99
+PSU,Corsair,CXM,ATX,80+ Bronze,600,Semi,,0.0
+PSU,Corsair,CXM,ATX,80+ Bronze,430,Semi,,178.28
+PSU,Corsair,CXM (2015),ATX,80+ Bronze,450,Semi,,59.99
+PSU,Corsair,CXM V2 (2017),ATX,80+ Bronze,850,Semi,Black / White,0.0
+PSU,Corsair,CXM V2 (2017),ATX,80+ Bronze,750,Semi,Black / White,89.98
+PSU,Corsair,G,ATX,80+,700,No,,0.0
+PSU,Corsair,G,ATX,80+,600,No,,0.0
+PSU,Corsair,G,ATX,80+,800,No,,0.0
+PSU,Corsair,GS,ATX,80+ Bronze,700,No,,0.0
+PSU,Corsair,GS,ATX,80+ Bronze,800,No,,0.0
+PSU,Corsair,GS,ATX,80+ Bronze,600,No,,0.0
+PSU,Corsair,GS,ATX,80+,500,No,,0.0
+PSU,Corsair,HX,ATX,80+ Gold,1050,Semi,,0.0
+PSU,Corsair,HX,ATX,80+,620,Full,,0.0
+PSU,Corsair,HX,ATX,80+ Gold,650,Semi,,0.0
+PSU,Corsair,HX,ATX,80+ Gold,750,Semi,,0.0
+PSU,Corsair,HX,ATX,80+ Gold,750,Semi,,492.28
+PSU,Corsair,HX,ATX,80+,1000,Semi,,0.0
+PSU,Corsair,HX,ATX,80+ Gold,850,Semi,,0.0
+PSU,Corsair,HX Platinum,ATX,80+ Platinum,1000,Full,,313.99
+PSU,Corsair,HX Platinum,ATX,80+ Platinum,850,Full,,239.95
+PSU,Corsair,HX Platinum,ATX,80+ Platinum,750,Full,,169.84
+PSU,Corsair,HX Platinum,ATX,80+ Platinum,1200,Full,,363.99
+PSU,Corsair,HXi,ATX,80+ Platinum,1000,Full,,0.0
+PSU,Corsair,HXi,ATX,80+ Platinum,750,Full,,186.99
+PSU,Corsair,HXi,ATX,80+ Platinum,1200,Full,,345.49
+PSU,Corsair,HXi,ATX,80+ Platinum,850,Full,,222.94
+PSU,Corsair,RM,ATX,80+ Gold,750,Full,,238.0
+PSU,Corsair,RM,ATX,80+ Gold,450,Full,,0.0
+PSU,Corsair,RM,ATX,80+ Gold,1000,Full,,0.0
+PSU,Corsair,RM,ATX,80+ Gold,650,Full,,229.99
+PSU,Corsair,RM,ATX,80+ Gold,550,Full,,0.0
+PSU,Corsair,RM,ATX,80+ Gold,850,Full,,0.0
+PSU,Corsair,RM (2019),ATX,80+ Gold,850,Full,Black,134.99
+PSU,Corsair,RM (2019),ATX,80+ Gold,650,Full,Black,127.38
+PSU,Corsair,RM (2019),ATX,80+ Gold,750,Full,Black,162.55
+PSU,Corsair,RMi,ATX,80+ Gold,1000,Full,,0.0
+PSU,Corsair,RMi,ATX,80+ Gold,650,Full,,0.0
+PSU,Corsair,RMi,ATX,80+ Gold,750,Full,,0.0
+PSU,Corsair,RMi,ATX,80+ Gold,850,Full,,0.0
+PSU,Corsair,RMx,ATX,80+ Gold,850,Full,,289.0
+PSU,Corsair,RMx,ATX,80+ Gold,1000,Full,,0.0
+PSU,Corsair,RMx,ATX,80+ Gold,650,Full,,191.88
+PSU,Corsair,RMx,ATX,80+ Gold,750,Full,,213.9
+PSU,Corsair,RMx,ATX,80+ Gold,550,Full,,0.0
+PSU,Corsair,RMx (2018),ATX,80+ Gold,850,Full,White / Black,199.67
+PSU,Corsair,RMx (2018),ATX,80+ Gold,550,Full,Black / Silver,94.98
+PSU,Corsair,RMx (2018),ATX,80+ Gold,850,Full,Black,0.0
+PSU,Corsair,RMx (2018),ATX,80+ Gold,650,Full,Black / Silver,0.0
+PSU,Corsair,RMx (2018),ATX,80+ Gold,750,Full,Black,139.99
+PSU,Corsair,RMx White,ATX,80+ Gold,850,Full,,267.99
+PSU,Corsair,RMx White,ATX,80+ Gold,750,Full,,267.99
+PSU,Corsair,RMx White (2018),ATX,80+ Gold,750,Full,White / Black,144.99
+PSU,Corsair,SF,SFX,80+ Platinum,750,Full,,0.0
+PSU,Corsair,SF,SFX,80+ Platinum,600,Full,Black,204.97
+PSU,Corsair,SF,SFX,80+ Gold,600,Full,,123.99
+PSU,Corsair,SF,SFX,80+ Platinum,450,Full,Black,124.99
+PSU,Corsair,SF,SFX,80+ Gold,450,Full,,112.39
+PSU,Corsair,TX,ATX,80+ Bronze,850,No,,0.0
+PSU,Corsair,TX,ATX,80+,750,No,,0.0
+PSU,Corsair,TX,ATX,80+ Bronze,950,No,,0.0
+PSU,Corsair,TX,ATX,80+ Bronze,650,No,,0.0
+PSU,Corsair,TX,ATX,80+ Bronze,750,No,,0.0
+PSU,Corsair,TX,ATX,80+,850,No,,0.0
+PSU,Corsair,TX,ATX,80+,650,No,,0.0
+PSU,Corsair,TXM,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Corsair,TXM,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Corsair,TXM,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Corsair,TXM,ATX,80+ Bronze,550,Semi,,231.59
+PSU,Corsair,TXM Gold,ATX,80+ Gold,750,Semi,,118.99
+PSU,Corsair,TXM Gold,ATX,80+ Gold,850,Semi,,0.0
+PSU,Corsair,TXM Gold,ATX,80+ Gold,650,Semi,,109.98
+PSU,Corsair,TXM Gold,ATX,80+ Gold,550,Semi,,99.99
+PSU,Corsair,VS,ATX,80+,650,No,,0.0
+PSU,Corsair,VS,ATX,,450,No,,0.0
+PSU,Corsair,VS,ATX,,350,No,,0.0
+PSU,Corsair,VS,ATX,80+,450,No,,0.0
+PSU,Corsair,VS,ATX,,550,No,,0.0
+PSU,Corsair,VS,ATX,,650,No,,0.0
+PSU,Corsair,VS,ATX,80+,600,No,,256.49
+PSU,Corsair,VS,ATX,80+,350,No,Black,0.0
+PSU,Corsair,VS,ATX,80+,400,No,,0.0
+PSU,Corsair,VS,ATX,80+,550,No,,0.0
+PSU,Corsair,VS,ATX,80+,500,No,,0.0
+PSU,Corsair,VX,ATX,80+,550,No,,0.0
+PSU,Corsair,VX,ATX,80+,450,No,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Bronze,500,No,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Bronze,400,No,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Silver,750,Semi,,0.0
+PSU,Corsair,Vengeance,ATX,80+ Silver,650,Semi,Black,0.0
+PSU,Cougar,A,ATX,80+ Bronze,660,No,Black,0.0
+PSU,Cougar,CMD,ATX,80+ Bronze,600,Semi,Black / Blue,0.0
+PSU,Cougar,CMD,ATX,80+ Bronze,500,Semi,Black / Blue,0.0
+PSU,Cougar,CMX1200V3,ATX,80+ Bronze,1200,Semi,,0.0
+PSU,Cougar,CMX550V3,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Cougar,CMX700V3,ATX,80+ Bronze,700,Semi,,0.0
+PSU,Cougar,CMX850V3,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Cougar,COUGAR-1000CMX,ATX,80+ Bronze,1000,No,,0.0
+PSU,Cougar,COUGAR-700CMX,ATX,80+ Bronze,700,No,,0.0
+PSU,Cougar,COUGAR-A560,ATX,80+ Bronze,560,No,,0.0
+PSU,Cougar,COUGAR-A760,ATX,80+ Bronze,760,No,,0.0
+PSU,Cougar,COUGAR-GX1050,ATX,80+ Gold,1050,Semi,,0.0
+PSU,Cougar,COUGAR-GX700,ATX,80+ Gold,700,Full,,0.0
+PSU,Cougar,COUGAR-PX700,ATX,80+ Bronze,700,No,,0.0
+PSU,Cougar,COUGAR-RS450,ATX,80+,450,No,,0.0
+PSU,Cougar,COUGAR-RS650,ATX,80+,650,No,,0.0
+PSU,Cougar,COUGAR-SX700,ATX,80+ Silver,700,No,,0.0
+PSU,Cougar,COUGAR-SX850,ATX,80+ Silver,850,Full,,0.0
+PSU,Cougar,CougarA500,ATX,80+ Bronze,500,No,,0.0
+PSU,Cougar,DX500,ATX,80+,500,No,,0.0
+PSU,Cougar,DX600,ATX,80+,600,No,,0.0
+PSU,Cougar,GX,ATX,80+ Gold,800,Full,Black / Gold,0.0
+PSU,Cougar,GX V3,ATX,80+ Gold,800,Semi,Black / Gold,0.0
+PSU,Cougar,GX-F,ATX,80+ Gold,750,Full,Black / Orange,0.0
+PSU,Cougar,GX-F,ATX,80+ Gold,550,Full,Black / Orange,0.0
+PSU,Cougar,GX-F,ATX,80+ Gold,650,Full,Black / Orange,0.0
+PSU,Cougar,GX-S,ATX,80+ Gold,450,No,,0.0
+PSU,Cougar,GX-S,ATX,80+ Gold,550,No,,0.0
+PSU,Cougar,GX-S,ATX,80+ Gold,750,No,,0.0
+PSU,Cougar,GX-S,ATX,80+ Gold,650,No,,0.0
+PSU,Cougar,LX,ATX,80+ Bronze,500,Full,Black,0.0
+PSU,Cougar,POWERX,ATX,80+ Bronze,700,No,,0.0
+PSU,Cougar,RSB400,ATX,80+,400,No,,0.0
+PSU,Cougar,RX500,ATX,80+,500,No,,0.0
+PSU,Cougar,RX600,ATX,80+,600,No,,0.0
+PSU,Cougar,SL400,ATX,,400,No,,0.0
+PSU,Cougar,SL500,ATX,,500,No,,0.0
+PSU,Cougar,SL600,ATX,,600,No,,0.0
+PSU,Cougar,STX,ATX,80+,650,No,,0.0
+PSU,Cougar,VTE,ATX,80+ Bronze,600,No,Black,49.99
+PSU,Cougar,VTX,ATX,80+ Bronze,700,No,,0.0
+PSU,Cougar,VTX,ATX,80+ Bronze,500,No,Black,0.0
+PSU,Cyonic,AU-450X,ATX,80+ Gold,450,Full,,0.0
+PSU,Cyonic,AU-550X,ATX,80+ Gold,550,Full,,0.0
+PSU,Cyonic,AU-650X,ATX,80+ Gold,650,Full,,0.0
+PSU,Deepcool,DA-N,ATX,80+ Bronze,700,No,Black,0.0
+PSU,Deepcool,DA-N,ATX,80+ Bronze,500,No,Black / Gold,0.0
+PSU,Deepcool,DA-N,ATX,80+ Bronze,600,No,Black,0.0
+PSU,Deepcool,DN400,ATX,,400,No,,0.0
+PSU,Deepcool,DQ550ST,ATX,80+ Gold,550,No,,0.0
+PSU,Deepcool,DQ650ST,ATX,80+ Gold,650,No,,0.0
+PSU,Deepcool,DQ750ST,ATX,80+ Gold,750,No,,0.0
+PSU,Deepcool,GamerStorm DQ-M,ATX,80+ Gold,650,Full,Black / Silver,0.0
+PSU,Deepcool,GamerStorm DQ-M,ATX,80+ Gold,850,Full,Black / Silver,0.0
+PSU,Deepcool,GamerStorm DQ-M,ATX,80+ Gold,750,Full,Black / Silver,0.0
+PSU,Diablotek,PHD350,ATX,,350,No,,0.0
+PSU,Diablotek,PHD380M,Micro ATX,,380,No,,0.0
+PSU,Diablotek,PHD450,ATX,,450,No,,0.0
+PSU,Diablotek,PHD550,ATX,,550,No,,0.0
+PSU,Diablotek,PHD650,ATX,,650,No,,0.0
+PSU,Diablotek,PHD750,ATX,,750,No,,0.0
+PSU,Diablotek,PHD850,ATX,,850,No,,0.0
+PSU,Diablotek,PSDA300,ATX,,300,No,,0.0
+PSU,Diablotek,PSDA320M,Micro ATX,,320,No,,0.0
+PSU,Diablotek,PSDA350,ATX,,350,No,,39.99
+PSU,Diablotek,PSDA400,ATX,,400,No,,0.0
+PSU,Diablotek,PSDA500,ATX,,500,No,,54.99
+PSU,Diablotek,PSDA600,ATX,,600,No,,75.0
+PSU,Diablotek,PSUL575,ATX,,575,No,,0.0
+PSU,Diablotek,PSUL675,ATX,,675,No,,0.0
+PSU,Diablotek,PSUL775,ATX,,775,No,,0.0
+PSU,Dynapower,DP-300A,Micro ATX,,300,No,,0.0
+PSU,Dynapower,EJ-750A80,ATX,80+ Bronze,750,Full,,0.0
+PSU,Dynapower,EP-25X.E152,Micro ATX,,250,No,,0.0
+PSU,Dynapower,EP-45X.0562B,ATX,,450,No,,0.0
+PSU,E-Power,EP-1200P10-T2,ATX,80+,1200,Semi,,0.0
+PSU,E-Power,EP-500LS-1,ATX,,500,No,,0.0
+PSU,E-Power,EP-500NE-XV,ATX,,500,No,,0.0
+PSU,E-Power,EP-550P5-T1,ATX,,550,Full,,0.0
+PSU,E-Power,EP-600NE-XV,ATX,,600,No,,0.0
+PSU,EVGA,100-B1-0450-K1,ATX,80+ Bronze,450,No,,0.0
+PSU,EVGA,100-B1-0700-K1,ATX,80+ Bronze,700,No,,184.99
+PSU,EVGA,100-N1-0400-L1,ATX,,400,No,,36.49
+PSU,EVGA,100-N1-0550-L1,ATX,,550,No,,49.99
+PSU,EVGA,100-N1-0650-L1,ATX,,650,No,,62.77
+PSU,EVGA,100-N1-0750-L1,ATX,,750,No,,64.99
+PSU,EVGA,100-W1-0430-KR,ATX,80+,430,No,,109.98
+PSU,EVGA,100-W1-0500-KR,ATX,80+,500,No,,39.99
+PSU,EVGA,100-W1-0600-K1,ATX,80+,600,No,,59.99
+PSU,EVGA,210-GQ-0650-V1,ATX,80+ Gold,650,Semi,,102.99
+PSU,EVGA,210-GQ-0750-V1,ATX,80+ Gold,750,Semi,,119.94
+PSU,EVGA,210-GQ-0850-V1,ATX,80+ Gold,850,Semi,,149.94
+PSU,EVGA,210-GQ-1000-V1,ATX,80+ Gold,1000,Semi,,189.94
+PSU,EVGA,500B,ATX,80+ Bronze,500,No,,0.0
+PSU,EVGA,600B,ATX,80+ Bronze,600,No,,179.98
+PSU,EVGA,B2,ATX,80+ Bronze,850,Semi,,0.0
+PSU,EVGA,B2,ATX,80+ Bronze,750,Semi,,0.0
+PSU,EVGA,B3,ATX,80+ Bronze,850,Full,,0.0
+PSU,EVGA,B3,ATX,80+ Bronze,550,Full,,119.99
+PSU,EVGA,B3,ATX,80+ Bronze,450,Full,,0.0
+PSU,EVGA,B3,ATX,80+ Bronze,750,Full,,149.99
+PSU,EVGA,B3,ATX,80+ Bronze,650,Full,,134.99
+PSU,EVGA,B5,ATX,80+ Bronze,750,Full,Black,97.7
+PSU,EVGA,B5,ATX,80+ Bronze,650,Full,Black,89.99
+PSU,EVGA,B5,ATX,80+ Bronze,850,Full,Black,118.53
+PSU,EVGA,B5,ATX,80+ Bronze,550,Full,Black,78.29
+PSU,EVGA,BA,ATX,80+ Bronze,500,No,Black,55.96
+PSU,EVGA,BA,ATX,80+ Bronze,600,No,Black,54.99
+PSU,EVGA,BQ,ATX,80+ Bronze,650,Semi,,89.94
+PSU,EVGA,BQ,ATX,80+ Bronze,500,Semi,,69.94
+PSU,EVGA,BQ,ATX,80+ Bronze,600,Semi,,76.98
+PSU,EVGA,BQ,ATX,80+ Bronze,750,Semi,,93.94
+PSU,EVGA,BQ,ATX,80+ Bronze,850,Semi,,126.99
+PSU,EVGA,BR,ATX,80+ Bronze,700,No,,74.99
+PSU,EVGA,BR,ATX,80+ Bronze,600,No,,72.94
+PSU,EVGA,BR,ATX,80+ Bronze,500,No,,60.41
+PSU,EVGA,BR,ATX,80+ Bronze,450,No,,39.99
+PSU,EVGA,BT,ATX,80+ Bronze,450,No,,0.0
+PSU,EVGA,BT,ATX,80+ Bronze,500,No,Black,118.99
+PSU,EVGA,BV,ATX,80+ Bronze,450,No,,0.0
+PSU,EVGA,Classified SR-2,ATX,80+ Silver,1200,Full,,0.0
+PSU,EVGA,G1,ATX,80+ Gold,750,Full,,0.0
+PSU,EVGA,G1,ATX,80+ Gold,650,Full,,239.88
+PSU,EVGA,G1,ATX,80+ Gold,1000,Full,,0.0
+PSU,EVGA,G1+,ATX,80+ Gold,750,Full,Black,123.94
+PSU,EVGA,G1+,ATX,80+ Gold,850,Full,,149.94
+PSU,EVGA,G1+,ATX,80+ Gold,1000,Full,Black,189.94
+PSU,EVGA,G1+,ATX,80+ Gold,650,Full,Black,114.99
+PSU,EVGA,G2,ATX,80+ Gold,750,Full,,0.0
+PSU,EVGA,G2,ATX,80+ Gold,850,Full,,0.0
+PSU,EVGA,G2,ATX,80+ Gold,1600,Full,,399.99
+PSU,EVGA,G2,ATX,80+ Gold,550,Full,,167.99
+PSU,EVGA,G2,ATX,80+ Gold,650,Full,,213.98
+PSU,EVGA,G2,ATX,80+ Gold,1000,Full,,0.0
+PSU,EVGA,G2,ATX,80+ Gold,1300,Full,,0.0
+PSU,EVGA,G2L,ATX,80+ Gold,850,Full,,0.0
+PSU,EVGA,G2L,ATX,80+ Gold,750,Full,,0.0
+PSU,EVGA,G3,ATX,80+ Gold,550,Full,,104.98
+PSU,EVGA,G3,ATX,80+ Gold,1000,Full,,224.94
+PSU,EVGA,G3,ATX,80+ Gold,850,Full,,169.99
+PSU,EVGA,G3,ATX,80+ Gold,750,Full,,129.99
+PSU,EVGA,G3,ATX,80+ Gold,650,Full,,117.47
+PSU,EVGA,G5,ATX,80+ Gold,650,Full,Black / Green,94.99
+PSU,EVGA,G5,ATX,80+ Gold,750,Full,Black / Green,135.32
+PSU,EVGA,G5,ATX,80+ Gold,850,Full,Black / Green,166.97
+PSU,EVGA,G5,ATX,80+ Gold,1000,Full,Black / Green,207.98
+PSU,EVGA,GD,ATX,80+ Gold,550,No,Black,0.0
+PSU,EVGA,GD,ATX,80+ Gold,650,No,Black,0.0
+PSU,EVGA,GD,ATX,80+ Gold,450,No,Black,0.0
+PSU,EVGA,GD (2019),ATX,80+ Gold,700,No,Black,89.99
+PSU,EVGA,GD (2019),ATX,80+ Gold,500,No,Black,76.98
+PSU,EVGA,GD (2019),ATX,80+ Gold,600,No,Black,92.44
+PSU,EVGA,GS,ATX,80+ Gold,850,Full,,0.0
+PSU,EVGA,GS,ATX,80+ Gold,1050,Full,,0.0
+PSU,EVGA,GS,ATX,80+ Gold,550,Full,,0.0
+PSU,EVGA,GS,ATX,80+ Gold,650,Full,,0.0
+PSU,EVGA,P2,ATX,80+ Platinum,1600,Full,,469.0
+PSU,EVGA,P2,ATX,80+ Platinum,750,Full,,179.94
+PSU,EVGA,P2,ATX,80+ Platinum,1000,Full,,381.99
+PSU,EVGA,P2,ATX,80+ Platinum,850,Full,,209.94
+PSU,EVGA,P2,ATX,80+ Platinum,650,Full,,159.94
+PSU,EVGA,P2,ATX,80+ Platinum,1200,Full,,0.0
+PSU,EVGA,PQ,ATX,80+ Platinum,1000,Semi,Black,0.0
+PSU,EVGA,PQ,ATX,80+ Platinum,850,Semi,Black,0.0
+PSU,EVGA,PQ,ATX,80+ Platinum,750,Semi,Black,0.0
+PSU,EVGA,PS,ATX,80+ Platinum,1000,Full,,0.0
+PSU,EVGA,SuperNOVA,ATX,80+ Gold,750,Full,,0.0
+PSU,EVGA,SuperNOVA,ATX,80+ Gold,650,Full,,326.58
+PSU,EVGA,SuperNOVA Classified,ATX,80+ Gold,1500,Full,,0.0
+PSU,EVGA,SuperNOVA GA,ATX,80+ Gold,750,Full,Black,128.99
+PSU,EVGA,SuperNOVA GA,ATX,80+ Gold,850,Full,Black,149.99
+PSU,EVGA,SuperNOVA GA,ATX,80+ Gold,650,Full,Black,119.65
+PSU,EVGA,SuperNOVA GA,ATX,80+ Gold,550,Full,Black,98.1
+PSU,EVGA,SuperNOVA GM,SFX,80+ Gold,450,Full,Black,95.0
+PSU,EVGA,SuperNOVA GM,SFX,80+ Gold,550,Full,Black,102.79
+PSU,EVGA,SuperNOVA GM,SFX,80+ Gold,650,Full,Black,116.44
+PSU,EVGA,SuperNOVA GT,ATX,80+ Gold,750,Full,Black,0.0
+PSU,EVGA,SuperNOVA NEX,ATX,80+ Bronze,750,Semi,,0.0
+PSU,EVGA,SuperNOVA NEX1500 Classified,ATX,80+ Gold,1500,Full,,0.0
+PSU,EVGA,SuperNOVA NEX750B BRONZE,ATX,80+ Bronze,750,Semi,,0.0
+PSU,EVGA,SuperNOVA T2,ATX,80+ Titanium,750,Full,,0.0
+PSU,EVGA,SuperNOVA T2,ATX,80+ Titanium,850,Full,,279.99
+PSU,EVGA,T2,ATX,80+ Titanium,1000,Full,,338.49
+PSU,EVGA,T2,ATX,80+ Titanium,1600,Full,,499.99
+PSU,EVGA,W3,ATX,80+,450,No,Black,44.99
+PSU,Enermax,DIGIFANLESS,ATX,80+ Platinum,550,Full,,0.0
+PSU,Enermax,EES400AWT_II,ATX,80+,400,No,,0.0
+PSU,Enermax,EGX1250EWT,ATX,80+ Bronze,1250,Semi,,0.0
+PSU,Enermax,EGX850EWL,ATX,80+,850,Full,,0.0
+PSU,Enermax,ELT720AWT-ECO_II,ATX,80+,720,Full,,0.0
+PSU,Enermax,EMD625AWT,ATX,80+ Bronze,625,Full,,0.0
+PSU,Enermax,EMD625AWT_II,ATX,80+ Bronze,625,Full,,0.0
+PSU,Enermax,EMG700AWT,ATX,80+ Gold,700,Full,,0.0
+PSU,Enermax,EMG800EWT,ATX,80+ Gold,800,Full,,0.0
+PSU,Enermax,EMG900EWT,ATX,80+ Gold,900,Full,,0.0
+PSU,Enermax,ENM750AWT,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Enermax,ENP350AST,ATX,,350,No,,0.0
+PSU,Enermax,ENP450AST,ATX,,450,No,,0.0
+PSU,Enermax,ENP500AWT,ATX,80+,500,No,,0.0
+PSU,Enermax,ENP550AWT,ATX,,550,No,,0.0
+PSU,Enermax,ENP550AWT B,ATX,80+ Bronze,550,No,,0.0
+PSU,Enermax,ENP600AWT,ATX,80+,600,No,,0.0
+PSU,Enermax,ENP650AWT B,ATX,80+ Bronze,650,No,,0.0
+PSU,Enermax,EPG500AWT,ATX,80+ Gold,500,No,,0.0
+PSU,Enermax,EPG600AWT,ATX,80+ Gold,600,No,,0.0
+PSU,Enermax,EPM1200EWT,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Enermax,EPM600AWT,ATX,80+ Platinum,600,Semi,,0.0
+PSU,Enermax,EPM750AWT,ATX,80+ Platinum,750,Semi,,0.0
+PSU,Enermax,EPM850EWT,ATX,80+ Platinum,850,Semi,,0.0
+PSU,Enermax,EPR525AWT_II,ATX,80+ Bronze,525,No,,0.0
+PSU,Enermax,ERV1000EWT-G,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Enermax,ERV1020EWT,ATX,80+ Silver,1020,Full,,0.0
+PSU,Enermax,ERV920EWT,ATX,80+ Silver,920,Full,,0.0
+PSU,Enermax,ETK500AWT,ATX,,500,No,,0.0
+PSU,Enermax,ETL450AWT-M,ATX,80+ Bronze,450,Semi,,0.0
+PSU,Enermax,ETL550AWT-M,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Enermax,ETL650AWT-M,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Enermax,MAXPRO,ATX,80+,500,No,,0.0
+PSU,Enermax,MAXREVO,ATX,80+ Gold,1800,Full,Black,0.0
+PSU,Enermax,MAXREVO SLI,ATX,80+ Gold,1350,Full,Black / Gold,0.0
+PSU,Enermax,MaxTytan,ATX,80+ Titanium,1250,Full,Black / Silver,399.99
+PSU,Enermax,MaxTytan,ATX,80+ Titanium,1050,Full,,359.99
+PSU,Enermax,MaxTytan,ATX,80+ Titanium,750,Full,Black,259.99
+PSU,Enermax,MaxTytan,ATX,80+ Titanium,800,Full,,0.0
+PSU,Enermax,NAXN ADV.,ATX,80+ Bronze,550,No,,0.0
+PSU,Enermax,NAXN ADV.,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Enermax,Platimax,ATX,80+ Platinum,1500,Full,,0.0
+PSU,Enermax,Platimax,BTX,80+ Platinum,500,Semi,,0.0
+PSU,Enermax,Platimax,ATX,80+ Platinum,1350,Full,Black,0.0
+PSU,Enermax,Platimax,ATX,80+ Platinum,1000,Semi,Black,0.0
+PSU,Enermax,Platimax D.F.,ATX,80+ Platinum,850,Full,,0.0
+PSU,Enermax,Platimax D.F.,ATX,80+ Platinum,600,Full,Black,0.0
+PSU,Enermax,Platimax D.F.,ATX,80+ Platinum,1050,Full,Black,0.0
+PSU,Enermax,REVOLUTION DUO,ATX,80+ Gold,600,No,,0.0
+PSU,Enermax,REVOLUTION DUO,ATX,80+ Gold,500,No,,0.0
+PSU,Enermax,REVOLUTION SFX,SFX,80+ Gold,650,Full,Black,0.0
+PSU,Enermax,REVOLUTION SFX,SFX,80+ Gold,550,Full,,147.49
+PSU,Enermax,REVOLUTION X't,ATX,80+ Gold,730,Semi,,0.0
+PSU,Enermax,REVOLUTION X't,ATX,80+ Gold,630,Semi,,0.0
+PSU,Enermax,REVOLUTION X't,ATX,80+ Gold,430,Semi,,0.0
+PSU,Enermax,REVOLUTION X't,ATX,80+ Gold,530,Semi,,0.0
+PSU,Enermax,REVOLUTION X't II,ATX,80+ Gold,550,Semi,,0.0
+PSU,Enermax,REVOLUTION X't II,ATX,80+ Gold,650,Semi,,0.0
+PSU,Enermax,REVOLUTION X't II,ATX,80+ Gold,750,Semi,,0.0
+PSU,Enermax,REVOLUTION87+,ATX,80+ Gold,550,Semi,,0.0
+PSU,Enermax,RevoBron,ATX,80+ Bronze,600,Semi,,0.0
+PSU,Enermax,RevoBron TGA,ATX,80+ Bronze,700,Semi,Black,0.0
+PSU,Enermax,RevoBron TGA,ATX,80+ Bronze,500,Semi,Black,0.0
+PSU,Enermax,Revolution D.F.,ATX,80+ Gold,850,Full,Black / Silver,296.99
+PSU,Enermax,Revolution D.F.,ATX,80+ Gold,750,Full,Black / Silver,0.0
+PSU,Enermax,Revolution D.F.,ATX,80+ Gold,650,Full,Black,117.74
+PSU,Enermax,TRIATHLOR,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Enermax,TRIATHLOR,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Enermax,TRIATHLOR ECO,ATX,80+ Bronze,800,Semi,,0.0
+PSU,Enermax,TRIATHLOR ECO,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Enhance,ENP-7660,Flex ATX,80+ Platinum,600,No,Silver,0.0
+PSU,FSP Group,ATX300-PA,ATX,,300,No,,0.0
+PSU,FSP Group,ATX350-PNT,ATX,,350,No,,0.0
+PSU,FSP Group,ATX400-PNT,ATX,,400,No,,0.0
+PSU,FSP Group,AU-1000PRO,ATX,80+ Gold,1000,No,,0.0
+PSU,FSP Group,AU-1200PRO,ATX,80+ Gold,1200,No,,0.0
+PSU,FSP Group,AU-400FL,ATX,80+ Gold,400,Semi,,0.0
+PSU,FSP Group,AU-500FL,ATX,80+ Gold,500,Semi,,0.0
+PSU,FSP Group,AU-750M,ATX,80+ Gold,750,Semi,,0.0
+PSU,FSP Group,AU-850PRO,ATX,80+ Gold,850,No,,0.0
+PSU,FSP Group,AURUM 92+,ATX,80+ Platinum,550,Semi,,0.0
+PSU,FSP Group,AURUM 92+,ATX,80+ Platinum,650,Semi,,0.0
+PSU,FSP Group,AURUM 92+,ATX,80+ Platinum,450,Semi,,0.0
+PSU,FSP Group,AURUM CM GOLD 650,ATX,80+ Gold,650,Semi,,0.0
+PSU,FSP Group,AURUM GOLD 400,ATX,80+ Gold,400,No,,0.0
+PSU,FSP Group,AURUM GOLD 500,ATX,80+ Gold,500,No,,0.0
+PSU,FSP Group,AURUM GOLD 600,ATX,80+ Gold,600,No,,0.0
+PSU,FSP Group,AURUM GOLD 700,ATX,80+ Gold,700,No,,0.0
+PSU,FSP Group,AURUM S 400W,ATX,80+ Gold,400,No,,0.0
+PSU,FSP Group,AURUM S 500W,ATX,80+ Gold,500,No,,0.0
+PSU,FSP Group,AURUM S 600W,ATX,80+ Gold,600,No,,0.0
+PSU,FSP Group,Berserker 500,ATX,80+ Bronze,500,No,,0.0
+PSU,FSP Group,Berzerker,ATX,80+ Bronze,500,No,,0.0
+PSU,FSP Group,Dagger,SFX,80+ Gold,500,Full,Black,0.0
+PSU,FSP Group,Dagger,SFX,80+ Gold,600,Full,Black,0.0
+PSU,FSP Group,Dagger Pro,SFX,80+ Gold,550,Full,Black,0.0
+PSU,FSP Group,Dagger Pro,SFX,80+ Gold,650,Full,Black,129.99
+PSU,FSP Group,Everest 85PLUS 800,ATX,80+ Bronze,800,Full,,0.0
+PSU,FSP Group,FSP180-50NIV,Micro ATX,,180,No,,0.0
+PSU,FSP Group,FSP220-60LE(80),Mini ITX,80+,220,No,,79.98
+PSU,FSP Group,FSP270-60LE,Mini ITX,80+,270,No,,0.0
+PSU,FSP Group,FSP300-57FCB,Flex ATX,80+ Gold,300,Full,Black,0.0
+PSU,FSP Group,FSP300-60GHS(85),SFX,80+ Bronze,300,No,,0.0
+PSU,FSP Group,FSP300-60GHS-R,SFX,80+,300,No,,79.89
+PSU,FSP Group,FSP300-60GHT,TFX,80+,300,No,,0.0
+PSU,FSP Group,FSP300-60GHT(85),TFX,80+ Bronze,300,No,,0.0
+PSU,FSP Group,FSP300-60LG,Mini ITX,80+ Bronze,300,No,,0.0
+PSU,FSP Group,FSP300-60LG-5K,Flex ATX,80+ Bronze,300,No,,0.0
+PSU,FSP Group,FSP300-60SGV,TFX,80+ Gold,300,No,,0.0
+PSU,FSP Group,FSP400-60FGGBA,Flex ATX,80+ Gold,400,No,,225.99
+PSU,FSP Group,FSP400-60GHS(85)-R,SFX,80+ Bronze,400,No,,0.0
+PSU,FSP Group,FSP450-60GHS(85)-R,SFX,80+ Bronze,450,No,,0.0
+PSU,FSP Group,FSP500-50FGGBN,Flex ATX,80+ Gold,500,No,,0.0
+PSU,FSP Group,FSP500-50FSPT,Flex ATX,80+ Platinum,500,No,,0.0
+PSU,FSP Group,FSP650-80EGN,ATX,80+ Gold,650,No,,0.0
+PSU,FSP Group,HEXA 85+,ATX,80+ Bronze,350,No,Black,0.0
+PSU,FSP Group,HEXA 85+,ATX,80+ Bronze,450,No,Black,0.0
+PSU,FSP Group,HEXA 85+,ATX,80+ Bronze,550,No,Black,0.0
+PSU,FSP Group,HEXA 85+,ATX,80+ Bronze,850,No,Black,0.0
+PSU,FSP Group,HEXA+,ATX,,500,No,,0.0
+PSU,FSP Group,Hydro G,ATX,80+ Gold,750,Full,,0.0
+PSU,FSP Group,Hydro G,ATX,80+ Gold,850,Full,,0.0
+PSU,FSP Group,Hydro G,ATX,80+ Gold,650,Full,,0.0
+PSU,FSP Group,Hydro G Pro,ATX,80+ Gold,1000,Full,Black,0.0
+PSU,FSP Group,Hydro G Pro,ATX,80+ Gold,850,Full,Black,0.0
+PSU,FSP Group,Hydro G Pro,ATX,80+ Gold,650,Full,Black,0.0
+PSU,FSP Group,Hydro G Pro,ATX,80+ Gold,750,Full,Black,146.74
+PSU,FSP Group,Hydro GE,ATX,80+ Gold,650,Full,,109.99
+PSU,FSP Group,Hydro GE,ATX,80+ Gold,550,Full,,99.99
+PSU,FSP Group,Hydro PTM,ATX,80+ Platinum,750,Full,Black,0.0
+PSU,FSP Group,Hydro PTM,ATX,80+ Platinum,650,Full,Black,0.0
+PSU,FSP Group,Hydro PTM,ATX,80+ Platinum,550,Full,Black,0.0
+PSU,FSP Group,Hydro X,ATX,80+ Gold,450,No,,0.0
+PSU,FSP Group,Hydro X,ATX,80+ Gold,550,No,,0.0
+PSU,FSP Group,Hydro X,ATX,80+ Gold,650,No,,0.0
+PSU,FSP Group,Hyper M,ATX,80+,700,Semi,Black,0.0
+PSU,FSP Group,Hyper M85+,ATX,80+ Bronze,650,Semi,Black,89.99
+PSU,FSP Group,Hyper M85+,ATX,80+ Bronze,550,Semi,Black,79.98
+PSU,FSP Group,PT1000FM,ATX,80+ Platinum,1000,Full,,0.0
+PSU,FSP Group,PT1200FM,ATX,80+ Platinum,1200,Full,,0.0
+PSU,FSP Group,PT850FM,ATX,80+ Platinum,850,Full,,0.0
+PSU,FSP Group,Raider 450,ATX,80+ Bronze,450,No,,0.0
+PSU,FSP Group,Raider 550,ATX,80+ Bronze,550,No,,0.0
+PSU,FSP Group,Raider 650,ATX,80+ Bronze,650,No,,0.0
+PSU,FSP Group,Raider 750,ATX,80+ Bronze,750,No,,0.0
+PSU,FSP Group,Raider S 450,ATX,80+ Silver,450,No,,0.0
+PSU,FSP Group,Raider S 550,ATX,80+ Silver,550,No,,0.0
+PSU,FSP Group,Raider S 650,ATX,80+ Silver,650,No,,0.0
+PSU,FSP Group,Raider S 750,ATX,80+ Silver,750,No,,0.0
+PSU,FSP Group,SAGA+ 400R,ATX,,400,No,,0.0
+PSU,FSP Group,SAGA+ 450R,ATX,,450,No,,0.0
+PSU,FSP Group,SAGA+ 500R,ATX,,500,No,,0.0
+PSU,FSP Group,SFX Pro,SFX,80+ Bronze,350,No,Black,0.0
+PSU,FSP Group,SFX Pro,SFX,80+ Bronze,450,No,Black,0.0
+PSU,FSP Group,Twins,ATX,80+ Gold,700,No,,529.99
+PSU,FSP Group,Twins,ATX,80+ Gold,500,No,,0.0
+PSU,FSP Group,VITAL 400,ATX,80+,400,No,,0.0
+PSU,FSP Group,ZEN 400,ATX,80+ Bronze,400,No,,0.0
+PSU,FirePower,ZT,ATX,80+ Bronze,550,Full,,0.0
+PSU,FirePower,ZX,ATX,80+ Gold,850,Full,,0.0
+PSU,Fractal Design,Edison M,ATX,80+ Gold,550,Semi,,0.0
+PSU,Fractal Design,Edison M,ATX,80+ Gold,450,Semi,,0.0
+PSU,Fractal Design,Edison M,ATX,80+ Gold,650,Semi,,0.0
+PSU,Fractal Design,Edison M,ATX,80+ Gold,750,Semi,,0.0
+PSU,Fractal Design,Integra M,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Fractal Design,Integra M,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Fractal Design,Integra M,ATX,80+ Bronze,450,Semi,,0.0
+PSU,Fractal Design,Integra M,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Fractal Design,Integra R2,ATX,80+ Bronze,750,No,,0.0
+PSU,Fractal Design,Integra R2,ATX,80+ Bronze,500,No,,0.0
+PSU,Fractal Design,Integra R2,ATX,80+ Bronze,650,No,,0.0
+PSU,Fractal Design,Ion SFX-L,SFX,80+ Gold,650,Full,Black,120.98
+PSU,Fractal Design,Ion SFX-L,SFX,80+ Gold,500,Full,Black,0.0
+PSU,Fractal Design,Ion+,ATX,80+ Platinum,560,Full,Black,97.99
+PSU,Fractal Design,Ion+,ATX,80+ Platinum,860,Full,Black,0.0
+PSU,Fractal Design,Ion+,ATX,80+ Platinum,760,Full,Black,0.0
+PSU,Fractal Design,Ion+,ATX,80+ Platinum,660,Full,Black,114.99
+PSU,Fractal Design,Newton R3,ATX,80+ Platinum,600,Semi,,302.58
+PSU,Fractal Design,Newton R3,ATX,80+ Platinum,800,Semi,,400.59
+PSU,Fractal Design,Newton R3,ATX,80+ Platinum,600,Semi,,0.0
+PSU,Fractal Design,Newton R3,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,Fractal Design,Tesla R2,ATX,80+ Gold,800,No,,0.0
+PSU,Fractal Design,Tesla R2,ATX,80+ Gold,1000,No,,0.0
+PSU,Fractal Design,Tesla R2,ATX,80+ Gold,650,No,,0.0
+PSU,Fractal Design,Tesla R2,ATX,80+ Gold,500,No,,0.0
+PSU,G.Skill,RIPJAWS Gold,ATX,80+ Gold,850,Full,Black,0.0
+PSU,G.Skill,RIPJAWS Gold,ATX,80+ Gold,750,Full,Black,0.0
+PSU,G.Skill,RIPJAWS Platinum,ATX,80+ Platinum,1250,Full,Black,0.0
+PSU,G.Skill,RIPJAWS Platinum,ATX,80+ Platinum,850,Full,Black,0.0
+PSU,GAMDIAS,ASTRAPE E1,ATX,80+,550,No,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE M1,ATX,80+,650,No,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE M1,ATX,80+,550,No,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE M1 B,ATX,80+ Bronze,750,No,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE M1 B,ATX,80+ Bronze,650,No,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE P1 G,ATX,80+ Gold,650,Full,Black / Multicolor,0.0
+PSU,GAMDIAS,ASTRAPE P1 G,ATX,80+ Gold,750,Full,Black / Multicolor,0.0
+PSU,GAMDIAS,Cyclops X1 P,ATX,80+ Platinum,1200,Full,Black / Multicolor,0.0
+PSU,GAMDIAS,KRATOS E1,ATX,80+,500,No,Black,0.0
+PSU,GAMDIAS,KRATOS M1 B,ATX,80+ Bronze,750,No,Black,69.0
+PSU,GAMDIAS,KRATOS M1 B,ATX,80+ Bronze,600,No,Black,0.0
+PSU,GAMDIAS,KRATOS M1 B,ATX,80+ Gold,750,Semi,Black,99.99
+PSU,GAMDIAS,KRATOS P1 G,ATX,80+ Gold,650,No,Black,89.99
+PSU,GameMax,GM,ATX,80+ Gold,1350,No,Black,0.0
+PSU,GameMax,GM,ATX,80+ Bronze,800,Semi,Black,0.0
+PSU,GameMax,GM,ATX,80+ Gold,1800,No,Black,0.0
+PSU,GameMax,GM,ATX,80+ Gold,2000,No,Black,0.0
+PSU,GameMax,GM,ATX,80+ Gold,500,Semi,Black,0.0
+PSU,GameMax,GM,ATX,80+ Bronze,300,No,Silver,0.0
+PSU,GameMax,GM,ATX,80+ Bronze,500,Semi,Black,0.0
+PSU,GameMax,GM,ATX,80+ Gold,1650,No,Black,0.0
+PSU,GameMax,GM-1050,ATX,80+ Silver,1050,Semi,,0.0
+PSU,GameMax,GP,ATX,80+ Bronze,500,No,Black,0.0
+PSU,GameMax,GP,ATX,80+ Bronze,550,No,Black,0.0
+PSU,GameMax,GP,ATX,80+ Bronze,650,No,Black,0.0
+PSU,GameMax,GP,ATX,80+ Bronze,400,No,Black,0.0
+PSU,GameMax,GS,SFX,80+ Bronze,300,No,Silver,0.0
+PSU,GameMax,GT,TFX,80+ Bronze,300,No,Silver,0.0
+PSU,GameMax,RGB Rainbow,ATX,80+ Gold,1050,Full,Black,0.0
+PSU,GameMax,RGB Rainbow,ATX,80+ Gold,550,Full,Black,0.0
+PSU,GameMax,RGB Rainbow,ATX,80+ Gold,850,Full,Black,0.0
+PSU,GameMax,RGB Rainbow,ATX,80+ Gold,750,Full,Black,0.0
+PSU,Gigabyte,AORUS P GM,ATX,80+ Gold,850,Full,Black / Silver,0.0
+PSU,Gigabyte,AORUS P GM,ATX,80+ Gold,750,Full,Black / Silver,0.0
+PSU,Gigabyte,B-H,ATX,80+ Bronze,700,Semi,Black,0.0
+PSU,Gigabyte,GE-P450P-C2,ATX,80+,550,No,,0.0
+PSU,Gigabyte,GP-G750H,ATX,80+ Gold,750,Semi,Black,0.0
+PSU,Gigabyte,GreenMax Plus,ATX,80+ Bronze,550,No,,0.0
+PSU,Gigabyte,GreenMax Plus,ATX,80+ Bronze,650,No,,0.0
+PSU,Gigabyte,P GM,ATX,80+ Gold,750,Full,Black,109.99
+PSU,Gigabyte,P GM,ATX,80+ Gold,850,Full,Black,119.99
+PSU,Gigabyte,P-B,ATX,80+ Bronze,450,No,Black,39.99
+PSU,Gigabyte,P-B,ATX,80+ Bronze,650,No,Black,69.99
+PSU,Gigabyte,PB500,ATX,80+ Bronze,500,No,,0.0
+PSU,Gigabyte,PW400,ATX,80+,400,No,Black,0.0
+PSU,HEC,Cougar,ATX,80+,700,Semi,,0.0
+PSU,HEC,HEC200SA-2FX,Mini ITX,,200,No,,0.0
+PSU,HEC,HEC200SA2FX,Mini ITX,,200,No,,0.0
+PSU,HEC,HEC200SAFX,Mini ITX,,200,No,,0.0
+PSU,HEC,HEC250SRT,SFX,,250,No,,0.0
+PSU,HEC,HEC350TEWX,ATX,80+,350,No,,0.0
+PSU,HEC,HP485D,ATX,,485,No,,0.0
+PSU,HEC,HP485D Retail,ATX,,485,No,,0.0
+PSU,HEC,HP585D,ATX,,585,No,,0.0
+PSU,HEC,HP585D RETAIL,ATX,,585,No,,0.0
+PSU,HEC,Orion,ATX,,585,No,Black,0.0
+PSU,HEC,Raptor500,ATX,,500,No,,0.0
+PSU,HEC,X-Power Pro 600,ATX,,600,No,,0.0
+PSU,HEC,X-Power Pro 650,ATX,,650,No,,0.0
+PSU,HEC,XP1080,ATX,,1080,Full,,0.0
+PSU,HEC,XPOWER585 OEM,ATX,,585,No,,0.0
+PSU,HEC,XPOWER585 RETAIL,ATX,,585,No,,0.0
+PSU,HEC,XPOWER780,ATX,,600,No,,0.0
+PSU,HEC,ZEPHY580MX,ATX,,580,No,,0.0
+PSU,HEC,ZEPHYR650,ATX,,650,No,,0.0
+PSU,HEC,Zephyr MX-750,ATX,80+ Bronze,750,No,,0.0
+PSU,In Win,Classic,ATX,80+ Platinum,750,Full,,0.0
+PSU,In Win,Classic,ATX,80+ Platinum,900,Full,,0.0
+PSU,In Win,Commander,ATX,80+,1200,Full,,0.0
+PSU,In Win,Commander II,ATX,80+ Bronze,1200,Full,,0.0
+PSU,In Win,Commander II,ATX,80+ Bronze,850,Full,,0.0
+PSU,In Win,Commander II,ATX,80+ Bronze,750,Full,,0.0
+PSU,In Win,Commander III,ATX,80+ Gold,700,Semi,,0.0
+PSU,In Win,Commander III,ATX,80+ Gold,800,Semi,,0.0
+PSU,In Win,Commander III 600,ATX,80+ Gold,600,Semi,,0.0
+PSU,In Win,Compact,SFX,80+ Gold,700,Full,Black,0.0
+PSU,In Win,Glacier,ATX,80+ Gold,900,Semi,,0.0
+PSU,In Win,GreenMe 550,ATX,80+ Bronze,550,No,,176.59
+PSU,In Win,GreenMe 650,ATX,80+ Bronze,650,No,,0.0
+PSU,In Win,IP-P300BN7-2,ATX,80+,300,No,,53.92
+PSU,In Win,IP-S200DF1-0,TFX,,200,No,,63.0
+PSU,In Win,IP-S300FF1-0,TFX,80+,300,No,,57.99
+PSU,In Win,IP-S350CQ2-0T,ATX,,350,No,,0.0
+PSU,In Win,P,ATX,80+ Gold,750,Full,Black,0.0
+PSU,In Win,P,ATX,80+ Gold,850,Full,Black,124.3
+PSU,In Win,P,ATX,80+ Gold,650,Full,Black,0.0
+PSU,In Win,PB,ATX,80+ Gold,850,Full,,0.0
+PSU,In Win,PB,ATX,80+ Gold,650,Full,,0.0
+PSU,In Win,PB,ATX,80+ Gold,750,Full,,150.0
+PSU,Insignia,NS-PCW5508,ATX,80+ Bronze,550,No,Black,0.0
+PSU,KOLINK,Classic Power,ATX,80+ Bronze,500,No,Black / Red,0.0
+PSU,KOLINK,Classic Power,ATX,80+ Bronze,600,No,Black / Red,0.0
+PSU,KOLINK,Classic Power,ATX,80+ Bronze,700,No,Black / Red,0.0
+PSU,KOLINK,Classic Power,ATX,80+ Bronze,400,No,Black / Red,0.0
+PSU,KOLINK,ENCLAVE,ATX,80+ Gold,700,Full,Black / Yellow,0.0
+PSU,KOLINK,ENCLAVE,ATX,80+ Gold,500,Full,Black / Yellow,0.0
+PSU,KOLINK,ENCLAVE,ATX,80+ Gold,600,Full,Black / Yellow,0.0
+PSU,KOLINK,KL-SFX250,SFX,80+ Bronze,250,No,Black / Green,0.0
+PSU,KOLINK,KL-SFX350,SFX,80+ Bronze,350,No,Black / Green,0.0
+PSU,KOLINK,KL-SFX450,SFX,80+ Bronze,450,No,Black / Green,0.0
+PSU,Kingwin,ABT-1050MM,ATX,,1050,No,,0.0
+PSU,Kingwin,ABT-450MM,ATX,,450,No,,0.0
+PSU,Kingwin,ABT-610MM,ATX,,610,No,,0.0
+PSU,Kingwin,ABT-650MM,BTX,,650,No,,0.0
+PSU,Kingwin,ABT-730MM,ATX,,730,No,,0.0
+PSU,Kingwin,ABT-750MM,BTX,,750,No,,0.0
+PSU,Kingwin,ABT-850MM,ATX,,850,No,,0.0
+PSU,Kingwin,AP-550,ATX,80+ Platinum,550,No,,0.0
+PSU,Kingwin,KX-1000,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Kingwin,Lazer,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Kingwin,Lazer,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Kingwin,Lazer,ATX,,660,Full,,0.0
+PSU,Kingwin,Lazer,ATX,80+,750,Full,,0.0
+PSU,Kingwin,Lazer Gold,ATX,80+ Gold,1000,Full,,0.0
+PSU,Kingwin,Lazer Gold,ATX,80+ Gold,550,Full,,0.0
+PSU,Kingwin,Lazer Gold,ATX,80+ Gold,850,Full,,0.0
+PSU,Kingwin,Lazer Gold,ATX,80+ Gold,1300,Semi,,0.0
+PSU,Kingwin,Lazer Gold,ATX,80+ Gold,700,Full,,0.0
+PSU,Kingwin,Lazer Platinum,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,Kingwin,Lazer Platinum,ATX,80+ Platinum,650,Semi,,0.0
+PSU,Kingwin,Lazer Platinum,ATX,80+ Platinum,750,Semi,,0.0
+PSU,Kingwin,Lazer Platinum,ATX,80+ Platinum,550,Semi,,0.0
+PSU,Kingwin,Lazer Platinum,ATX,80+ Platinum,850,Semi,,0.0
+PSU,Kingwin,MK,ATX,,650,No,,0.0
+PSU,Kingwin,MK,ATX,,1000,No,,0.0
+PSU,Kingwin,MK,ATX,,750,No,,0.0
+PSU,Kingwin,MK,ATX,,850,No,,0.0
+PSU,Kingwin,MKX,ATX,,850,Semi,,0.0
+PSU,Kingwin,Mach 1,BTX,80+ Bronze,1000,Semi,,0.0
+PSU,Kingwin,Mach 1,BTX,80+ Bronze,1220,Full,,0.0
+PSU,Kingwin,STR-500,ATX,80+ Platinum,500,Semi,,0.0
+PSU,Kuroutoshikou,KRPW-L5-500W/80+,ATX,80+,500,No,,0.0
+PSU,LEPA,B550-MB,ATX,80+ Bronze,550,Semi,,0.0
+PSU,LEPA,B550-SA,ATX,80+ Bronze,550,No,,0.0
+PSU,LEPA,B650-SA,ATX,80+ Bronze,650,No,,0.0
+PSU,LEPA,B850-MA,ATX,80+ Bronze,850,Semi,,0.0
+PSU,LEPA,G,ATX,80+ Gold,650,Semi,,0.0
+PSU,LEPA,G Series,ATX,80+ Gold,1600,Full,,0.0
+PSU,LEPA,G1000-MA,ATX,80+ Gold,1000,Semi,,0.0
+PSU,LEPA,G1000-MB,ATX,80+ Gold,1000,Full,,0.0
+PSU,LEPA,G1200-MA,ATX,80+ Gold,1200,Semi,,0.0
+PSU,LEPA,G800-MB,ATX,80+ Gold,800,Semi,,0.0
+PSU,LEPA,MX-F1,ATX,,600,No,,0.0
+PSU,LEPA,MX-F1,ATX,,350,No,,0.0
+PSU,LEPA,MX-F1,ATX,,400,No,,0.0
+PSU,LEPA,MaxBron,ATX,80+ Bronze,650,Semi,,0.0
+PSU,LEPA,MaxBron,ATX,80+ Bronze,700,Semi,,0.0
+PSU,LEPA,MaxBron,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,LEPA,MaxBron,ATX,80+ Bronze,450,Semi,,0.0
+PSU,LEPA,MaxBron,ATX,80+ Bronze,800,Semi,,97.99
+PSU,LEPA,MaxGold,ATX,80+ Gold,600,No,,0.0
+PSU,LEPA,MaxGold,ATX,80+ Gold,700,Semi,,0.0
+PSU,LEPA,MaxGold,ATX,80+ Gold,500,No,,0.0
+PSU,LEPA,N,ATX,,500,No,,0.0
+PSU,LEPA,P1375-MA,ATX,80+ Platinum,1375,Full,,0.0
+PSU,Lian Li,PE,SFX,80+ Platinum,750,Full,,0.0
+PSU,Lian Li,PE,SFX,80+ Gold,550,Full,,0.0
+PSU,Linkworld,LPG12-35-p4,ATX,,550,No,,0.0
+PSU,Linkworld,LPG8 630w,ATX,,630,No,,0.0
+PSU,Linkworld,LPK2-30-P4,ATX,,500,No,,0.0
+PSU,Logisys,AT750BK,ATX,80+ Bronze,750,No,,0.0
+PSU,Logisys,PS350MA,Micro ATX,,350,No,,16.98
+PSU,Logisys,PS480D,ATX,,480,No,,21.99
+PSU,Logisys,PS480D-BK,ATX,,480,No,,0.0
+PSU,Logisys,PS480D2,ATX,,480,No,,16.98
+PSU,Logisys,PS480E12,ATX,,480,No,,0.0
+PSU,Logisys,PS480X2,ATX,,480,No,,0.0
+PSU,Logisys,PS550AC,ATX,,550,No,,0.0
+PSU,Logisys,PS550E12,ATX,,550,No,,0.0
+PSU,Logisys,PS550E12BK,ATX,,550,No,,0.0
+PSU,Logisys,PS575XBK,ATX,,575,No,,0.0
+PSU,Logisys,PS600XBK,ATX,,600,No,,0.0
+PSU,Mars Gaming,MP700,ATX,,700,No,,0.0
+PSU,Mars Gaming,MPII650,ATX,,650,No,Black / Red,0.0
+PSU,Mistel,MX550 FANLESS,ATX,80+ Gold,550,Full,Black,0.0
+PSU,Mistel,MX650 FANLESS,ATX,80+ Platinum,650,Full,Black,0.0
+PSU,Montech,CENTURY,ATX,80+ Gold,550,Full,Black,0.0
+PSU,Montech,CENTURY,ATX,80+ Gold,650,Full,Black,0.0
+PSU,Montech,CENTURY,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Mushkin,MKNPSJL1000,ATX,80+ Gold,1000,No,,0.0
+PSU,Mushkin,MKNPSJL800,ATX,80+ Silver,800,No,,0.0
+PSU,NOX,Hummer,ATX,80+ Bronze,650,Semi,,0.0
+PSU,NOX,Hummer GD,ATX,80+ Gold,750,No,,0.0
+PSU,NOX,Hummer X,ATX,80+ Gold,650,Full,Black,0.0
+PSU,NOX,URANO TX,ATX,,850,No,,0.0
+PSU,NZXT,C,ATX,80+ Gold,850,Full,Black,129.99
+PSU,NZXT,C,ATX,80+ Gold,750,Full,Black,119.99
+PSU,NZXT,C,ATX,80+ Gold,650,Full,Black,104.4
+PSU,NZXT,E,ATX,80+ Gold,500,Full,Black,0.0
+PSU,NZXT,E,ATX,80+ Gold,850,Full,Black,0.0
+PSU,NZXT,E,ATX,80+ Gold,650,Full,Black,0.0
+PSU,NZXT,HALE 90,ATX,80+ Gold,850,Full,,0.0
+PSU,NZXT,HALE 90,ATX,80+ Gold,1000,Full,,0.0
+PSU,NZXT,HALE 90,ATX,80+ Gold,650,Full,,0.0
+PSU,NZXT,HALE 90,ATX,80+ Gold,750,Full,,0.0
+PSU,NZXT,HALE82,ATX,80+ Bronze,850,Semi,,0.0
+PSU,NZXT,HALE82,ATX,80+ Bronze,650,Semi,,0.0
+PSU,NZXT,HALE82,ATX,80+ Bronze,750,Semi,,0.0
+PSU,NZXT,HALE82 V2,ATX,80+ Bronze,550,Full,,0.0
+PSU,NZXT,HALE82 V2,ATX,80+ Bronze,700,Full,,0.0
+PSU,NZXT,HALE82N,ATX,80+ Bronze,550,No,,0.0
+PSU,NZXT,HALE82N,ATX,80+ Bronze,750,No,,0.0
+PSU,NZXT,HALE82N,ATX,80+ Bronze,650,No,,0.0
+PSU,NZXT,HALE90 V2,ATX,80+ Gold,1000,Full,,0.0
+PSU,NZXT,HALE90 V2,ATX,80+ Gold,1200,Full,,0.0
+PSU,NZXT,HALE90 V2,ATX,80+ Gold,850,Full,,0.0
+PSU,Nexus,NX-5000 R3,ATX,80+ Bronze,530,No,,0.0
+PSU,OCZ,EliteXStream,ATX,80+,800,No,,0.0
+PSU,OCZ,EliteXStream,ATX,80+,1000,No,,0.0
+PSU,OCZ,Fatal1ty,ATX,80+ Bronze,550,Full,,0.0
+PSU,OCZ,Fatal1ty,ATX,80+ Bronze,750,Full,,0.0
+PSU,OCZ,Fatal1ty,ATX,80+ Bronze,750,Semi,,0.0
+PSU,OCZ,Fatal1ty,ATX,80+,550,Semi,,0.0
+PSU,OCZ,Fatal1ty,ATX,80+ Gold,1000,Semi,,441.59
+PSU,OCZ,ModXStream Pro,ATX,80+,500,Semi,,0.0
+PSU,OCZ,ModXStream Pro,ATX,80+,600,Semi,,0.0
+PSU,OCZ,ModXStream Pro,ATX,80+,700,Semi,,0.0
+PSU,OCZ,StealthXStream,ATX,,700,No,,0.0
+PSU,OCZ,StealthXstream II,ATX,80+,700,No,,0.0
+PSU,OCZ,StealthXstream II,ATX,80+,500,No,,0.0
+PSU,OCZ,StealthXstream II,ATX,80+,600,No,,0.0
+PSU,OCZ,Z Series Gold,ATX,80+ Gold,1000,Semi,,0.0
+PSU,OCZ,Z Series Gold,ATX,80+ Gold,850,Semi,,0.0
+PSU,OCZ,ZS,ATX,80+ Bronze,550,No,,0.0
+PSU,OCZ,ZS,ATX,80+ Bronze,750,No,,0.0
+PSU,OCZ,ZS,ATX,80+ Bronze,650,No,,0.0
+PSU,OCZ,ZT,ATX,80+ Bronze,550,Full,,0.0
+PSU,OCZ,ZT,ATX,80+ Bronze,650,Full,,0.0
+PSU,OCZ,ZT,ATX,80+ Bronze,750,Full,,0.0
+PSU,OCZ,ZX,ATX,80+ Gold,1000,Full,,0.0
+PSU,OCZ,ZX,ATX,80+ Gold,850,Semi,,0.0
+PSU,OCZ,ZX,ATX,80+ Gold,1250,Full,,0.0
+PSU,PC Power & Cooling,Fatal1ty Gaming,ATX,80+ Gold,750,Full,Black / Red,0.0
+PSU,PC Power & Cooling,PPCT1200ESA,ATX,,1200,No,,0.0
+PSU,PC Power & Cooling,PPCT860,ATX,80+,860,No,,0.0
+PSU,PC Power & Cooling,Power Master,ATX,80+ Bronze,600,Semi,Black / Red,102.56
+PSU,PC Power & Cooling,S47ATX-B,ATX,,470,No,,0.0
+PSU,PC Power & Cooling,S61EPS-B,ATX,80+,610,No,,0.0
+PSU,PC Power & Cooling,S75CF,ATX,80+,750,No,,0.0
+PSU,PC Power & Cooling,S75CF-B,ATX,80+,750,No,,0.0
+PSU,PC Power & Cooling,Silencer,ATX,80+ Silver,910,No,,0.0
+PSU,PC Power & Cooling,Silencer,ATX,80+ Platinum,1050,Full,,194.52
+PSU,PC Power & Cooling,Silencer,ATX,80+ Platinum,1200,Full,,309.82
+PSU,PC Power & Cooling,Silencer,ATX,80+ Silver,760,No,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Gold,750,Semi,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Bronze,600,Semi,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Gold,850,Semi,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Bronze,400,Semi,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Platinum,1200,Semi,,0.0
+PSU,PC Power & Cooling,Silencer MK III,ATX,80+ Bronze,500,Semi,,0.0
+PSU,PC Power & Cooling,Silencer Mk II,ATX,80+ Silver,750,No,,0.0
+PSU,PC Power & Cooling,Silencer Mk II,ATX,80+ Bronze,500,No,,0.0
+PSU,PC Power & Cooling,Silencer Mk II,ATX,80+ Bronze,650,No,,0.0
+PSU,PC Power & Cooling,Silencer Mk II,ATX,80+ Silver,950,No,,0.0
+PSU,PC Power & Cooling,T12W,ATX,,1200,No,,0.0
+PSU,Phanteks,AMP,ATX,80+ Gold,750,Full,Black,192.53
+PSU,Phanteks,AMP,ATX,80+ Gold,550,Full,Black,96.98
+PSU,Phanteks,AMP,ATX,80+ Gold,650,Full,Black,0.0
+PSU,Phanteks,PH-P550GF,ATX,80+ Gold,550,No,Black,0.0
+PSU,Phanteks,PH-P650GS,ATX,80+ Gold,650,No,Black,0.0
+PSU,Phanteks,PH-P750GS,ATX,80+ Gold,750,No,Black,0.0
+PSU,Phanteks,Revolt Pro,ATX,80+ Gold,1000,Full,Silver / Black,247.99
+PSU,Phanteks,Revolt Pro,ATX,80+ Gold,850,Full,Silver / Black,0.0
+PSU,Phanteks,Revolt X,ATX,80+ Platinum,1000,Full,Black / Silver,229.99
+PSU,Phanteks,Revolt X,ATX,80+ Platinum,1200,Full,Black / Silver,624.99
+PSU,PowerSpec,PS 550BF,ATX,80+ Bronze,550,No,Black,0.0
+PSU,PowerSpec,PS 650BF,ATX,80+ Bronze,650,No,Black,0.0
+PSU,PowerSpec,PS 650BSM,ATX,80+ Bronze,650,Semi,Black,0.0
+PSU,PowerSpec,PS 650GSM,ATX,80+ Gold,650,Semi,Black,0.0
+PSU,PowerSpec,PS 750BSM,ATX,80+ Bronze,750,Semi,Black,0.0
+PSU,PowerSpec,PSX 850GFM,ATX,80+ Gold,850,Full,Black,0.0
+PSU,RIOTORO,BUILDER,ATX,80+,600,No,Black / Red,0.0
+PSU,RIOTORO,BUILDER,ATX,80+ Gold,1200,Full,Black / Red,0.0
+PSU,RIOTORO,BUILDER,ATX,80+,500,No,Black / Red,0.0
+PSU,RIOTORO,ENIGMA,ATX,80+ Gold,850,Semi,,0.0
+PSU,RIOTORO,ENIGMA G2,ATX,80+ Gold,750,Full,Black / Yellow,0.0
+PSU,RIOTORO,ENIGMA G2,ATX,80+ Gold,850,Full,Black / Yellow,0.0
+PSU,RIOTORO,ENIGMA G2,ATX,80+ Gold,650,Full,Black / Yellow,0.0
+PSU,RIOTORO,ONYX,ATX,80+ Bronze,650,Semi,,0.0
+PSU,RIOTORO,ONYX,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Raidmax,Cobra,ATX,80+ Bronze,500,No,,56.3
+PSU,Raidmax,Cobra,ATX,80+ Gold,1200,Semi,Black / Gold,0.0
+PSU,Raidmax,Cobra,ATX,80+ Bronze,400,No,,0.0
+PSU,Raidmax,Cobra,ATX,80+ Bronze,600,No,,0.0
+PSU,Raidmax,Cobra,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Raidmax,Cobra,ATX,80+ Gold,600,Semi,,0.0
+PSU,Raidmax,Cobra,ATX,80+ Bronze,700,No,,68.69
+PSU,Raidmax,Cobra,ATX,80+ Gold,500,No,,0.0
+PSU,Raidmax,RX-1000AE,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Raidmax,RX-1200AE,ATX,80+ Bronze,1200,Semi,,0.0
+PSU,Raidmax,RX-380K,ATX,,380,No,,0.0
+PSU,Raidmax,RX-450K,ATX,,450,No,,0.0
+PSU,Raidmax,RX-500AF,ATX,80+ Bronze,500,No,,0.0
+PSU,Raidmax,RX-530SS,ATX,,530,Semi,,54.99
+PSU,Raidmax,RX-535AP,ATX,80+ Bronze,535,Semi,,0.0
+PSU,Raidmax,RX-600AF,ATX,80+ Bronze,600,No,,0.0
+PSU,Raidmax,RX-630SS,ATX,,630,Semi,,55.95
+PSU,Raidmax,RX-635AP,ATX,80+ Bronze,635,Semi,,0.0
+PSU,Raidmax,RX-700AC,ATX,80+ Bronze,700,Semi,,0.0
+PSU,Raidmax,RX-700AT,ATX,80+ Titanium,700,Semi,Black,0.0
+PSU,Raidmax,RX-730SS,ATX,,730,Semi,,0.0
+PSU,Raidmax,RX-735AP,ATX,80+ Bronze,735,Semi,,0.0
+PSU,Raidmax,RX-835AP,ATX,80+ Bronze,835,Semi,,0.0
+PSU,Raidmax,RX-850AE,ATX,80+ Gold,850,Semi,,0.0
+PSU,Raidmax,Scorpio,ATX,80+ Bronze,635,Semi,,0.0
+PSU,Raidmax,Scorpio,ATX,80+ Bronze,735,Semi,,0.0
+PSU,Raidmax,Scorpio,ATX,80+ Bronze,535,Semi,Black / Blue,0.0
+PSU,Raidmax,Thunder RGB,ATX,80+ Bronze,735,Semi,Black,69.98
+PSU,Raidmax,Thunder RGB,ATX,80+ Bronze,535,Semi,Black,0.0
+PSU,Raidmax,Vampire,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Raidmax,Vampire,ATX,80+ Gold,800,Semi,,0.0
+PSU,Raidmax,Vampire,ATX,80+ Gold,900,Semi,,0.0
+PSU,Raidmax,Vampire,ATX,80+ Gold,700,Semi,,0.0
+PSU,Raidmax,XT,ATX,,400,No,,0.0
+PSU,Raidmax,XT,ATX,,500,No,,0.0
+PSU,Raidmax,XT,ATX,,300,No,,29.99
+PSU,Replace Power,RP-TFX-420W,TFX,,420,No,,0.0
+PSU,Rocketfish,RF-900WPS,ATX,,900,Full,,0.0
+PSU,Rosewill,ARC 450,ATX,80+ Bronze,450,No,,59.99
+PSU,Rosewill,ARC 550,ATX,80+ Bronze,550,No,,57.99
+PSU,Rosewill,ARC 650,ATX,80+ Bronze,650,No,,59.99
+PSU,Rosewill,ARC 750,ATX,80+ Bronze,750,No,,59.99
+PSU,Rosewill,ARC M450,ATX,80+ Bronze,450,Semi,,0.0
+PSU,Rosewill,ARC M550,ATX,80+ Bronze,550,Semi,,0.0
+PSU,Rosewill,ARC M650,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Rosewill,CAPSTONE-1000-M,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,450,No,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,550,Semi,,77.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,750,No,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,550,No,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,550,Semi,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,750,Semi,,99.99
+PSU,Rosewill,Capstone,ATX,80+ Gold,1000,Semi,Black,159.99
+PSU,Rosewill,Capstone,ATX,80+ Gold,650,Semi,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,450,Semi,,0.0
+PSU,Rosewill,Capstone,ATX,80+ Gold,650,Semi,,99.99
+PSU,Rosewill,Capstone,ATX,80+ Gold,650,No,,0.0
+PSU,Rosewill,Capstone G1000,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Rosewill,Capstone G1200,ATX,80+ Gold,1200,Semi,,0.0
+PSU,Rosewill,Capstone G750,ATX,80+ Gold,750,Semi,,0.0
+PSU,Rosewill,Capstone G850,ATX,80+ Gold,850,Semi,,0.0
+PSU,Rosewill,Fortress,ATX,80+ Platinum,750,No,,0.0
+PSU,Rosewill,Fortress,ATX,80+ Platinum,650,No,,0.0
+PSU,Rosewill,Fortress,ATX,80+ Platinum,550,No,,0.0
+PSU,Rosewill,Fortress,ATX,80+ Platinum,450,No,,0.0
+PSU,Rosewill,Glacier 1000M,ATX,80+ Bronze,1000,Semi,,114.99
+PSU,Rosewill,Glacier 1200M,ATX,80+ Bronze,1200,Semi,,0.0
+PSU,Rosewill,Glacier 500M,ATX,80+ Bronze,500,Semi,,59.99
+PSU,Rosewill,Glacier 600M,ATX,80+ Bronze,600,Semi,,69.99
+PSU,Rosewill,Glacier 700M,ATX,80+ Bronze,700,Semi,,79.99
+PSU,Rosewill,Glacier 850M,ATX,80+ Bronze,850,Semi,,87.99
+PSU,Rosewill,Green,ATX,80+,430,No,,0.0
+PSU,Rosewill,Green,ATX,80+ Bronze,700,No,,0.0
+PSU,Rosewill,Green,ATX,80+,530,No,,0.0
+PSU,Rosewill,Green,ATX,80+,630,No,,0.0
+PSU,Rosewill,HERCULES-1600,ATX,80+ Silver,1600,Semi,,0.0
+PSU,Rosewill,HERCULES-1600S,ATX,80+ Gold,1600,Semi,,0.0
+PSU,Rosewill,HIVE,ATX,80+ Bronze,850,Semi,,119.99
+PSU,Rosewill,HIVE,ATX,80+ Bronze,550,Semi,,64.99
+PSU,Rosewill,HIVE,ATX,80+ Bronze,1000,Semi,,144.99
+PSU,Rosewill,HIVE,ATX,80+ Bronze,650,Semi,,99.99
+PSU,Rosewill,HIVE,ATX,80+ Bronze,750,Semi,,109.99
+PSU,Rosewill,LEPTON,ATX,80+ Gold,500,Semi,Black,84.99
+PSU,Rosewill,LEPTON 600,ATX,80+ Gold,600,Semi,Black,94.99
+PSU,Rosewill,LEPTON 700,ATX,80+ Gold,700,Semi,,99.99
+PSU,Rosewill,LP-6100C,ATX,,300,No,,0.0
+PSU,Rosewill,Libertas,ATX,80+,650,Full,,0.0
+PSU,Rosewill,Libertas,ATX,80+ Bronze,800,Full,,0.0
+PSU,Rosewill,Lightning,ATX,80+ Gold,1000,Semi,,189.99
+PSU,Rosewill,Lightning,ATX,80+ Gold,1300,Semi,,219.99
+PSU,Rosewill,Lightning,ATX,80+ Gold,800,Semi,,0.0
+PSU,Rosewill,PHOTON 1350,ATX,80+ Gold,1350,Full,Black,0.0
+PSU,Rosewill,PHOTON-1050,ATX,80+ Gold,1050,Full,,149.99
+PSU,Rosewill,PHOTON-1200,ATX,80+ Gold,1200,Full,,199.99
+PSU,Rosewill,PHOTON-550,ATX,80+ Gold,550,Full,,89.99
+PSU,Rosewill,PHOTON-650,ATX,80+ Gold,650,Full,,89.99
+PSU,Rosewill,PHOTON-750,ATX,80+ Gold,750,Full,,129.99
+PSU,Rosewill,PHOTON-850,ATX,80+ Gold,850,Full,,139.99
+PSU,Rosewill,Quark 1000,ATX,80+ Platinum,1000,Full,,0.0
+PSU,Rosewill,Quark 1200,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Rosewill,Quark 550,ATX,80+ Platinum,550,Full,,0.0
+PSU,Rosewill,Quark 650,ATX,80+ Platinum,650,Full,,0.0
+PSU,Rosewill,Quark 750,ATX,80+ Platinum,750,Full,,0.0
+PSU,Rosewill,Quark 850,ATX,80+ Platinum,850,Full,,0.0
+PSU,Rosewill,RBR1000-M,ATX,80+ Bronze,1000,Semi,,149.99
+PSU,Rosewill,RD-Z,ATX,80+,500,No,Black,0.0
+PSU,Rosewill,RD-Z,ATX,80+,400,No,Black,0.0
+PSU,Rosewill,RD-Z,ATX,80+,450,No,Black,0.0
+PSU,Rosewill,RD600-M,ATX,,600,Semi,,0.0
+PSU,Rosewill,RP600V2-S-SL,ATX,,600,No,,0.0
+PSU,Rosewill,RV2-500,ATX,,500,No,,0.0
+PSU,Rosewill,RV2-600,ATX,,600,No,,0.0
+PSU,Rosewill,RV2-700,ATX,,700,No,,0.0
+PSU,Rosewill,RV350,ATX,,350,No,,0.0
+PSU,Rosewill,RV350-2,ATX,,350,No,,0.0
+PSU,Rosewill,RX750-S-B,ATX,80+,750,No,,0.0
+PSU,Rosewill,RX850-S-B,ATX,80+,850,No,,0.0
+PSU,Rosewill,SL-300TFX,TFX,,300,No,,0.0
+PSU,Rosewill,SilentNight-500,ATX,80+ Platinum,500,Semi,,0.0
+PSU,Rosewill,Stallion,ATX,,700,No,,0.0
+PSU,Rosewill,Stallion,ATX,,400,No,,0.0
+PSU,Rosewill,Stallion,ATX,,450,No,,0.0
+PSU,Rosewill,Stallion,ATX,,500,No,,0.0
+PSU,Rosewill,TOKAMAK 1200,ATX,80+ Titanium,1200,Full,,0.0
+PSU,Rosewill,Tachyon,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,Rosewill,Tachyon,ATX,80+ Platinum,1200,Full,Black,0.0
+PSU,Rosewill,Tachyon,ATX,80+ Platinum,750,Semi,,0.0
+PSU,Rosewill,Tachyon,ATX,80+ Platinum,550,Semi,,0.0
+PSU,Rosewill,Tachyon,ATX,80+ Platinum,650,Semi,,0.0
+PSU,Rosewill,VALENS-500,ATX,80+ Gold,500,No,,0.0
+PSU,Rosewill,VALENS-500M,ATX,80+ Gold,500,Semi,,0.0
+PSU,Rosewill,VALENS-600,ATX,80+ Gold,600,No,,146.99
+PSU,Rosewill,VALENS-600M,ATX,80+ Gold,600,Semi,,0.0
+PSU,Rosewill,VALENS-700,ATX,80+ Gold,700,No,,0.0
+PSU,Rosewill,VALENS-700M,ATX,80+ Gold,700,Semi,,0.0
+PSU,SHARKOON,SilentStorm,SFX,80+ Gold,500,Full,Black,156.03
+PSU,SHARKOON,SilentStorm,SFX,80+ Bronze,450,No,Black,0.0
+PSU,SHARKOON,SilentStorm Cool Zero,ATX,80+ Gold,850,Full,Black,0.0
+PSU,SHARKOON,SilentStorm Cool Zero,ATX,80+ Gold,750,Full,Black,0.0
+PSU,SHARKOON,SilentStorm Cool Zero,ATX,80+ Gold,650,Full,Black,0.0
+PSU,SHARKOON,SilentStorm Icewind,ATX,80+ Bronze,750,Semi,White / Black,0.0
+PSU,SHARKOON,SilentStorm Icewind,ATX,80+ Bronze,650,Semi,White / Black,0.0
+PSU,SHARKOON,SilentStorm Icewind,ATX,80+ Bronze,550,Semi,White / Black,0.0
+PSU,SHARKOON,SilentStorm Icewind Black,ATX,80+ Bronze,750,Semi,Black,0.0
+PSU,SHARKOON,SilentStorm Icewind Black,ATX,80+ Bronze,650,Semi,Black,0.0
+PSU,SHARKOON,SilentStorm Icewind Black,ATX,80+ Bronze,550,Semi,Black,0.0
+PSU,SHARKOON,WPC Bronze,ATX,80+ Bronze,550,No,Black,0.0
+PSU,SHARKOON,WPM Bronze,ATX,80+ Bronze,500,Semi,,0.0
+PSU,SHARKOON,WPM Bronze,ATX,80+ Bronze,400,Semi,,0.0
+PSU,SHARKOON,WPM Bronze,ATX,80+ Bronze,700,Semi,,0.0
+PSU,SHARKOON,WPM Bronze,ATX,80+ Bronze,600,Semi,,0.0
+PSU,SHARKOON,WPM Gold Zero,ATX,80+ Gold,550,Semi,Black,0.0
+PSU,SeaSonic,CORE GM,ATX,80+ Gold,500,Semi,Black,0.0
+PSU,SeaSonic,CORE GM,ATX,80+ Gold,550,Semi,Black,0.0
+PSU,SeaSonic,CORE GM,ATX,80+ Gold,650,Semi,Black,0.0
+PSU,SeaSonic,Core GC,ATX,80+ Gold,650,No,Black,0.0
+PSU,SeaSonic,ECO,ATX,80+ Bronze,430,No,,0.0
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,1000,Full,Black,0.0
+PSU,SeaSonic,FOCUS,ATX,80+ Platinum,650,Full,Black,214.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,750,Full,Black,169.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,550,Full,Black,99.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,650,Semi,Black,107.98
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,850,Semi,Black,0.0
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,500,Semi,Black,0.0
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,650,Full,Black,124.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,750,Semi,Black,0.0
+PSU,SeaSonic,FOCUS,ATX,80+ Platinum,550,Full,Black,291.99
+PSU,SeaSonic,FOCUS,ATX,80+ Platinum,750,Full,Black,144.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,550,Semi,Black,89.99
+PSU,SeaSonic,FOCUS,ATX,80+ Gold,850,Full,Black,0.0
+PSU,SeaSonic,FOCUS Gold,ATX,80+ Gold,650,Semi,,100.49
+PSU,SeaSonic,FOCUS Gold,ATX,80+ Gold,750,Semi,,131.99
+PSU,SeaSonic,FOCUS Gold,ATX,80+ Gold,450,Semi,,0.0
+PSU,SeaSonic,FOCUS Gold,ATX,80+ Gold,550,Semi,,99.49
+PSU,SeaSonic,FOCUS PX,ATX,80+ Platinum,850,Full,Black,235.99
+PSU,SeaSonic,FOCUS Plus Gold,ATX,80+ Gold,750,Full,,0.0
+PSU,SeaSonic,FOCUS Plus Gold,ATX,80+ Gold,550,Full,,99.99
+PSU,SeaSonic,FOCUS Plus Gold,ATX,80+ Gold,850,Full,,182.0
+PSU,SeaSonic,FOCUS Plus Gold,ATX,80+ Gold,1000,Full,Black,269.0
+PSU,SeaSonic,FOCUS Plus Gold,ATX,80+ Gold,650,Full,,124.99
+PSU,SeaSonic,FOCUS Plus Platinum,ATX,80+ Platinum,850,Full,,0.0
+PSU,SeaSonic,FOCUS Plus Platinum,ATX,80+ Platinum,650,Full,,0.0
+PSU,SeaSonic,FOCUS Plus Platinum,ATX,80+ Platinum,750,Full,,179.99
+PSU,SeaSonic,FOCUS Plus Platinum,ATX,80+ Platinum,550,Full,,117.98
+PSU,SeaSonic,FOCUS SGX,SFX,80+ Gold,650,Full,Black,312.99
+PSU,SeaSonic,FOCUS SGX,SFX,80+ Gold,450,Full,Black,0.0
+PSU,SeaSonic,FOCUS SGX,SFX,80+ Gold,500,Full,Black,107.98
+PSU,SeaSonic,G,ATX,80+ Gold,360,No,,0.0
+PSU,SeaSonic,G,ATX,80+ Gold,750,Semi,,0.0
+PSU,SeaSonic,G,ATX,80+ Gold,550,Semi,,0.0
+PSU,SeaSonic,G,ATX,80+ Gold,450,Semi,,0.0
+PSU,SeaSonic,G,ATX,80+ Gold,650,Semi,,187.94
+PSU,SeaSonic,M12II,ATX,80+ Bronze,850,Semi,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,620,Full,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,430,No,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,850,Full,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,380,No,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,650,Semi,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,620,No,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,520,No,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,520,Full,,0.0
+PSU,SeaSonic,M12II,ATX,80+ Bronze,750,Semi,,0.0
+PSU,SeaSonic,M12II EVO,ATX,80+ Bronze,850,Full,Black,0.0
+PSU,SeaSonic,M12II EVO,ATX,80+ Bronze,520,Full,Black,0.0
+PSU,SeaSonic,PRIME,ATX,80+ Gold,850,Full,Black,0.0
+PSU,SeaSonic,PRIME,ATX,80+ Gold,1000,Full,Black,0.0
+PSU,SeaSonic,PRIME,ATX,80+ Gold,750,Full,Black,156.98
+PSU,SeaSonic,PRIME,ATX,80+ Gold,650,Full,Black,0.0
+PSU,SeaSonic,PRIME AIRTOUCH,ATX,80+ Gold,850,Full,Black / Red,0.0
+PSU,SeaSonic,PRIME Fanless,ATX,80+ Titanium,700,Full,Black,269.74
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,850,Full,,0.0
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,1000,Full,,0.0
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,750,Full,,0.0
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,1300,Full,Black,0.0
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,650,Full,,0.0
+PSU,SeaSonic,PRIME Gold,ATX,80+ Gold,1200,Full,,0.0
+PSU,SeaSonic,PRIME PX,ATX,80+ Platinum,750,Full,Black / Silver,0.0
+PSU,SeaSonic,PRIME PX,ATX,80+ Platinum,650,Full,Black / Silver,0.0
+PSU,SeaSonic,PRIME PX,ATX,80+ Platinum,850,Full,Black / Silver,0.0
+PSU,SeaSonic,PRIME PX,ATX,80+ Platinum,1000,Full,Black / Silver,625.99
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,1000,Full,,0.0
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,650,Full,,0.0
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,1300,Full,Black,0.0
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,750,Full,,0.0
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,850,Full,,0.0
+PSU,SeaSonic,PRIME Platinum,ATX,80+ Platinum,1200,Full,,0.0
+PSU,SeaSonic,PRIME SNOWSILENT,ATX,80+ Titanium,750,Full,White,0.0
+PSU,SeaSonic,PRIME SNOWSILENT,ATX,80+ Gold,550,Full,White,0.0
+PSU,SeaSonic,PRIME SNOWSILENT,ATX,80+ Platinum,650,Full,White,0.0
+PSU,SeaSonic,PRIME TX,ATX,80+ Titanium,750,Full,Black,0.0
+PSU,SeaSonic,PRIME TX,ATX,80+ Titanium,650,Full,Black,0.0
+PSU,SeaSonic,PRIME TX,ATX,80+ Titanium,1000,Full,Black,896.49
+PSU,SeaSonic,PRIME TX,ATX,80+ Titanium,850,Full,Black,602.99
+PSU,SeaSonic,PRIME Titanium,ATX,80+ Titanium,600,Full,Black,218.89
+PSU,SeaSonic,PRIME Titanium,ATX,80+ Titanium,850,Full,,0.0
+PSU,SeaSonic,PRIME Titanium,ATX,80+ Titanium,1000,Full,,899.0
+PSU,SeaSonic,PRIME Titanium,ATX,80+ Titanium,750,Full,,0.0
+PSU,SeaSonic,PRIME Titanium,ATX,80+ Titanium,650,Full,,0.0
+PSU,SeaSonic,PRIME Ultra Gold,ATX,80+ Gold,850,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Gold,ATX,80+ Gold,650,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Gold,ATX,80+ Gold,750,Full,Black,144.99
+PSU,SeaSonic,PRIME Ultra Gold,ATX,80+ Gold,1000,Full,Black,300.99
+PSU,SeaSonic,PRIME Ultra Gold,ATX,80+ Gold,550,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Platinum,ATX,80+ Platinum,1000,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Platinum,ATX,80+ Platinum,650,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Platinum,ATX,80+ Platinum,550,Full,Black,0.0
+PSU,SeaSonic,PRIME Ultra Platinum,ATX,80+ Platinum,850,Full,Black,249.0
+PSU,SeaSonic,PRIME Ultra Platinum,ATX,80+ Platinum,750,Full,Black,164.99
+PSU,SeaSonic,PRIME Ultra Titanium,ATX,80+ Titanium,1000,Full,,0.0
+PSU,SeaSonic,PRIME Ultra Titanium,ATX,80+ Titanium,650,Full,,0.0
+PSU,SeaSonic,PRIME Ultra Titanium,ATX,80+ Titanium,750,Full,,419.99
+PSU,SeaSonic,PRIME Ultra Titanium,ATX,80+ Titanium,850,Full,,649.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,860,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,1050,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,400,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,1000,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,1200,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,520,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Bronze,600,No,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,760,Full,,0.0
+PSU,SeaSonic,Platinum,ATX,80+ Platinum,660,Full,,0.0
+PSU,SeaSonic,S12G,ATX,80+ Gold,650,No,,0.0
+PSU,SeaSonic,S12G,ATX,80+ Gold,450,No,,0.0
+PSU,SeaSonic,S12G,ATX,80+ Gold,750,No,,0.0
+PSU,SeaSonic,S12G,ATX,80+ Gold,550,No,,0.0
+PSU,SeaSonic,S12II,ATX,80+ Bronze,750,Full,,0.0
+PSU,SeaSonic,S12II,ATX,80+ Bronze,350,No,,0.0
+PSU,SeaSonic,S12III,ATX,80+ Bronze,550,No,Black,59.99
+PSU,SeaSonic,S12III,ATX,80+ Bronze,450,No,Black,0.0
+PSU,SeaSonic,S12III,ATX,80+ Bronze,500,No,Black,59.99
+PSU,SeaSonic,S12III,ATX,80+ Bronze,650,No,Black,64.99
+PSU,SeaSonic,SS-300ES Bronze,ATX,80+ Bronze,300,No,,71.44
+PSU,SeaSonic,SS-300ET Bronze,ATX,80+ Bronze,300,No,,0.0
+PSU,SeaSonic,SS-300SFD,SFX,80+,300,No,,0.0
+PSU,SeaSonic,SS-300TFX Bronze,TFX,80+ Bronze,300,No,,90.11
+PSU,SeaSonic,SS-300TGW,TFX,80+ Gold,300,No,,0.0
+PSU,SeaSonic,SS-350ET Bronze,ATX,80+ Bronze,350,No,,0.0
+PSU,SeaSonic,SS-350SFE,SFX,80+,350,No,,0.0
+PSU,SeaSonic,SS-350TGM Retail,TFX,80+ Gold,350,Full,,0.0
+PSU,SeaSonic,SS-400ET Bronze,ATX,80+ Bronze,400,No,,0.0
+PSU,SeaSonic,SS-500ES Bronze,ATX,80+ Bronze,500,No,,0.0
+PSU,SeaSonic,SS-500ET Bronze,ATX,80+ Bronze,500,No,,0.0
+PSU,SeaSonic,SS-600ES,ATX,80+ Bronze,600,No,Gray,129.01
+PSU,SeaSonic,SS-750HT Silver,ATX,80+ Silver,750,No,,0.0
+PSU,SeaSonic,SS-850HT Silver,ATX,80+ Silver,850,No,,239.95
+PSU,SeaSonic,SSP-300SFG,SFX,80+ Gold,300,No,,0.0
+PSU,SeaSonic,SSP-300ST,ATX,80+ Bronze,300,No,,0.0
+PSU,SeaSonic,SSP-300SUG,Flex ATX,80+ Gold,300,No,,0.0
+PSU,SeaSonic,SSP-300TBS,TFX,80+ Bronze,300,No,Silver,69.27
+PSU,SeaSonic,SSP-350SE,ATX,80+ Bronze,350,No,,0.0
+PSU,SeaSonic,SSP-350ST,ATX,80+ Bronze,350,No,,0.0
+PSU,SeaSonic,SSP-450RT,ATX,80+ Gold,450,No,,0.0
+PSU,SeaSonic,SSP-550RT,ATX,80+ Gold,550,No,,0.0
+PSU,SeaSonic,SSP-650RT,ATX,80+ Gold,650,No,,0.0
+PSU,SeaSonic,Snow Silent,ATX,80+ Platinum,750,Full,,0.0
+PSU,SeaSonic,Snow Silent,ATX,80+ Platinum,1050,Full,,0.0
+PSU,SeaSonic,TFX 350,TFX,80+ Gold,350,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Platinum,460,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,400,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,650,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,750,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,1050,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,850,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,660,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,1250,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,560,Full,,0.0
+PSU,SeaSonic,X,ATX,80+ Gold,760,Full,,0.0
+PSU,SeaSonic,X Series,ATX,80+ Gold,1250,Full,,0.0
+PSU,Segotep,GP700G,ATX,80+ Gold,700,No,Black,0.0
+PSU,Sentey,ERP-400-SS,ATX,,400,No,,0.0
+PSU,Sentey,ERP-500-SM,ATX,,500,Full,,0.0
+PSU,Sentey,ERP-500-SMR,ATX,,500,Full,,0.0
+PSU,Sentey,ERP-500-SS,ATX,,500,No,,0.0
+PSU,Sentey,ERP-600-SM,ATX,,600,Full,,0.0
+PSU,Sentey,ERP-600-SS,ATX,,600,No,,0.0
+PSU,Sentey,ERP-700-SS,ATX,,700,No,,0.0
+PSU,Sentey,GSP1000-SM,ATX,80+ Gold,1000,Full,,0.0
+PSU,Sentey,GSP650-SM,ATX,80+ Gold,650,Full,,0.0
+PSU,Sentey,GSP750-SM,ATX,80+ Gold,750,Full,,0.0
+PSU,Sentey,GSP850-SM,ATX,80+ Gold,850,Full,,0.0
+PSU,Sentey,MBP HM,ATX,80+ Bronze,1000,Semi,Black,0.0
+PSU,Sentey,MBP HM,ATX,80+ Bronze,850,Semi,Black,0.0
+PSU,Sentey,MBP HM,ATX,80+ Bronze,650,Semi,Black,0.0
+PSU,Sentey,MBP HM,ATX,80+ Bronze,550,Semi,Black,0.0
+PSU,Sentey,MBP HM,ATX,80+ Bronze,750,Semi,Black,0.0
+PSU,Sentey,SDP550-SS,ATX,80+,550,No,,0.0
+PSU,Sentey,SDP650-SS,ATX,80+,650,No,,0.0
+PSU,Sentey,SDP750-SS,ATX,80+,750,No,,0.0
+PSU,Sentey,SDP850-SS,ATX,80+,850,No,,0.0
+PSU,Sentey,XPP725-PS,ATX,,725,Semi,,0.0
+PSU,SilentiumPC,Supremo FM2,ATX,80+ Gold,650,Full,Black,0.0
+PSU,SilentiumPC,Supremo FM2,ATX,80+ Gold,750,Full,Black,0.0
+PSU,SilentiumPC,Supremo L2,ATX,80+ Gold,650,No,Black,0.0
+PSU,SilentiumPC,Supremo L2 V2,ATX,80+ Gold,550,No,Black,0.0
+PSU,SilentiumPC,Vero L2,ATX,80+ Bronze,600,No,Black,0.0
+PSU,SilentiumPC,Vero L2,ATX,80+ Bronze,500,No,Black,0.0
+PSU,SilentiumPC,Vero M2,ATX,80+ Bronze,600,No,Black,0.0
+PSU,Silverstone,DA700,ATX,,700,Full,,0.0
+PSU,Silverstone,DA750,ATX,,750,Full,,0.0
+PSU,Silverstone,Essential,ATX,80+ Bronze,550,No,Black,55.99
+PSU,Silverstone,Essential,ATX,80+ Gold,750,No,Black / Yellow,92.6
+PSU,Silverstone,Essential,ATX,80+ Gold,550,No,Black / Yellow,73.33
+PSU,Silverstone,Essential,ATX,80+ Gold,750,Semi,Black / Blue,103.76
+PSU,Silverstone,Essential,ATX,80+ Gold,550,Semi,Black,0.0
+PSU,Silverstone,Essential,ATX,80+ Gold,650,Semi,Black / Blue,93.68
+PSU,Silverstone,Essential,ATX,80+ Bronze,750,No,Black,74.98
+PSU,Silverstone,Essential,ATX,80+ Bronze,650,No,Black,0.0
+PSU,Silverstone,Essential,ATX,80+ Gold,650,No,Black,84.99
+PSU,Silverstone,Nightjar,ATX,80+ Platinum,520,Full,,0.0
+PSU,Silverstone,Nightjar,SFX,80+ Platinum,450,Full,Black / Blue,185.49
+PSU,Silverstone,Nightjar,ATX,80+ Bronze,400,No,,0.0
+PSU,Silverstone,OP1000-E,ATX,,1000,No,,0.0
+PSU,Silverstone,OP1000-P,ATX,80+,1000,No,,0.0
+PSU,Silverstone,OP750,ATX,,750,No,,0.0
+PSU,Silverstone,OP800,ATX,,800,No,,0.0
+PSU,Silverstone,OP850,ATX,,850,No,,0.0
+PSU,Silverstone,SFX,SFX,80+ Bronze,450,No,,79.98
+PSU,Silverstone,SFX,SFX,80+ Gold,450,Full,,0.0
+PSU,Silverstone,SFX,SFX,80+ Titanium,800,Full,,225.98
+PSU,Silverstone,SFX,SFX,80+ Gold,600,Full,,0.0
+PSU,Silverstone,SFX,SFX,80+ Bronze,300,No,Black,61.99
+PSU,Silverstone,SFX,SFX,80+ Gold,500,Full,,109.4
+PSU,Silverstone,SFX,SFX,80+ Bronze,450,No,Black,74.99
+PSU,Silverstone,SFX,SFX,80+ Platinum,700,Full,,181.87
+PSU,Silverstone,SFX,SFX,80+ Bronze,300,No,,143.79
+PSU,Silverstone,SST-FX350-G,Flex ATX,80+ Gold,350,No,Black,111.12
+PSU,Silverstone,SST-TX300,TFX,80+ Bronze,300,No,Black,79.98
+PSU,Silverstone,SX-B,SFX,80+ Bronze,300,No,Black,67.01
+PSU,Silverstone,SX-G,SFX,80+ Gold,700,Full,Black,160.22
+PSU,Silverstone,SX500-G,SFX,80+ Gold,500,Full,,108.98
+PSU,Silverstone,SX650-G,SFX,80+ Gold,650,Full,,125.99
+PSU,Silverstone,SX700-PT,SFX,80+ Platinum,700,Full,Black,174.99
+PSU,Silverstone,Strider,ATX,80+ Silver,850,Full,,176.73
+PSU,Silverstone,Strider,ATX,80+ Gold,1200,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,700,Full,,89.65
+PSU,Silverstone,Strider,ATX,80+ Silver,1500,No,,327.62
+PSU,Silverstone,Strider,ATX,80+ Gold,550,Full,,113.44
+PSU,Silverstone,Strider,ATX,80+ Bronze,600,No,,134.43
+PSU,Silverstone,Strider,ATX,80+ Silver,600,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,600,No,,0.0
+PSU,Silverstone,Strider,ATX,80+,600,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,1000,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,850,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+,500,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,850,Semi,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,650,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,750,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+,700,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,400,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,600,Full,,179.37
+PSU,Silverstone,Strider,ATX,80+ Gold,700,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,600,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,500,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Silverstone,Strider,ATX,80+ Silver,500,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,1500,Full,,349.99
+PSU,Silverstone,Strider,ATX,80+ Silver,1000,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,700,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,500,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,750,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Bronze,500,No,,55.99
+PSU,Silverstone,Strider,ATX,80+,400,No,,0.0
+PSU,Silverstone,Strider,ATX,80+ Silver,750,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+ Gold,650,Full,,0.0
+PSU,Silverstone,Strider,ATX,80+,1200,Full,,0.0
+PSU,Silverstone,Strider Gold S V2,ATX,80+ Gold,850,Full,,359.95
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,850,Full,,180.72
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,750,Full,,144.99
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,650,Full,,156.99
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,1000,Full,,0.0
+PSU,Silverstone,Strider Platinum,ATX,80+ Platinum,550,Full,,145.19
+PSU,Silverstone,Strider Platinum S,ATX,80+ Platinum,1200,Full,Black,269.38
+PSU,Silverstone,Strider Platinum S,ATX,80+ Platinum,1000,Full,Black,238.45
+PSU,Silverstone,Strider Plus,ATX,80+ Bronze,500,Full,,0.0
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,600,Full,,139.99
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,1100,Full,Black / Blue,0.0
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,800,Full,,435.99
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,700,Full,,185.39
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,1300,Full,Black / Blue,358.98
+PSU,Silverstone,Strider Titanium,ATX,80+ Titanium,1500,Full,Black / Blue,540.51
+PSU,Silverstone,TX300,TFX,80+ Bronze,300,No,Black,81.18
+PSU,Silverstone,Zeus,ATX,80+ Silver,1350,Full,,0.0
+PSU,Solid Gear,SDGR-650E,ATX,,650,No,,0.0
+PSU,Solid Gear,SDGR-750E,ATX,,750,Semi,,68.94
+PSU,Solid Gear,SDGR-900E,ATX,,900,No,,65.98
+PSU,Solid Gear,SDGR-FLEX220,Flex ATX,,220,No,,29.48
+PSU,Sparkle,ATX-300PA,ATX,,300,No,,54.82
+PSU,Sparkle,ATX-300PN-B204,ATX,,300,No,,0.0
+PSU,Sparkle,ATX-350PN-B204,ATX,,350,No,,49.99
+PSU,Sparkle,ATX-400PA,ATX,,400,No,,57.99
+PSU,Sparkle,ATX-400PN-B204,ATX,,400,No,,63.95
+PSU,Sparkle,ATX-450PN,ATX,,450,No,,0.0
+PSU,Sparkle,FSP300-60ATV,ATX,,300,No,,0.0
+PSU,Sparkle,FSP300-60THA,ATX,,300,No,,0.0
+PSU,Sparkle,FSP300THAR-MC,ATX,,300,No,,0.0
+PSU,Sparkle,FSP350-60GNV,SFX,,350,No,,59.99
+PSU,Sparkle,FSP400-60GHS,SFX,80+ Bronze,400,No,,0.0
+PSU,Sparkle,GW-EPS1000DA,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Sparkle,GW-EPS1250DA,ATX,80+ Gold,1250,Full,,0.0
+PSU,Sparkle,Magna,ATX,80+ Bronze,1200,Semi,,0.0
+PSU,Sparkle,Magna GOLD PRO,ATX,80+ Gold,850,Semi,,0.0
+PSU,Sparkle,R-FSP400-60ETN,ATX,80+ Platinum,400,No,,0.0
+PSU,Sparkle,R-SPI1000GCM,ATX,80+,1000,Semi,,0.0
+PSU,Sparkle,R-SPI600ACH5B,ATX,80+ Silver,600,No,,0.0
+PSU,Sparkle,R-SPI600GHN,ATX,80+,600,No,,171.3
+PSU,Sparkle,R-SPI650ACAG,ATX,80+ Gold,650,No,,0.0
+PSU,Sparkle,R-SPI700ACH5B,ATX,80+ Silver,700,No,,0.0
+PSU,Sparkle,R-SPI700GHN,ATX,80+,700,No,,0.0
+PSU,Sparkle,R-SPI750ACAG,ATX,80+ Gold,750,No,,0.0
+PSU,Sparkle,R-SPI900GCM,ATX,80+,900,Semi,,0.0
+PSU,Sparkle,SCC-750AF,ATX,80+ Gold,750,Full,,0.0
+PSU,Sparkle,SCC-850AF,ATX,80+ Gold,850,Semi,,0.0
+PSU,Sparkle,SPI300GLS-B204,SFX,,300,No,,0.0
+PSU,Sparkle,SPI300T8AB-B204,TFX,80+ Bronze,300,No,,0.0
+PSU,Sparkle,SPI460PFB2-MC2,ATX,80+,460,No,,0.0
+PSU,StarTech,ATX2POW400HS,ATX,,400,No,,0.0
+PSU,StarTech,ATX2POW450HS,ATX,,450,No,,0.0
+PSU,StarTech,ATX2POW500HS,ATX,,500,No,,0.0
+PSU,StarTech,ATX2POWER350,ATX,,350,No,,51.49
+PSU,StarTech,ATX2POWER400,ATX,,400,No,,140.46
+PSU,StarTech,ATX2POWER430,ATX,80+,430,No,,145.59
+PSU,StarTech,ATX2POWER450,ATX,,450,No,,0.0
+PSU,StarTech,ATX2POWER530,ATX,80+ Bronze,530,No,,0.0
+PSU,StarTech,ATX2PW400PRO,ATX,,400,No,,0.0
+PSU,StarTech,ATX2PW430PRO,ATX,80+ Bronze,430,No,,0.0
+PSU,StarTech,ATX2PW450PRO,ATX,,450,No,,0.0
+PSU,StarTech,ATX2PW500PRO,ATX,,500,No,,0.0
+PSU,StarTech,ATX2PW530PRO,ATX,80+ Bronze,530,No,,0.0
+PSU,StarTech,ATX2PW550PRO,ATX,,550,No,,0.0
+PSU,StarTech,ATX2PW550WH,ATX,80+,550,No,,0.0
+PSU,StarTech,ATXPOW350PRO,ATX,,350,No,,137.28
+PSU,StarTech,ATXPW350DELL,ATX,,350,No,,0.0
+PSU,StarTech,ATXPW500PRO2,ATX,,500,No,,207.56
+PSU,StarTech,ATXPW550PRO2,ATX,,550,No,,176.59
+PSU,StarTech,MICATXPOW255,Micro ATX,,255,No,,0.0
+PSU,Sunbeam,IC-PSU-US-2545-DW,ATX,,450,No,,0.0
+PSU,Sunbeam,PSU-BKS580-US,ATX,,580,No,,0.0
+PSU,Sunbeam,PSU-COM680-BK-US,ATX,,680,Full,,0.0
+PSU,Sunbeam,PSU-COM780-BK-US,ATX,,780,Full,,0.0
+PSU,Sunbeam,PSU-ECO750-US-BL,ATX,80+,750,No,,0.0
+PSU,Sunbeam,PSU-H680-REV-US,ATX,,680,No,,0.0
+PSU,Sunbeam,PSU-H680-REV-US-BL,ATX,,680,No,,0.0
+PSU,Sunbeam,PSU-HUSH580-US,ATX,,580,No,,0.0
+PSU,Sunbeam,PSU-HUSH580-US-BL,ATX,,580,No,,0.0
+PSU,Super Flower,Amazon,ATX,80+ Bronze,300,No,,0.0
+PSU,Super Flower,Amazon,ATX,80+ Bronze,550,No,,0.0
+PSU,Super Flower,Golden Green HX,ATX,80+ Gold,550,No,,0.0
+PSU,Super Flower,Golden Green HX,ATX,80+ Gold,750,No,,0.0
+PSU,Super Flower,Golden Green HX,ATX,80+ Gold,650,No,,0.0
+PSU,Super Flower,Golden Green HX,ATX,80+ Gold,450,No,,0.0
+PSU,Super Flower,Golden Green HX,ATX,80+ Gold,350,No,,0.0
+PSU,Super Flower,Golden Silent,ATX,80+ Platinum,500,Semi,,0.0
+PSU,Super Flower,Golden Silent,ATX,80+ Gold,430,Semi,,0.0
+PSU,Super Flower,LEADEX Special Edition,ATX,80+ Platinum,1000,Full,Black,0.0
+PSU,Super Flower,Leadex,ATX,80+ Platinum,2000,Full,,0.0
+PSU,Super Flower,Leadex Gold,ATX,80+ Gold,750,Full,,0.0
+PSU,Super Flower,Leadex Gold,ATX,80+ Gold,650,Full,,0.0
+PSU,Super Flower,Leadex Gold,ATX,80+ Gold,850,Full,,0.0
+PSU,Super Flower,Leadex Gold,ATX,80+ Gold,1000,Full,,0.0
+PSU,Super Flower,Leadex Gold,ATX,80+ Gold,1300,Full,,0.0
+PSU,Super Flower,Leadex III ARGB,ATX,80+ Gold,750,Full,White,169.99
+PSU,Super Flower,Leadex III ARGB,ATX,80+ Gold,850,Full,White,199.99
+PSU,Super Flower,Leadex III ARGB,ATX,80+ Gold,650,Full,White,159.99
+PSU,Super Flower,Leadex III ARGB Pro,ATX,80+ Gold,650,Full,Black,159.99
+PSU,Super Flower,Leadex III ARGB Pro,ATX,80+ Gold,750,Full,Black,179.99
+PSU,Super Flower,Leadex III ARGB Pro,ATX,80+ Gold,850,Full,Black,189.99
+PSU,Super Flower,Leadex III Gold,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Super Flower,Leadex III Gold,ATX,80+ Gold,650,Full,Black,119.99
+PSU,Super Flower,Leadex III Gold,ATX,80+ Gold,550,Full,Black,119.99
+PSU,Super Flower,Leadex III Gold,ATX,80+ Gold,750,Full,Black,0.0
+PSU,Super Flower,Leadex Platinum,ATX,80+ Platinum,750,Full,Black,0.0
+PSU,Super Flower,Leadex Platinum,ATX,80+ Platinum,1000,Full,,0.0
+PSU,Super Flower,Leadex Platinum,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Super Flower,Leadex Silver,ATX,80+ Silver,550,Full,,0.0
+PSU,Super Flower,Leadex Titanium,BTX,80+ Titanium,750,Full,Black,0.0
+PSU,Super Flower,Leadex Titanium,BTX,80+ Titanium,850,Full,Black,325.99
+PSU,Super Flower,Leadex Titanium,BTX,80+ Titanium,1600,Full,Black,0.0
+PSU,Super Flower,Leadex Titanium,BTX,80+ Titanium,1000,Full,Black,0.0
+PSU,TUNIQ,PSU-POT750-BK,ATX,80+ Bronze,750,No,,0.0
+PSU,Tacens,AP II,ATX,,500,No,Black / Green,0.0
+PSU,Tacens,Radix VII AG,ATX,80+ Silver,600,No,Black,0.0
+PSU,Thermaltake,Black Widow,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,,550,Full,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,80+ Gold,650,Semi,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,80+ Gold,850,Semi,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,,650,Full,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,,750,Full,,0.0
+PSU,Thermaltake,EVO_Blue,ATX,80+ Gold,750,Semi,,0.0
+PSU,Thermaltake,German,ATX,80+ Gold,650,Semi,,0.0
+PSU,Thermaltake,German,ATX,80+,630,No,,173.0
+PSU,Thermaltake,Litepower,ATX,,550,No,,0.0
+PSU,Thermaltake,Litepower,ATX,,650,No,,0.0
+PSU,Thermaltake,Litepower,ATX,,600,No,,0.0
+PSU,Thermaltake,Litepower,ATX,,350,No,,0.0
+PSU,Thermaltake,Litepower,ATX,,450,No,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,1200,Semi,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,750,No,,0.0
+PSU,Thermaltake,Smart,ATX,80+,600,No,,54.99
+PSU,Thermaltake,Smart,ATX,80+,700,No,,69.98
+PSU,Thermaltake,Smart,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Thermaltake,Smart,ATX,80+,530,No,,0.0
+PSU,Thermaltake,Smart,ATX,80+,730,No,,211.59
+PSU,Thermaltake,Smart,ATX,80+,630,No,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,650,No,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,550,No,,250.0
+PSU,Thermaltake,Smart,ATX,80+,500,No,,47.99
+PSU,Thermaltake,Smart,ATX,80+,430,No,,142.59
+PSU,Thermaltake,Smart,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Thermaltake,Smart,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Thermaltake,Smart BX1,ATX,80+ Bronze,650,No,Black,69.99
+PSU,Thermaltake,Smart BX1,ATX,80+ Bronze,450,No,Black,0.0
+PSU,Thermaltake,Smart BX1,ATX,80+ Bronze,550,No,Black,76.94
+PSU,Thermaltake,Smart BX1,ATX,80+ Bronze,750,No,Black,79.99
+PSU,Thermaltake,Smart BX1 RGB,ATX,80+ Bronze,750,No,Black,0.0
+PSU,Thermaltake,Smart BX1 RGB,ATX,80+ Bronze,650,No,Black,113.42
+PSU,Thermaltake,Smart BX1 RGB,ATX,80+ Bronze,550,No,Black,91.9
+PSU,Thermaltake,Smart DPS G,ATX,80+ Gold,750,Semi,,0.0
+PSU,Thermaltake,Smart DPS G,ATX,80+ Gold,650,Semi,,0.0
+PSU,Thermaltake,Smart Pro RGB,ATX,80+ Bronze,850,Full,,208.96
+PSU,Thermaltake,Smart Pro RGB,ATX,80+ Bronze,750,Full,,109.99
+PSU,Thermaltake,Smart Pro RGB,ATX,80+ Bronze,650,Full,,171.98
+PSU,Thermaltake,Smart RGB,ATX,80+,700,No,,166.43
+PSU,Thermaltake,Smart RGB,ATX,80+,500,No,Black,63.99
+PSU,Thermaltake,Smart RGB,ATX,80+,600,No,,69.99
+PSU,Thermaltake,Smart RGB 230V,ATX,80+,500,No,Black,202.4
+PSU,Thermaltake,Smart SE,ATX,80+ Bronze,630,Semi,,0.0
+PSU,Thermaltake,Smart Series,ATX,80+,430,No,Black / White,38.98
+PSU,Thermaltake,TOUGHPOWER PF1 ARGB,ATX,80+ Platinum,1050,Full,,299.99
+PSU,Thermaltake,TOUGHPOWER PF1 ARGB,ATX,80+ Platinum,850,Full,,268.99
+PSU,Thermaltake,TOUGHPOWER PF1 ARGB,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Thermaltake,TR2,ATX,80+,1200,Semi,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,500,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,600,No,,0.0
+PSU,Thermaltake,TR2,ATX,,500,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Gold,450,No,,0.0
+PSU,Thermaltake,TR2,ATX,,600,No,,0.0
+PSU,Thermaltake,TR2,ATX,,700,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,450,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Gold,600,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,380,No,,0.0
+PSU,Thermaltake,TR2,ATX,,650,Full,,0.0
+PSU,Thermaltake,TR2,ATX,,500,No,,46.52
+PSU,Thermaltake,TR2,ATX,,600,No,,53.99
+PSU,Thermaltake,TR2,ATX,80+,700,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+,800,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,450,No,,161.59
+PSU,Thermaltake,TR2,ATX,80+,1000,Semi,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Gold,500,No,,0.0
+PSU,Thermaltake,TR2,ATX,80+ Gold,700,No,,0.0
+PSU,Thermaltake,TR2,ATX,,430,No,,0.0
+PSU,Thermaltake,TR2 RX,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Thermaltake,TR2 S,ATX,80+,550,No,,0.0
+PSU,Thermaltake,TR2 S,ATX,80+,650,No,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Silver,1200,Semi,,498.59
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,750,No,,262.58
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,850,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Silver,1500,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,750,Semi,,152.99
+PSU,Thermaltake,Toughpower,ATX,80+,1200,Full,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Silver,1350,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,1200,Semi,,200.99
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,550,No,,307.58
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,650,No,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,1000,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Silver,1000,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,1500,Semi,,305.99
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,650,Semi,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+,1000,No,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Bronze,1000,Full,,0.0
+PSU,Thermaltake,Toughpower,ATX,80+ Gold,550,Semi,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Platinum,1050,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,750,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,450,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,850,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,650,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,1050,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G,ATX,80+ Gold,550,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G RGB,ATX,80+ Titanium,1250,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G RGB,ATX,80+ Titanium,1250,Full,,739.0
+PSU,Thermaltake,Toughpower DPS G RGB Gold,ATX,80+ Gold,850,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G RGB Gold,ATX,80+ Gold,750,Full,,240.0
+PSU,Thermaltake,Toughpower DPS G RGB Titanium,ATX,80+ Titanium,1500,Full,,430.21
+PSU,Thermaltake,Toughpower DPS G RGB Titanium,ATX,80+ Titanium,1000,Full,,0.0
+PSU,Thermaltake,Toughpower DPS G RGB Titanium,ATX,80+ Titanium,850,Full,,0.0
+PSU,Thermaltake,Toughpower GF1,ATX,80+ Gold,650,Full,Black,109.99
+PSU,Thermaltake,Toughpower GF1 ARGB,ATX,80+ Gold,650,Full,,134.99
+PSU,Thermaltake,Toughpower GF1 ARGB,ATX,80+ Gold,750,Full,,169.99
+PSU,Thermaltake,Toughpower GF1 ARGB,ATX,80+ Gold,850,Full,,189.99
+PSU,Thermaltake,Toughpower GF1 PE,ATX,80+ Gold,850,Full,Black,129.99
+PSU,Thermaltake,Toughpower GF1 PE,ATX,80+ Gold,750,Full,Black,112.98
+PSU,Thermaltake,Toughpower GF1 PE,ATX,80+ Gold,650,Full,,106.98
+PSU,Thermaltake,Toughpower GOLD,ATX,80+ Gold,750,Semi,,152.99
+PSU,Thermaltake,Toughpower GX1,ATX,80+ Gold,500,No,Black,76.99
+PSU,Thermaltake,Toughpower GX1,ATX,80+ Gold,600,No,Black,79.8
+PSU,Thermaltake,Toughpower GX1 RGB,ATX,80+ Gold,500,No,Black,79.99
+PSU,Thermaltake,Toughpower GX1 RGB,ATX,80+ Gold,600,No,Black,81.99
+PSU,Thermaltake,Toughpower GX1 RGB,ATX,80+ Gold,700,No,Black,0.0
+PSU,Thermaltake,Toughpower GX2,ATX,80+ Gold,600,No,Black,79.99
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,1200,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,850,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Platinum,1050,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Platinum,850,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,1050,No,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,1200,No,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,1050,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,750,Semi,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,750,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,850,No,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Platinum,700,Semi,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,650,Semi,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Gold,650,Full,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Platinum,600,Semi,,0.0
+PSU,Thermaltake,Toughpower Grand,ATX,80+ Platinum,1200,Full,,0.0
+PSU,Thermaltake,Toughpower Grand RGB,ATX,80+ Gold,650,Full,,119.99
+PSU,Thermaltake,Toughpower Grand RGB,ATX,80+ Gold,850,Full,,149.99
+PSU,Thermaltake,Toughpower Grand RGB,ATX,80+ Gold,750,Full,,119.99
+PSU,Thermaltake,Toughpower Grand RGB Platinum,ATX,80+ Platinum,850,Full,Black,199.99
+PSU,Thermaltake,Toughpower Grand RGB Platinum,ATX,80+ Platinum,1050,Full,Black,0.0
+PSU,Thermaltake,Toughpower Grand RGB Sync Edition,ATX,80+ Gold,650,Full,Black,0.0
+PSU,Thermaltake,Toughpower Grand RGB Sync Edition,ATX,80+ Gold,750,Full,Black,249.95
+PSU,Thermaltake,Toughpower Grand RGB Sync Edition,ATX,80+ Gold,850,Full,Black,0.0
+PSU,Thermaltake,Toughpower PF1,ATX,80+ Platinum,650,Full,,144.07
+PSU,Thermaltake,Toughpower PF1,ATX,80+ Platinum,750,Full,Black,149.99
+PSU,Thermaltake,Toughpower PF1,ATX,80+ Platinum,850,Full,Black,179.99
+PSU,Thermaltake,Toughpower SFX,SFX,80+ Gold,600,Full,Black,142.99
+PSU,Thermaltake,Toughpower SFX,SFX,80+ Gold,450,Full,Black,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Gold,1375,Semi,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Bronze,775,Full,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Platinum,1275,Semi,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Bronze,875,Full,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Bronze,675,Semi,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Gold,1475,Semi,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Bronze,575,Full,,0.0
+PSU,Thermaltake,Toughpower XT,ATX,80+ Bronze,650,Full,,0.0
+PSU,Thermaltake,Toughpower iRGB PLUS,ATX,80+ Gold,850,Full,Black,188.99
+PSU,Thermaltake,Toughpower iRGB PLUS,ATX,80+ Gold,750,Full,Black,165.98
+PSU,Thermaltake,Toughpower iRGB PLUS,ATX,80+ Titanium,1250,Full,,418.62
+PSU,Thermaltake,Toughpower iRGB PLUS,ATX,80+ Gold,1000,Full,Black,537.22
+PSU,Thermaltake,Toughpower iRGB PLUS Platinum,ATX,80+ Platinum,850,Full,Black,227.99
+PSU,Thermaltake,Toughpower iRGB PLUS Platinum,ATX,80+ Platinum,1200,Full,Black,590.16
+PSU,Thermaltake,Toughpower iRGB PLUS Platinum,ATX,80+ Platinum,1000,Full,Black,0.0
+PSU,Thermaltake,W0328RU,ATX,,350,No,,0.0
+PSU,Thortech,Thunderbolt,ATX,80+ Gold,1200,Full,,0.0
+PSU,Thortech,Thunderbolt,ATX,80+ Gold,1000,Full,,0.0
+PSU,Thortech,Thunderbolt,ATX,80+ Gold,850,Full,,0.0
+PSU,Thortech,Thunderbolt,ATX,80+ Gold,650,Full,,0.0
+PSU,Thortech,Thunderbolt PLUS,ATX,80+ Gold,1000,Full,,0.0
+PSU,Thortech,Thunderbolt PLUS,ATX,80+ Gold,1200,Full,,0.0
+PSU,Thortech,Thunderbolt PLUS,ATX,80+ Gold,800,Full,,0.0
+PSU,Topower,GAPS-500LX,ATX,,500,No,,0.0
+PSU,Topower,GAPS-500MX,ATX,,500,Full,,0.0
+PSU,Topower,TOP-1000P12-ADJ,ATX,,1000,Semi,,0.0
+PSU,Topower,TOP-1000WG,ATX,80+ Gold,1000,No,,0.0
+PSU,Topower,TOP-1200W,ATX,80+,1200,Full,,0.0
+PSU,Topower,TOP-400W80,ATX,80+,400,No,,0.0
+PSU,Topower,TOP-400W801,ATX,80+,400,No,,0.0
+PSU,Topower,TOP-500PM,ATX,,500,No,,0.0
+PSU,Topower,TOP-500WB,ATX,80+ Bronze,500,No,,0.0
+PSU,Topower,TOP-600WB,ATX,80+ Bronze,600,No,,0.0
+PSU,Topower,TOP-650PM,ATX,,650,No,,0.0
+PSU,Topower,TOP-800WB,ATX,80+ Bronze,800,No,,0.0
+PSU,Topower,TOP-900W,ATX,80+,900,Full,,0.0
+PSU,Topower,ZU-1050W,ATX,,1050,No,,0.0
+PSU,Topower,ZU-400W12,ATX,,400,No,,0.0
+PSU,Topower,ZU-450W,ATX,,450,No,,0.0
+PSU,Topower,ZU-500W,ATX,,500,No,,0.0
+PSU,Topower,ZU-550W,ATX,,550,No,,47.65
+PSU,Topower,ZU-650W,ATX,,650,No,,0.0
+PSU,Topower,ZU-750W,ATX,,750,No,,0.0
+PSU,Topower,ZU-950,ATX,,950,No,,0.0
+PSU,Ultra,LSP,ATX,,550,No,,0.0
+PSU,Ultra,LSP,ATX,,450,No,,0.0
+PSU,Ultra,LSP650,ATX,,650,No,,0.0
+PSU,Ultra,LSP750,ATX,,750,No,,0.0
+PSU,Ultra,U12-42466,ATX,80+ Bronze,650,Semi,,0.0
+PSU,Ultra,U12-42467,ATX,80+ Bronze,750,Semi,,0.0
+PSU,Ultra,ULT-LS500,ATX,,500,No,Silver,0.0
+PSU,Ultra,ULT-LSP550,ATX,,550,No,,0.0
+PSU,Ultra,X4,ATX,80+ Silver,1050,Full,,0.0
+PSU,Ultra,X4,ATX,80+ Silver,850,Full,,0.0
+PSU,Ultra,X4,ATX,80+ Bronze,750,Full,,0.0
+PSU,Ultra,X4 Special Edition,ATX,80+ Bronze,1000,Full,,0.0
+PSU,Ultra,X4 Special Edition,ATX,80+ Bronze,850,Full,,0.0
+PSU,VIVO,24K,ATX,80+ Gold,650,Full,,0.0
+PSU,VisionTek,900346,ATX,,500,No,,0.0
+PSU,VisionTek,900347,ATX,,650,No,,0.0
+PSU,VisionTek,900349,ATX,80+ Bronze,800,No,,0.0
+PSU,VisionTek,900488,ATX,,550,Full,,0.0
+PSU,VisionTek,900489,ATX,80+ Bronze,700,Semi,,0.0
+PSU,VisionTek,900490,ATX,80+ Bronze,800,Semi,,0.0
+PSU,XClio,DIAMONDPOWER 1080W,ATX,,1080,No,,0.0
+PSU,XClio,DIAMONDPOWER 880W,ATX,,880,No,,0.0
+PSU,XClio,GOODPOWER 500W,ATX,,500,No,,0.0
+PSU,XClio,Goodpower 550W,ATX,80+ Bronze,550,Full,,0.0
+PSU,XClio,Goodpower 650W,ATX,80+ Bronze,650,Full,,0.0
+PSU,XClio,Goodpower 750W,ATX,80+ Bronze,750,Full,,0.0
+PSU,XClio,GreatPower,ATX,80+,650,Full,,0.0
+PSU,XClio,GreatPower,ATX,80+,850,Full,,0.0
+PSU,XClio,GreatPower,ATX,80+,550,Full,,0.0
+PSU,XClio,GreatPower,ATX,80+,500,Full,,0.0
+PSU,XClio,GreatPower,ATX,80+,600,Full,,0.0
+PSU,XClio,STABLEPOWER 1000W,ATX,,1000,No,,0.0
+PSU,XClio,STABLEPOWER 460W,ATX,,460,No,,0.0
+PSU,XClio,STABLEPOWER 500W,ATX,,500,No,,0.0
+PSU,XClio,STABLEPOWER 850W,ATX,,850,No,,0.0
+PSU,XClio,STABLEPOWER GOLD 1000W,ATX,80+ Gold,1000,Full,,0.0
+PSU,XClio,STABLEPOWER GOLD 750W,ATX,80+ Gold,750,Full,,0.0
+PSU,XFX,Black Edition,ATX,80+ Silver,850,Full,,0.0
+PSU,XFX,Black Edition,ATX,80+ Silver,750,Full,,0.0
+PSU,XFX,Core Edition,ATX,80+ Bronze,650,No,,0.0
+PSU,XFX,Core Edition,ATX,80+ Bronze,750,No,,0.0
+PSU,XFX,Core Edition,ATX,80+ Bronze,850,No,,0.0
+PSU,XFX,P1-450S-XXB9,ATX,80+ Bronze,450,No,,0.0
+PSU,XFX,P1-550S-XXB9,ATX,80+ Bronze,550,No,,0.0
+PSU,XFX,P1-550S-XXBA,ATX,80+ Bronze,550,No,,0.0
+PSU,XFX,P1-650S-CAB9,ATX,80+ Bronze,650,No,,0.0
+PSU,XFX,P1-650S-NLB9,ATX,80+ Bronze,650,No,,0.0
+PSU,XFX,P1-650X-CAG9,ATX,80+ Bronze,650,Full,,0.0
+PSU,XFX,P1-650X-CAH9,ATX,80+ Bronze,650,Full,,0.0
+PSU,XFX,P1-650X-XXB9,ATX,80+ Bronze,650,Semi,,0.0
+PSU,XFX,P1-750S-CAB9,ATX,80+ Bronze,750,No,,0.0
+PSU,XFX,P1-750S-NLB9,ATX,80+ Bronze,750,No,,165.0
+PSU,XFX,P1-750X-XXB9,ATX,80+ Bronze,750,Semi,,0.0
+PSU,XFX,P1-850S-CAB9,ATX,80+ Bronze,850,No,,0.0
+PSU,XFX,P1-850X-XXB9,ATX,80+ Bronze,850,Semi,,0.0
+PSU,XFX,P1850SNLB9,ATX,80+ Bronze,850,No,,171.94
+PSU,XFX,PRO Black Edition,ATX,80+ Gold,850,Full,,0.0
+PSU,XFX,ProSeries,ATX,80+ Platinum,1000,Full,,0.0
+PSU,XFX,ProSeries,ATX,80+ Silver,850,Semi,,0.0
+PSU,XFX,ProSeries,ATX,80+ Gold,1050,Full,,0.0
+PSU,XFX,ProSeries,ATX,80+ Bronze,450,No,,147.59
+PSU,XFX,ProSeries,ATX,80+ Gold,1250,Full,,0.0
+PSU,XFX,ProSeries,ATX,80+ Silver,750,Semi,,0.0
+PSU,XFX,TS,ATX,80+ Bronze,550,No,,0.0
+PSU,XFX,TS,ATX,80+ Gold,550,No,,0.0
+PSU,XFX,TS,ATX,80+ Bronze,430,No,,0.0
+PSU,XFX,TS,ATX,80+ Gold,650,No,,0.0
+PSU,XFX,TS,ATX,80+ Gold,750,No,,0.0
+PSU,XFX,XT,ATX,80+ Bronze,500,No,,0.0
+PSU,XFX,XT,ATX,80+ Bronze,600,No,,0.0
+PSU,XFX,XT,ATX,80+ Bronze,400,No,,0.0
+PSU,XFX,XTR,ATX,80+ Gold,750,Full,,0.0
+PSU,XFX,XTR,ATX,80+ Gold,650,Full,,0.0
+PSU,XFX,XTR,ATX,80+ Gold,550,Full,,0.0
+PSU,Xigmatek,ACXTNRP-PC402,ATX,80+ Bronze,400,No,,0.0
+PSU,Xigmatek,ACXTNRP-PC502,ATX,80+ Bronze,500,No,,0.0
+PSU,Xigmatek,NRP-MC1002,ATX,80+ Bronze,1000,Full,,0.0
+PSU,Xigmatek,NRP-MC702,ATX,80+ Bronze,700,Full,,0.0
+PSU,Xigmatek,NRP-MC802,ATX,80+ Bronze,800,Full,,0.0
+PSU,Xigmatek,NRP-PC602,ATX,80+ Bronze,600,No,,0.0
+PSU,Xigmatek,NRP-PC702,ATX,80+ Bronze,700,No,,0.0
+PSU,Xigmatek,Vector,ATX,80+ Gold,750,Semi,,0.0
+PSU,Xigmatek,Vector,ATX,80+ Gold,850,Semi,,0.0
+PSU,Xigmatek,Vector,ATX,80+ Gold,650,Semi,,0.0
+PSU,Xilence,Performance A+,ATX,80+ Bronze,830,No,Black / Red,0.0
+PSU,Xilence,Performance A+,ATX,80+ Bronze,430,No,Black / Red,0.0
+PSU,Xilence,Performance A+,ATX,80+ Bronze,730,No,Black / Red,0.0
+PSU,Xilence,Performance A+,ATX,80+ Bronze,530,No,Black / Red,0.0
+PSU,Xilence,Performance A+,ATX,80+ Bronze,630,No,Black / Red,0.0
+PSU,Xilence,Performance A+ III,ATX,80+ Bronze,450,No,Black / Red,0.0
+PSU,Xilence,Performance A+ III,ATX,80+ Bronze,650,No,Black / Red,0.0
+PSU,Xilence,Performance A+ III,ATX,80+ Bronze,550,No,Black / Red,119.9
+PSU,Xilence,Performance C,ATX,,500,No,Black / Red,0.0
+PSU,Xilence,Performance C,ATX,,400,No,Black / Red,0.0
+PSU,Xilence,Performance C,ATX,,600,No,Black / Red,0.0
+PSU,Xilence,Performance C,ATX,,700,No,Black / Red,0.0
+PSU,Xilence,Performance X,ATX,80+ Gold,850,Semi,Black / Red,169.69
+PSU,Xilence,Performance X,ATX,80+ Gold,750,Semi,Black / Red,146.78
+PSU,Xilence,Performance X,ATX,80+ Gold,650,No,Black / Red,120.94
+PSU,Xilence,Performance X,ATX,80+ Gold,550,No,Black / Red,118.89
+PSU,Xion,AXP-1000K14XE,ATX,80+ Bronze,1000,Semi,,0.0
+PSU,Xion,AXP-1000R14HE,ATX,80+ Bronze,1000,Full,,0.0
+PSU,Xion,AXP-700K14XE,ATX,80+ Bronze,700,Semi,,0.0
+PSU,Xion,AXP-700W14FG,ATX,80+ Gold,700,Full,,0.0
+PSU,Xion,AXP-850K14XE,ATX,80+ Bronze,850,Semi,,0.0
+PSU,Xion,AXP-850R14N,ATX,,850,No,,0.0
+PSU,Xion,EN-450F12BK,ATX,,450,No,,0.0
+PSU,Xion,EN-600F12,ATX,,600,No,,0.0
+PSU,Xion,XON-1000P14F,ATX,,1000,No,,0.0
+PSU,Xion,XON-1100P14HE,ATX,,1100,No,,0.0
+PSU,Xion,XON-1250P14HE,ATX,,1250,No,,0.0
+PSU,Xion,XON-700P12F,ATX,,700,No,,0.0
+PSU,Xion,XON-800R14N,ATX,,800,Full,,0.0
+PSU,Xion,XON-850P14F,ATX,,850,No,,0.0
+PSU,Zalman,1000-HP Plus,ATX,80+ Silver,1000,Full,,0.0
+PSU,Zalman,1250 Platinum,ATX,80+ Platinum,1250,Semi,,0.0
+PSU,Zalman,850-HP Plus,ATX,80+ Silver,850,Semi,,0.0
+PSU,Zalman,LE,ATX,,400,No,,0.0
+PSU,Zalman,TX,ATX,,600,No,,0.0
+PSU,Zalman,TX,ATX,,500,No,,0.0
+PSU,Zalman,TX,ATX,,700,No,,0.0
+PSU,Zalman,ZM-600-GT,ATX,80+ Bronze,600,Semi,,0.0
+PSU,Zalman,ZM1000-HP,ATX,80+,1000,Full,,0.0
+PSU,Zalman,ZM460B-APS,ATX,,460,No,,0.0
+PSU,Zalman,ZM500-HP,ATX,,500,Semi,,0.0
+PSU,Zalman,ZM500-RS,ATX,80+,500,No,,0.0
+PSU,Zalman,ZM600-HP,ATX,,600,Full,,0.0
+PSU,Zalman,ZM600-ST,ATX,80+,600,No,,0.0
+PSU,Zalman,ZM660-XT,ATX,80+ Bronze,660,Full,,0.0
+PSU,Zalman,ZM770-XT,ATX,80+ Bronze,770,Full,,0.0
+PSU,Zalman,zm-400-LE,ATX,,400,No,,0.0
+PSU,Zalman,zm-500-LE,ATX,,500,No,,0.0
+PSU,Zalman,zm-550-XG,ATX,80+ Gold,550,Semi,,0.0
+PSU,Zalman,zm-650-XG,ATX,80+ Gold,650,Semi,,0.0
+PSU,Zalman,zm-750-XG,ATX,80+ Gold,750,Semi,,0.0
+PSU,be quiet!,BN623,ATX,80+ Bronze,500,No,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Gold,550,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Gold,1000,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Gold,650,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Gold,1200,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Gold,750,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 10,ATX,80+ Platinum,850,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,1200,Semi,,279.99
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,850,Semi,,199.9
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,1000,Semi,,0.0
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,750,Semi,,377.39
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,550,Semi,,249.09
+PSU,be quiet!,Dark Power Pro 11,ATX,80+ Platinum,650,Semi,,159.9
+PSU,be quiet!,Dark Power Pro 12,ATX,80+ Titanium,1500,Full,Black,799.99
+PSU,be quiet!,Dark Power Pro 12,ATX,80+ Titanium,1200,Full,Black,0.0
+PSU,be quiet!,POWER 2,SFX,80+ Bronze,300,No,,178.0
+PSU,be quiet!,POWER 2,SFX,80+ Bronze,400,No,,0.0
+PSU,be quiet!,PURE POWER L7 | 300W,ATX,80+,300,No,,0.0
+PSU,be quiet!,PURE POWER L7 | 350W,ATX,80+,350,No,,0.0
+PSU,be quiet!,PURE POWER L7 | 530W,ATX,80+,530,No,,0.0
+PSU,be quiet!,PURE POWER L8,ATX,80+ Bronze,530,Semi,,0.0
+PSU,be quiet!,PURE POWER L8,ATX,80+ Bronze,630,Semi,Black / Orange,0.0
+PSU,be quiet!,PURE POWER L8,ATX,80+ Bronze,700,No,,0.0
+PSU,be quiet!,PURE POWER L8,ATX,80+ Bronze,600,No,,0.0
+PSU,be quiet!,PURE POWER L8 300W,ATX,80+ Bronze,300,No,,0.0
+PSU,be quiet!,PURE POWER L8 350W,ATX,80+ Bronze,350,No,,0.0
+PSU,be quiet!,PURE POWER L8 400W,ATX,80+ Bronze,400,No,,0.0
+PSU,be quiet!,PURE POWER L8 500W,ATX,80+ Bronze,500,No,,0.0
+PSU,be quiet!,Power Zone,ATX,80+ Bronze,650,Full,,0.0
+PSU,be quiet!,Power Zone,ATX,80+ Bronze,850,Full,,0.0
+PSU,be quiet!,Power Zone,ATX,80+ Bronze,1000,Full,,0.0
+PSU,be quiet!,Power Zone,ATX,80+ Bronze,750,Full,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Bronze,350,No,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Silver,500,No,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Silver,400,No,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Silver,700,No,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Silver,600,No,,0.0
+PSU,be quiet!,Pure Power 10,ATX,80+ Bronze,300,No,,0.0
+PSU,be quiet!,Pure Power 10 CM,ATX,80+ Silver,400,Semi,,0.0
+PSU,be quiet!,Pure Power 10 CM,ATX,80+ Silver,500,Semi,,0.0
+PSU,be quiet!,Pure Power 10 CM,ATX,80+ Silver,700,Semi,,0.0
+PSU,be quiet!,Pure Power 10 CM,ATX,80+ Silver,600,Semi,,0.0
+PSU,be quiet!,Pure Power 11,ATX,80+ Bronze,350,No,Black,148.64
+PSU,be quiet!,Pure Power 11,ATX,80+ Gold,500,No,Black,79.98
+PSU,be quiet!,Pure Power 11,ATX,80+ Bronze,300,No,Black,135.03
+PSU,be quiet!,Pure Power 11,ATX,80+ Gold,600,No,Black,171.79
+PSU,be quiet!,Pure Power 11,ATX,80+ Gold,400,No,Black,99.6
+PSU,be quiet!,Pure Power 11,ATX,80+ Gold,700,No,Black,99.9
+PSU,be quiet!,Pure Power 11 CM,ATX,80+ Gold,500,Semi,Black,162.94
+PSU,be quiet!,Pure Power 11 CM,ATX,80+ Gold,600,Semi,Black,99.99
+PSU,be quiet!,Pure Power 11 CM,ATX,80+ Gold,700,Semi,Black,109.9
+PSU,be quiet!,Pure Power 11 CM,ATX,80+ Gold,400,Semi,Black,173.0
+PSU,be quiet!,Pure Power 9,ATX,80+ Silver,500,Semi,,0.0
+PSU,be quiet!,Pure Power 9,ATX,80+ Silver,400,Semi,,0.0
+PSU,be quiet!,Pure Power 9,ATX,80+ Silver,400,No,,0.0
+PSU,be quiet!,Pure Power 9 CM,ATX,80+ Silver,600,Semi,,0.0
+PSU,be quiet!,SFX L Power,SFX,80+ Gold,600,Full,,0.0
+PSU,be quiet!,SFX L Power,SFX,80+ Gold,500,Full,,0.0
+PSU,be quiet!,STRAIGHT POWER 10,ATX,80+ Gold,700,No,,0.0
+PSU,be quiet!,STRAIGHT POWER 10,ATX,80+ Gold,600,No,,0.0
+PSU,be quiet!,STRAIGHT POWER 10,ATX,80+ Gold,500,No,,0.0
+PSU,be quiet!,STRAIGHT POWER 10,ATX,80+ Gold,400,No,,0.0
+PSU,be quiet!,STRAIGHT POWER 10 CM,ATX,80+ Gold,800,Semi,,0.0
+PSU,be quiet!,STRAIGHT POWER 10 CM,ATX,80+ Gold,700,Semi,,0.0
+PSU,be quiet!,STRAIGHT POWER 10 CM,ATX,80+ Gold,500,Semi,,0.0
+PSU,be quiet!,STRAIGHT POWER 10 CM,ATX,80+ Gold,600,Semi,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 680W / CM,ATX,80+ Gold,680,Semi,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 | 400W,ATX,80+ Gold,400,No,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 | 450W,ATX,80+ Gold,450,No,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 | 480W CM,ATX,80+ Gold,480,Full,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 | 500W,ATX,80+ Gold,500,No,,0.0
+PSU,be quiet!,STRAIGHT POWER E9 | 580W CM,ATX,80+ Gold,580,Semi,,0.0
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,450,Full,,220.32
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,750,Full,Black,149.9
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,650,Full,,118.39
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,1000,Full,,0.0
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,650,Full,Black,134.9
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,850,Full,,0.0
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,550,Full,,274.99
+PSU,be quiet!,Straight Power 11,ATX,80+ Gold,750,Full,,338.99
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,850,Full,Black,174.9
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,1200,Full,Black,624.99
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,550,Full,Black,0.0
+PSU,be quiet!,Straight Power 11,ATX,80+ Platinum,1000,Full,Black,0.0
+PSU,be quiet!,Straight Power E9,ATX,80+ Gold,600,No,,0.0
+PSU,be quiet!,System Power 8,ATX,80+,600,No,,0.0
+PSU,be quiet!,System Power 8,ATX,80+,400,No,,0.0
+PSU,be quiet!,System Power 8,ATX,80+,500,No,,0.0
+PSU,be quiet!,System Power 9,ATX,80+ Bronze,500,No,Black,0.0
+PSU,be quiet!,System Power 9,ATX,80+ Bronze,600,No,Black,0.0
+PSU,be quiet!,System Power 9,ATX,80+ Bronze,700,No,Black,148.59
+PSU,be quiet!,System Power 9,ATX,80+ Bronze,400,No,Black,79.4
+PSU,be quiet!,System Power 9 CM,ATX,80+ Bronze,500,Semi,Black,0.0
+PSU,be quiet!,System Power 9 CM,ATX,80+ Bronze,700,Semi,Black,208.65
+PSU,be quiet!,System Power U9,ATX,80+ Bronze,600,No,Black,0.0
+PSU,be quiet!,System Power U9,ATX,80+ Bronze,500,No,Black,0.0
+PSU,be quiet!,System Power U9,ATX,80+ Bronze,400,No,Black,0.0
+PSU,be quiet!,System Power U9,ATX,80+ Bronze,700,No,Black,0.0
+PSU,be quiet!,TFX Power 2,TFX,80+ Gold,300,No,,146.58
+PSU,be quiet!,TFX Power 2,TFX,80+ Bronze,300,No,,0.0
