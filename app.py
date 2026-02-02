@@ -7,12 +7,6 @@ import time
 
 from recommender import recommend_builds_from_csv_dir
 
-# OpenAI SDK (pip install openai)
-try:
-    from openai import OpenAI
-except Exception:
-    OpenAI = None
-
 
 # =============================
 # App config
@@ -27,10 +21,6 @@ budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2
 TOP_K_BASE = 200
 DISPLAY_TOP = 5
 DATA_DIR = "data"
-OPENAI_MODEL = "gpt-4o-mini"
-
-# Cooldown between ANY AI attempts (success or failure) to reduce rate limits
-AI_COOLDOWN_SECONDS = 600  # 10 minutes (set to 300 for 5 minutes)
 
 # =============================
 # Session state (persist results across reruns)
@@ -40,13 +30,9 @@ if "ranked_df" not in st.session_state:
 if "shown_builds" not in st.session_state:
     st.session_state.shown_builds = None
 
-# AI: single summary for all 5 builds
-if "ai_text" not in st.session_state:
-    st.session_state.ai_text = None
-if "ai_sig" not in st.session_state:
-    st.session_state.ai_sig = None
-if "ai_last_attempt_ts" not in st.session_state:
-    st.session_state.ai_last_attempt_ts = 0.0
+# Manual "AI" summary paste box state
+if "ai_text_manual" not in st.session_state:
+    st.session_state.ai_text_manual = ""
 
 st.divider()
 
@@ -71,7 +57,9 @@ def clean_str(v) -> str:
 
 
 def safe_float_series(s):
-    return np.array([float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s])
+    return np.array(
+        [float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s]
+    )
 
 
 def minmax_norm(arr):
@@ -253,104 +241,6 @@ def apply_user_weights(df, perf_vs_value: float, include_util: bool):
 
 
 # =============================
-# OpenAI: one combined summary for all five builds
-# =============================
-def get_openai_client():
-    if OpenAI is None:
-        return None, "OpenAI SDK not installed. Add `openai` to requirements.txt."
-    api_key = None
-    try:
-        api_key = st.secrets.get("OPENAI_API_KEY")
-    except Exception:
-        api_key = None
-    if not api_key:
-        return None, "Missing OPENAI_API_KEY. Add it to Streamlit secrets."
-    return OpenAI(api_key=api_key), None
-
-
-def builds_signature(builds: list[dict], industry: str, budget: float) -> str:
-    payload = {"industry": industry, "budget": float(budget), "builds": builds}
-    raw = json.dumps(payload, sort_keys=True, ensure_ascii=True).encode("utf-8")
-    return hashlib.sha256(raw).hexdigest()
-
-
-def make_builds_minimal_for_ai(shown_builds: list[dict]) -> list[dict]:
-    minimal = []
-    for i, b in enumerate(shown_builds, start=1):
-        minimal.append(
-            {
-                "rank": i,
-                "total_price": b.get("total_price"),
-                "est_draw_w": b.get("est_draw_w"),
-                "cpu": b.get("cpu"),
-                "cpu_cores": b.get("cpu_cores"),
-                "cpu_socket": b.get("cpu_socket"),
-                "gpu": b.get("gpu"),
-                "gpu_vram_gb": b.get("gpu_vram_gb"),
-                "ram_total_gb": b.get("ram_total_gb"),
-                "ram_ddr": b.get("ram_ddr"),
-                "motherboard": b.get("motherboard"),
-                "mb_socket": b.get("mb_socket"),
-                "mb_ddr": b.get("mb_ddr"),
-                "psu_wattage": b.get("psu_wattage"),
-            }
-        )
-    return minimal
-
-
-@st.cache_data(show_spinner=False, ttl=3600)
-def ai_analyze_top5_cached(sig: str, builds_minimal: list[dict], industry: str, budget: float, model: str):
-    """
-    Returns ONE markdown summary analyzing the top 5 builds together.
-    Cached for 1 hour per unique signature.
-    """
-    client, err = get_openai_client()
-    if err:
-        return {"__error__": err}
-
-    system = (
-        "You are a PC-building assistant. "
-        "You will receive 5 PC builds with limited fields. "
-        "Write ONE concise markdown summary comparing them. "
-        "Use only provided data; if unknown, say unknown."
-    )
-
-    user = {
-        "industry": industry,
-        "budget_usd": float(budget),
-        "builds": builds_minimal,
-        "instructions": (
-            "Write ONE markdown response with:\n"
-            "1) Overall recommendation (2–4 sentences)\n"
-            "2) Key tradeoffs across the builds (3–6 bullets)\n"
-            "3) Best pick for most people + why (1–2 sentences)\n"
-            "4) One line per build: 'Build #X best for ...' (5 lines)\n"
-            "Keep under ~180 words."
-        ),
-    }
-
-    try:
-        completion = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": json.dumps(user)},
-            ],
-            temperature=0.2,
-            max_tokens=260,
-        )
-        text = completion.choices[0].message.content or ""
-        return {"text": text.strip()}
-
-    except Exception as e:
-        msg = str(e).lower()
-        is_rate_limit = ("ratelimit" in msg) or ("rate limit" in msg) or ("429" in msg)
-        if is_rate_limit:
-            return {"__error__": "Rate limit hit. Please try again later."}
-        return {"__error__": f"OpenAI call failed: {type(e).__name__}"}
-
-
-# =============================
 # UI controls
 # =============================
 with st.expander("Display & ranking options"):
@@ -384,15 +274,15 @@ with st.expander("Display & ranking options"):
         help="0.0 = only enforce CPU+GPU uniqueness. Higher values allow more repetition.",
     )
 
-    st.markdown("### AI explanations")
-    use_ai = st.checkbox("Show ONE AI summary for the current top 5", value=False)
-    st.caption("No buttons. No auto-refresh. One combined comment for all five builds.")
+    st.markdown("### AI commentary (no API)")
+    use_manual_ai = st.checkbox("Show/paste AI commentary for the top 5 builds", value=True)
+    st.caption("This avoids API rate limits. Generate a summary in ChatGPT and paste it into the box below.")
 
 st.divider()
 
 
 # =============================
-# Build card (no per-build AI)
+# Build card
 # =============================
 def build_card(build: dict, idx: int):
     left, right = st.columns([3, 1])
@@ -493,11 +383,6 @@ def build_card(build: dict, idx: int):
 # Generate builds (stores results in session_state)
 # =============================
 if st.button("Generate Builds", type="primary"):
-    # Clear AI summary whenever builds change
-    st.session_state.ai_text = None
-    st.session_state.ai_sig = None
-    st.session_state.ai_last_attempt_ts = 0.0
-
     with st.spinner("Generating best builds..."):
         df = recommend_builds_from_csv_dir(
             data_dir=DATA_DIR,
@@ -533,40 +418,34 @@ if st.button("Generate Builds", type="primary"):
 
 
 # =============================
-# Render saved builds + AI summary (no buttons, no refresh)
+# Render saved builds + manual AI summary
 # =============================
 if st.session_state.shown_builds:
     shown_builds = st.session_state.shown_builds
     ranked = st.session_state.ranked_df
 
-    # AI: one summary for all five (runs once per unique signature + cooldown)
-    if use_ai:
-        builds_minimal = make_builds_minimal_for_ai(shown_builds)
-        sig = builds_signature(builds_minimal, industry, float(budget))
+    if use_manual_ai:
+        st.markdown("## AI Commentary (Top 5 Builds)")
+        st.caption(
+            "Generate a short summary in ChatGPT and paste it here. "
+            "Markdown is supported, and it will persist during your session."
+        )
 
-        now = time.time()
-        cooldown_remaining = AI_COOLDOWN_SECONDS - (now - float(st.session_state.ai_last_attempt_ts))
+        st.session_state.ai_text_manual = st.text_area(
+            "Paste AI summary",
+            value=st.session_state.ai_text_manual,
+            height=180,
+            placeholder=(
+                "Suggested format:\n"
+                "- Overall recommendation (2–4 sentences)\n"
+                "- Key tradeoffs (3–6 bullets)\n"
+                "- Best pick for most people + why\n"
+                "- One line per build: 'Build #X best for ...'\n"
+            ),
+        ).strip()
 
-        if cooldown_remaining > 0:
-            st.info(f"AI analysis is cooling down. Try again in ~{int(cooldown_remaining)} seconds.")
-        else:
-            if st.session_state.ai_sig != sig or not st.session_state.ai_text:
-                with st.spinner("AI is analyzing the top 5 builds..."):
-                    st.session_state.ai_last_attempt_ts = now
-                    result = ai_analyze_top5_cached(sig, builds_minimal, industry, float(budget), OPENAI_MODEL)
-
-                if isinstance(result, dict) and result.get("__error__"):
-                    st.warning(f"AI notes unavailable: {result['__error__']}")
-                    # Store sig so it doesn't repeatedly retry on every rerun
-                    st.session_state.ai_sig = sig
-                    st.session_state.ai_text = None
-                else:
-                    st.session_state.ai_sig = sig
-                    st.session_state.ai_text = (result.get("text") or "").strip()
-
-        if st.session_state.ai_text:
-            st.markdown("## AI Summary (Top 5 Builds)")
-            st.markdown(st.session_state.ai_text)
+        if st.session_state.ai_text_manual:
+            st.markdown(st.session_state.ai_text_manual)
             st.divider()
 
     st.success(
