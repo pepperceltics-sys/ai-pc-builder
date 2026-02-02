@@ -29,6 +29,9 @@ DISPLAY_TOP = 5
 DATA_DIR = "data"
 OPENAI_MODEL = "gpt-4o-mini"
 
+# Cooldown between ANY AI attempts (success or failure) to reduce rate limits
+AI_COOLDOWN_SECONDS = 600  # 10 minutes (set to 300 for 5 minutes)
+
 # =============================
 # Session state (persist results across reruns)
 # =============================
@@ -42,6 +45,8 @@ if "ai_text" not in st.session_state:
     st.session_state.ai_text = None
 if "ai_sig" not in st.session_state:
     st.session_state.ai_sig = None
+if "ai_last_attempt_ts" not in st.session_state:
+    st.session_state.ai_last_attempt_ts = 0.0
 
 st.divider()
 
@@ -66,9 +71,7 @@ def clean_str(v) -> str:
 
 
 def safe_float_series(s):
-    return np.array(
-        [float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s]
-    )
+    return np.array([float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s])
 
 
 def minmax_norm(arr):
@@ -152,13 +155,7 @@ def get_part_cols(df):
 # =============================
 # Uniqueness (CPU+GPU combo hard requirement)
 # =============================
-def select_diverse_builds(
-    df,
-    n=5,
-    require_unique_cpu_gpu=True,
-    part_repeat_penalty=0.0,
-    part_cols=None,
-):
+def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_penalty=0.0, part_cols=None):
     if df is None or df.empty:
         return df
 
@@ -349,7 +346,7 @@ def ai_analyze_top5_cached(sig: str, builds_minimal: list[dict], industry: str, 
         msg = str(e).lower()
         is_rate_limit = ("ratelimit" in msg) or ("rate limit" in msg) or ("429" in msg)
         if is_rate_limit:
-            return {"__error__": "Rate limit hit. Please try again in ~30–60 seconds."}
+            return {"__error__": "Rate limit hit. Please try again later."}
         return {"__error__": f"OpenAI call failed: {type(e).__name__}"}
 
 
@@ -390,7 +387,6 @@ with st.expander("Display & ranking options"):
     st.markdown("### AI explanations")
     use_ai = st.checkbox("Show ONE AI summary for the current top 5", value=False)
     st.caption("No buttons. No auto-refresh. One combined comment for all five builds.")
-
 
 st.divider()
 
@@ -500,6 +496,7 @@ if st.button("Generate Builds", type="primary"):
     # Clear AI summary whenever builds change
     st.session_state.ai_text = None
     st.session_state.ai_sig = None
+    st.session_state.ai_last_attempt_ts = 0.0
 
     with st.spinner("Generating best builds..."):
         df = recommend_builds_from_csv_dir(
@@ -542,23 +539,30 @@ if st.session_state.shown_builds:
     shown_builds = st.session_state.shown_builds
     ranked = st.session_state.ranked_df
 
-    # AI: one summary for all five (runs once per unique signature)
+    # AI: one summary for all five (runs once per unique signature + cooldown)
     if use_ai:
         builds_minimal = make_builds_minimal_for_ai(shown_builds)
         sig = builds_signature(builds_minimal, industry, float(budget))
 
-        if st.session_state.ai_sig != sig or not st.session_state.ai_text:
-            with st.spinner("AI is analyzing the top 5 builds..."):
-                result = ai_analyze_top5_cached(sig, builds_minimal, industry, float(budget), OPENAI_MODEL)
+        now = time.time()
+        cooldown_remaining = AI_COOLDOWN_SECONDS - (now - float(st.session_state.ai_last_attempt_ts))
 
-            if isinstance(result, dict) and result.get("__error__"):
-                st.warning(f"AI notes unavailable: {result['__error__']}")
-                # store sig so it doesn't repeatedly retry on every rerun
-                st.session_state.ai_sig = sig
-                st.session_state.ai_text = None
-            else:
-                st.session_state.ai_sig = sig
-                st.session_state.ai_text = (result.get("text") or "").strip()
+        if cooldown_remaining > 0:
+            st.info(f"AI analysis is cooling down. Try again in ~{int(cooldown_remaining)} seconds.")
+        else:
+            if st.session_state.ai_sig != sig or not st.session_state.ai_text:
+                with st.spinner("AI is analyzing the top 5 builds..."):
+                    st.session_state.ai_last_attempt_ts = now
+                    result = ai_analyze_top5_cached(sig, builds_minimal, industry, float(budget), OPENAI_MODEL)
+
+                if isinstance(result, dict) and result.get("__error__"):
+                    st.warning(f"AI notes unavailable: {result['__error__']}")
+                    # Store sig so it doesn't repeatedly retry on every rerun
+                    st.session_state.ai_sig = sig
+                    st.session_state.ai_text = None
+                else:
+                    st.session_state.ai_sig = sig
+                    st.session_state.ai_text = (result.get("text") or "").strip()
 
         if st.session_state.ai_text:
             st.markdown("## AI Summary (Top 5 Builds)")
