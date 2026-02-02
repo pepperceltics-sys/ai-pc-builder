@@ -10,8 +10,7 @@ st.caption("Select an industry + budget. Builds are generated from CSVs stored i
 industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
 budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
 
-# Base number of builds to generate/rank.
-# When uniqueness is enabled, we automatically ask for more to increase variety.
+# CHANGED: default to 200 builds instead of 50
 TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
@@ -100,7 +99,7 @@ def get_part_cols(df):
     return [c for c in candidates if c in df.columns]
 
 # -----------------------------
-# NEW: CPU+GPU unique top-N selector
+# CPU+GPU unique top-N selector
 # -----------------------------
 def select_diverse_builds(
     df,
@@ -146,7 +145,6 @@ def select_diverse_builds(
                 continue
 
         # Optional soft rule: avoid reusing the same exact parts too often
-        # (0.0 disables this entirely)
         if part_repeat_penalty and part_cols:
             parts = row_parts(r)
             repeat_score = sum(part_counts.get(p, 0) for p in parts)
@@ -336,32 +334,26 @@ def build_card(build: dict, idx: int):
 # Main action
 # -----------------------------
 if st.button("Generate Builds", type="primary"):
-    # If we’re requiring uniqueness, pull a larger ranked list so we have enough distinct CPU+GPU combos.
-    top_k_effective = TOP_K_BASE
-    if make_unique and require_unique_cpu_gpu:
-        top_k_effective = max(TOP_K_BASE, 200)
-
     with st.spinner("Generating best builds..."):
         df = recommend_builds_from_csv_dir(
             data_dir=DATA_DIR,
             industry=industry,
             total_budget=float(budget),
-            top_k=top_k_effective
+            top_k=TOP_K_BASE  # CHANGED: now always uses 200 by default
         )
 
     if df is None or df.empty:
         st.warning("No compatible builds found under these constraints. Try increasing your budget.")
     else:
-        # 1) Apply user preference weights (re-rank)
         ranked = apply_user_weights(df, perf_vs_value=perf_vs_value, include_util=include_util)
 
-        # Optional: report unique CPU+GPU availability
+        # Optional info about CPU+GPU diversity
         if require_unique_cpu_gpu and "cpu" in ranked.columns and "gpu" in ranked.columns:
             uniq_pairs = ranked[["cpu", "gpu"]].dropna().astype(str).drop_duplicates().shape[0]
             if uniq_pairs < DISPLAY_TOP:
                 st.info(f"Only {uniq_pairs} unique CPU+GPU combos were found in the ranked pool under this budget.")
 
-        # 2) Select top 5 (with CPU+GPU uniqueness if enabled)
+        # Select the top builds (with CPU+GPU uniqueness if enabled)
         if make_unique:
             shown_df = select_diverse_builds(
                 ranked,
@@ -373,7 +365,11 @@ if st.button("Generate Builds", type="primary"):
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        st.success(f"Generated {len(ranked)} ranked builds. Showing {len(shown_df)} build(s).")
+        # NEW: Sort displayed builds by price (low → high)
+        if "total_price" in shown_df.columns:
+            shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
+
+        st.success(f"Generated {len(ranked)} ranked builds. Showing {len(shown_df)} build(s) ordered by total price.")
 
         for i, b in enumerate(shown_df.to_dict(orient="records"), start=1):
             build_card(b, i)
@@ -381,6 +377,6 @@ if st.button("Generate Builds", type="primary"):
         st.download_button(
             "Download ranked builds (CSV)",
             data=ranked.to_csv(index=False).encode("utf-8"),
-            file_name=f"top_{top_k_effective}_{industry}_{int(budget)}.csv",
+            file_name=f"top_{TOP_K_BASE}_{industry}_{int(budget)}.csv",
             mime="text/csv"
         )
