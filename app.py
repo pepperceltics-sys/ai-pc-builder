@@ -28,6 +28,18 @@ DATA_DIR = "data"
 # Default model for fast, cheap summaries
 OPENAI_MODEL = "gpt-4o-mini"
 
+# -----------------------------
+# Session state (persist results across reruns)
+# -----------------------------
+if "ranked_df" not in st.session_state:
+    st.session_state.ranked_df = None
+if "shown_builds" not in st.session_state:
+    st.session_state.shown_builds = None
+if "ai_map" not in st.session_state:
+    st.session_state.ai_map = None
+if "ai_sig" not in st.session_state:
+    st.session_state.ai_sig = None
+
 st.divider()
 
 # -----------------------------
@@ -121,11 +133,6 @@ def select_diverse_builds(
     part_repeat_penalty=0.0,
     part_cols=None
 ):
-    """
-    df is assumed sorted best -> worst already.
-    Hard rule: unique (cpu, gpu) pairs if require_unique_cpu_gpu is True.
-    Optional soft rule: discourage repeating parts across selected builds.
-    """
     if df is None or df.empty:
         return df
 
@@ -242,14 +249,6 @@ def builds_signature(builds: list[dict], industry: str, budget: float) -> str:
 
 @st.cache_data(show_spinner=False, ttl=3600)
 def ai_analyze_builds_cached(sig: str, builds_minimal: list[dict], industry: str, budget: float, model: str):
-    """
-    Returns dict: {rank(int): {"pros":[...], "cons":[...]}}
-    Cached by signature for 1 hour.
-
-    Rate-limit safe:
-    - Retries on 429 / rate limit with exponential backoff
-    - Returns {"__error__": "..."} instead of crashing the app
-    """
     client, err = get_openai_client()
     if err:
         return {"__error__": err}
@@ -290,7 +289,6 @@ def ai_analyze_builds_cached(sig: str, builds_minimal: list[dict], industry: str
 
             text = completion.choices[0].message.content or ""
 
-            # Parse strict JSON (allow extra text around it)
             try:
                 data = json.loads(text)
             except Exception:
@@ -379,11 +377,8 @@ with st.expander("Display & ranking options"):
     )
 
     st.markdown("### AI explanations")
-    use_ai = st.checkbox("Enable AI explanations", value=False)
-    ai_go = False
-    if use_ai:
-        ai_go = st.button("Generate AI explanations", type="secondary")
-        st.caption("AI runs only when you click the button (prevents rerun spam).")
+    use_ai = st.checkbox("Show AI pros/cons for the current top 5", value=False)
+    st.caption("AI runs once per unique set of 5 builds and then persists (no more losing results on rerun).")
 
 st.divider()
 
@@ -428,7 +423,6 @@ def build_card(build: dict, idx: int, ai_notes: dict | None = None):
 
         st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
 
-    # AI Notes
     if ai_notes:
         pros = ai_notes.get("pros", []) or []
         cons = ai_notes.get("cons", []) or []
@@ -485,9 +479,13 @@ def build_card(build: dict, idx: int, ai_notes: dict | None = None):
     st.divider()
 
 # -----------------------------
-# Main action
+# Generate builds (stores results in session_state)
 # -----------------------------
 if st.button("Generate Builds", type="primary"):
+    # Clear AI notes whenever builds change
+    st.session_state.ai_map = None
+    st.session_state.ai_sig = None
+
     with st.spinner("Generating best builds..."):
         df = recommend_builds_from_csv_dir(
             data_dir=DATA_DIR,
@@ -497,11 +495,12 @@ if st.button("Generate Builds", type="primary"):
         )
 
     if df is None or df.empty:
+        st.session_state.ranked_df = None
+        st.session_state.shown_builds = None
         st.warning("No compatible builds found under these constraints. Try increasing your budget.")
     else:
         ranked = apply_user_weights(df, perf_vs_value=perf_vs_value, include_util=include_util)
 
-        # Select top 5 (with CPU+GPU uniqueness if enabled)
         if make_unique:
             shown_df = select_diverse_builds(
                 ranked,
@@ -513,34 +512,55 @@ if st.button("Generate Builds", type="primary"):
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        # Display order: cheapest -> most expensive
         if "total_price" in shown_df.columns:
             shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
 
-        shown_builds = shown_df.to_dict(orient="records")
+        st.session_state.ranked_df = ranked
+        st.session_state.shown_builds = shown_df.to_dict(orient="records")
 
-        # AI analysis (runs only if enabled + button clicked)
-        ai_map = None
-        if use_ai and ai_go:
-            builds_minimal = make_builds_minimal_for_ai(shown_builds)
-            sig = builds_signature(builds_minimal, industry, float(budget))
+# -----------------------------
+# Render saved builds + AI (persists across reruns)
+# -----------------------------
+if st.session_state.shown_builds:
+    shown_builds = st.session_state.shown_builds
+    ranked = st.session_state.ranked_df
+
+    # AI runs automatically ONCE per unique build set
+    if use_ai:
+        builds_minimal = make_builds_minimal_for_ai(shown_builds)
+        sig = builds_signature(builds_minimal, industry, float(budget))
+
+        # Only call OpenAI if we haven't already for this exact set
+        if st.session_state.ai_sig != sig or st.session_state.ai_map is None:
             with st.spinner("AI is analyzing the top builds..."):
                 ai_map = ai_analyze_builds_cached(sig, builds_minimal, industry, float(budget), OPENAI_MODEL)
 
             if isinstance(ai_map, dict) and ai_map.get("__error__"):
                 st.warning(f"AI notes unavailable: {ai_map['__error__']}")
-                ai_map = None
+                st.session_state.ai_map = None
+                # Store the signature anyway so we don't hammer retries every rerun
+                st.session_state.ai_sig = sig
+            else:
+                st.session_state.ai_map = ai_map
+                st.session_state.ai_sig = sig
 
-        st.success(f"Generated {len(ranked)} ranked builds. Showing {len(shown_builds)} build(s) ordered by total price.")
+    st.success(
+        f"Generated {len(ranked) if ranked is not None else 'some'} ranked builds. "
+        f"Showing {len(shown_builds)} build(s) ordered by total price."
+    )
 
-        # Render cards; AI notes use the displayed order (1..5)
-        for i, b in enumerate(shown_builds, start=1):
-            notes = ai_map.get(i) if isinstance(ai_map, dict) else None
-            build_card(b, i, ai_notes=notes)
+    for i, b in enumerate(shown_builds, start=1):
+        notes = None
+        if use_ai and isinstance(st.session_state.ai_map, dict):
+            notes = st.session_state.ai_map.get(i)
+        build_card(b, i, ai_notes=notes)
 
+    if ranked is not None:
         st.download_button(
             "Download ranked builds (CSV)",
             data=ranked.to_csv(index=False).encode("utf-8"),
             file_name=f"top_{TOP_K_BASE}_{industry}_{int(budget)}.csv",
             mime="text/csv"
         )
+else:
+    st.info("Click **Generate Builds** to see recommendations.")
