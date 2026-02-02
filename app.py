@@ -18,7 +18,7 @@ st.caption("Select an industry + budget. Builds are generated from CSVs stored i
 industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
 budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
 
-TOP_K_BASE = 200
+TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
 
