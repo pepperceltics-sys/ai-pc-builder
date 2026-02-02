@@ -12,7 +12,7 @@ budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2
 
 # Base number of builds to generate/rank.
 # When uniqueness is enabled, we automatically ask for more to increase variety.
-TOP_K_BASE = 200
+TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
 
