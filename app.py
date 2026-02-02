@@ -3,28 +3,35 @@ from urllib.parse import quote_plus
 import numpy as np
 import json
 import hashlib
+import time
 
 from recommender import recommend_builds_from_csv_dir
 
-# OpenAI SDK (pip install openai)
+# OpenAI SDK
 try:
     from openai import OpenAI
 except Exception:
     OpenAI = None
 
-
 st.set_page_config(page_title="AI PC Builder", layout="wide")
 st.title("AI PC Builder")
 st.caption("Select an industry + budget. Builds are generated from CSVs stored in /data.")
 
-industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
-budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
+industry = st.selectbox(
+    "Industry",
+    ["gaming", "office", "engineering", "content_creation"]
+)
+budget = st.number_input(
+    "Budget (USD)",
+    min_value=300,
+    max_value=10000,
+    value=2000,
+    step=50
+)
 
 TOP_K_BASE = 200
 DISPLAY_TOP = 5
 DATA_DIR = "data"
-
-# Default model for fast, cheap summaries
 OPENAI_MODEL = "gpt-4o-mini"
 
 st.divider()
@@ -32,13 +39,13 @@ st.divider()
 # -----------------------------
 # Helpers
 # -----------------------------
-def money(x) -> str:
+def money(x):
     try:
         return f"${float(x):,.2f}"
     except Exception:
         return "—"
 
-def clean_str(v) -> str:
+def clean_str(v):
     if v is None:
         return ""
     s = str(v).strip()
@@ -68,456 +75,202 @@ def minmax_norm(arr):
     out[~finite] = 0.0
     return out
 
-def show_if_present(label: str, value):
-    s = clean_str(value)
-    if not s:
-        return
-    st.write(f"**{label}:** {s}")
-
-def build_search_query(part_name: str, extras: list[str]) -> str:
+def build_search_query(part_name, extras):
     base = clean_str(part_name)
     extras_clean = [clean_str(e) for e in extras if clean_str(e)]
-    if not base and not extras_clean:
-        return ""
     return " ".join([base] + extras_clean).strip()
 
-def google_search_url(query: str) -> str:
+def google_search_url(query):
     return f"https://www.google.com/search?q={quote_plus(query)}"
 
-def pcpp_search_url(query: str) -> str:
-    return f"https://pcpartpicker.com/search/?q={quote_plus(query)}"
-
-def part_link(label: str, part_name: str, extras: list[str], use="google"):
+def part_link(label, part_name, extras):
     q = build_search_query(part_name, extras)
-    if not q:
-        st.caption("Lookup: —")
-        return
-    url = google_search_url(q) if use == "google" else pcpp_search_url(q)
-    st.caption(f"Lookup: [{label}]({url})")
-
-def build_summary_text(build: dict, idx: int) -> str:
-    lines = []
-    lines.append(f"Build #{idx} — Total: {money(build.get('total_price'))} — Industry: {str(build.get('industry','')).capitalize()}")
-    lines.append(f"CPU: {build.get('cpu','—')} ({build.get('cpu_cores','—')} cores, socket {build.get('cpu_socket','—')}) — {money(build.get('cpu_price'))}")
-    lines.append(f"GPU: {build.get('gpu','—')} ({build.get('gpu_vram_gb','—')}GB VRAM) — {money(build.get('gpu_price'))}")
-    lines.append(f"RAM: {build.get('ram','—')} ({build.get('ram_total_gb','—')}GB, DDR{build.get('ram_ddr','—')}) — {money(build.get('ram_price'))}")
-    lines.append(f"Motherboard: {build.get('motherboard','—')} (socket {build.get('mb_socket','—')}, DDR{build.get('mb_ddr','—')}) — {money(build.get('mb_price'))}")
-    lines.append(f"PSU: {build.get('psu','—')} ({build.get('psu_wattage','—')}W) — {money(build.get('psu_price'))}")
-    lines.append(f"Est. draw: ~{build.get('est_draw_w','—')}W")
-    return "\n".join(lines)
+    if q:
+        st.caption(f"[{label}]({google_search_url(q)})")
 
 def get_part_cols(df):
-    candidates = ["cpu", "gpu", "ram", "motherboard", "psu"]
-    return [c for c in candidates if c in df.columns]
+    return [c for c in ["cpu", "gpu", "ram", "motherboard", "psu"] if c in df.columns]
 
 # -----------------------------
-# CPU+GPU unique top-N selector
+# Unique CPU+GPU selector
 # -----------------------------
-def select_diverse_builds(
-    df,
-    n=5,
-    require_unique_cpu_gpu=True,
-    part_repeat_penalty=0.0,
-    part_cols=None
-):
-    """
-    df is assumed sorted best -> worst already.
-    Hard rule: unique (cpu, gpu) pairs if require_unique_cpu_gpu is True.
-    Optional soft rule: discourage repeating parts across selected builds.
-    """
-    if df is None or df.empty:
-        return df
-
-    part_cols = part_cols or get_part_cols(df)
+def select_diverse_builds(df, n=5):
     rows = df.to_dict(orient="records")
-
-    selected_idx = []
-    seen_cpu_gpu = set()
-    part_counts = {}
-
-    def norm(v):
-        return clean_str(v).lower()
-
-    def cpu_gpu_key(r):
-        return (norm(r.get("cpu")), norm(r.get("gpu")))
-
-    def row_parts(r):
-        if not part_cols:
-            return []
-        return [norm(r.get(c)) for c in part_cols if norm(r.get(c))]
+    seen = set()
+    idxs = []
 
     for i, r in enumerate(rows):
-        if len(selected_idx) >= n:
+        key = (clean_str(r.get("cpu")).lower(), clean_str(r.get("gpu")).lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        idxs.append(i)
+        if len(idxs) >= n:
             break
 
-        if require_unique_cpu_gpu:
-            key = cpu_gpu_key(r)
-            if key in seen_cpu_gpu:
-                continue
-
-        if part_repeat_penalty and part_cols:
-            parts = row_parts(r)
-            repeat_score = sum(part_counts.get(p, 0) for p in parts)
-            allowed = (len(selected_idx) + 1) * float(part_repeat_penalty)
-            if repeat_score > allowed:
-                continue
-
-        selected_idx.append(i)
-        if require_unique_cpu_gpu:
-            seen_cpu_gpu.add(cpu_gpu_key(r))
-        for p in row_parts(r):
-            part_counts[p] = part_counts.get(p, 0) + 1
-
-    if len(selected_idx) < n:
+    if len(idxs) < n:
         for i in range(len(rows)):
-            if i in selected_idx:
-                continue
-            selected_idx.append(i)
-            if len(selected_idx) >= n:
+            if i not in idxs:
+                idxs.append(i)
+            if len(idxs) >= n:
                 break
 
-    return df.iloc[selected_idx].copy()
+    return df.iloc[idxs].copy()
 
 # -----------------------------
-# Slider-based re-ranking
+# Ranking
 # -----------------------------
-def apply_user_weights(df, perf_vs_value: float, include_util: bool):
+def apply_user_weights(df, perf_vs_value):
     if df is None or df.empty:
         return df
 
-    if "perf_score" in df.columns:
-        perf_norm = minmax_norm(safe_float_series(df["perf_score"]))
-    elif "final_score" in df.columns:
-        perf_norm = minmax_norm(safe_float_series(df["final_score"]))
-    else:
-        perf_norm = np.zeros(len(df))
+    perf = (
+        minmax_norm(safe_float_series(df["perf_score"]))
+        if "perf_score" in df.columns
+        else np.zeros(len(df))
+    )
 
-    if "total_price" in df.columns:
-        prices = safe_float_series(df["total_price"])
-        inv_price = np.where(np.isfinite(prices) & (prices > 0), 1.0 / prices, 0.0)
-        value_norm = minmax_norm(inv_price)
-    else:
-        value_norm = np.zeros(len(df))
-
-    util_norm = np.zeros(len(df))
-    if include_util and "util_score" in df.columns:
-        util_norm = minmax_norm(safe_float_series(df["util_score"]))
-
-    w_perf = float(perf_vs_value)
-    w_value = 1.0 - w_perf
-    w_util = 0.15 if include_util else 0.0
-
-    total_w = w_perf + w_value + w_util
-    if total_w <= 1e-12:
-        total_w = 1.0
-    w_perf /= total_w
-    w_value /= total_w
-    w_util /= total_w
+    price = (
+        minmax_norm(1.0 / safe_float_series(df["total_price"]))
+        if "total_price" in df.columns
+        else np.zeros(len(df))
+    )
 
     out = df.copy()
-    out["user_score"] = (w_perf * perf_norm) + (w_value * value_norm) + (w_util * util_norm)
-    out = out.sort_values("user_score", ascending=False, kind="mergesort")
-    return out
+    out["user_score"] = perf_vs_value * perf + (1 - perf_vs_value) * price
+    return out.sort_values("user_score", ascending=False, kind="mergesort")
 
 # -----------------------------
-# OpenAI: AI pros/cons
+# OpenAI helpers
 # -----------------------------
 def get_openai_client():
     if OpenAI is None:
-        return None, "OpenAI SDK not installed. Add `openai` to requirements.txt."
-    api_key = None
+        return None, "OpenAI SDK not installed"
     try:
-        api_key = st.secrets.get("OPENAI_API_KEY")
+        key = st.secrets.get("OPENAI_API_KEY")
     except Exception:
-        api_key = None
-    if not api_key:
-        return None, "Missing OPENAI_API_KEY. Add it to Streamlit secrets."
-    return OpenAI(api_key=api_key), None
+        key = None
+    if not key:
+        return None, "Missing OPENAI_API_KEY"
+    return OpenAI(api_key=key), None
 
-def builds_signature(builds: list[dict], industry: str, budget: float) -> str:
-    # Stable signature to cache AI results (avoids repeated API calls)
-    payload = {
-        "industry": industry,
-        "budget": float(budget),
-        "builds": builds,
-    }
-    raw = json.dumps(payload, sort_keys=True, ensure_ascii=True).encode("utf-8")
+def builds_signature(builds, industry, budget):
+    payload = {"industry": industry, "budget": budget, "builds": builds}
+    raw = json.dumps(payload, sort_keys=True).encode()
     return hashlib.sha256(raw).hexdigest()
 
 @st.cache_data(show_spinner=False, ttl=3600)
-def ai_analyze_builds_cached(sig: str, builds_minimal: list[dict], industry: str, budget: float, model: str):
-    """
-    Returns dict: {rank(int): {"pros":[...], "cons":[...]}}
-    Cached by signature for 1 hour.
-    """
+def ai_analyze_builds_cached(sig, builds, industry, budget, model):
     client, err = get_openai_client()
     if err:
         return {"__error__": err}
 
     system = (
         "You are a PC-building assistant. "
-        "You will be given up to 5 candidate PC builds with limited fields. "
-        "Only use the provided fields; if something isn't provided, treat it as unknown. "
-        "Write concise, practical pros/cons for the target industry."
+        "Provide concise, practical pros and cons. "
+        "Only use provided data."
     )
 
     user = {
-        "task": "Analyze each build and produce 2-3 pros and 2-3 cons. Focus on price-performance, suitability for the industry, and any obvious risk (e.g., low PSU headroom if draw close to PSU wattage).",
         "industry": industry,
-        "budget_usd": float(budget),
-        "builds": builds_minimal,
-        "output_format": {
-            "type": "json",
-            "schema": [
-                {
-                    "rank": 1,
-                    "pros": ["..."],
-                    "cons": ["..."]
-                }
-            ]
-        }
+        "budget": budget,
+        "builds": builds,
+        "format": "JSON list with rank, pros, cons"
     }
 
-    # Chat Completions call using the official client pattern
-    completion = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": json.dumps(user)}
-        ],
-        temperature=0.3
-    )
-
-    text = completion.choices[0].message.content or ""
-
-    # Try parsing strict JSON
-    try:
-        data = json.loads(text)
-    except Exception:
-        # If the model returned extra text, try to extract the first JSON array
-        start = text.find("[")
-        end = text.rfind("]")
-        if start != -1 and end != -1 and end > start:
-            data = json.loads(text[start:end+1])
-        else:
-            return {"__error__": "AI response was not valid JSON. Try again or lower temperature."}
-
-    out = {}
-    for item in data:
+    max_attempts = 4
+    for attempt in range(max_attempts):
         try:
-            r = int(item.get("rank"))
-            pros = item.get("pros", []) or []
-            cons = item.get("cons", []) or []
-            out[r] = {"pros": pros[:3], "cons": cons[:3]}
-        except Exception:
-            continue
-    return out
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": json.dumps(user)},
+                ],
+                temperature=0.2,
+                max_tokens=400,
+            )
 
-def make_builds_minimal_for_ai(shown_builds: list[dict]) -> list[dict]:
-    minimal = []
-    for i, b in enumerate(shown_builds, start=1):
-        minimal.append({
-            "rank": i,
-            "total_price": b.get("total_price"),
-            "est_draw_w": b.get("est_draw_w"),
-            "cpu": b.get("cpu"),
-            "cpu_cores": b.get("cpu_cores"),
-            "cpu_socket": b.get("cpu_socket"),
-            "gpu": b.get("gpu"),
-            "gpu_vram_gb": b.get("gpu_vram_gb"),
-            "ram": b.get("ram"),
-            "ram_total_gb": b.get("ram_total_gb"),
-            "ram_ddr": b.get("ram_ddr"),
-            "motherboard": b.get("motherboard"),
-            "mb_socket": b.get("mb_socket"),
-            "mb_ddr": b.get("mb_ddr"),
-            "psu": b.get("psu"),
-            "psu_wattage": b.get("psu_wattage"),
-        })
-    return minimal
+            text = resp.choices[0].message.content
+            data = json.loads(text[text.find("["): text.rfind("]") + 1])
+
+            out = {}
+            for item in data:
+                out[int(item["rank"])] = {
+                    "pros": item.get("pros", [])[:3],
+                    "cons": item.get("cons", [])[:3],
+                }
+            return out
+
+        except Exception as e:
+            msg = str(e).lower()
+            if "rate" in msg or "429" in msg:
+                time.sleep(2 ** attempt)
+                continue
+            return {"__error__": "OpenAI request failed"}
+
+    return {"__error__": "Rate limit hit. Try again shortly."}
 
 # -----------------------------
-# UI controls
+# UI options
 # -----------------------------
-with st.expander("Display & ranking options"):
-    link_source = st.selectbox("Part lookup links", ["google", "pcpartpicker"], index=0)
-
-    st.markdown("### Preference sliders")
-    perf_vs_value = st.slider(
-        "Value  ⟵───  Performance",
-        min_value=0.0, max_value=1.0, value=0.6, step=0.05
-    )
-    include_util = st.checkbox("Include 'utility' score (if available)", value=True)
-
-    st.markdown("### Uniqueness (top 5 variety)")
-    make_unique = st.checkbox("Make top 5 builds more unique", value=True)
-    require_unique_cpu_gpu = st.checkbox("Require unique CPU + GPU combos", value=True)
-    part_repeat_penalty = st.slider(
-        "Discourage repeating parts (optional)",
-        min_value=0.0, max_value=2.0, value=0.0, step=0.05
-    )
-
-    st.markdown("### AI explanations")
-    use_ai = st.checkbox("Generate AI pros/cons for the top 5", value=False)
-    st.caption("Requires OPENAI_API_KEY in Streamlit secrets and the `openai` package in requirements.txt.")
+with st.expander("Options"):
+    perf_vs_value = st.slider("Value ⟵── Performance", 0.0, 1.0, 0.6, 0.05)
+    enable_ai = st.checkbox("Enable AI analysis")
+    ai_go = st.button("Generate AI explanations") if enable_ai else False
 
 st.divider()
 
 # -----------------------------
-# Build card (supports AI notes)
-# -----------------------------
-def build_card(build: dict, idx: int, ai_notes: dict | None = None):
-    left, right = st.columns([3, 1])
-    with left:
-        st.subheader(f"Build #{idx}")
-        st.caption(f"{build.get('industry', '').capitalize()} build")
-    with right:
-        st.metric("Total", money(build.get("total_price")))
-
-    parts_left, parts_right = st.columns([2, 2])
-
-    with parts_left:
-        st.markdown("**Core components**")
-
-        cpu_name = build.get("cpu", "—")
-        st.write(f"**CPU (Model):** {cpu_name} — {money(build.get('cpu_price'))}")
-        part_link("CPU", cpu_name, [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"], use=link_source)
-
-        gpu_name = build.get("gpu", "—")
-        st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
-        part_link("GPU", gpu_name, [f"{build.get('gpu_vram_gb','')}GB VRAM"], use=link_source)
-
-        ram_name = build.get("ram", "—")
-        st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
-        part_link("RAM", ram_name, [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"], use=link_source)
-
-    with parts_right:
-        st.markdown("**Platform & power**")
-
-        mb_name = build.get("motherboard", "—")
-        st.write(f"**Motherboard (Model):** {mb_name} — {money(build.get('mb_price'))}")
-        part_link("Motherboard", mb_name, [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"], use=link_source)
-
-        psu_name = build.get("psu", "—")
-        st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
-        part_link("PSU", psu_name, [f"{build.get('psu_wattage','')}W"], use=link_source)
-
-        st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
-
-    # AI Notes
-    if ai_notes:
-        pros = ai_notes.get("pros", []) or []
-        cons = ai_notes.get("cons", []) or []
-        if pros or cons:
-            st.markdown("**AI Notes**")
-            if pros:
-                st.markdown("✅ **Pros**")
-                for p in pros[:3]:
-                    st.write(f"- {p}")
-            if cons:
-                st.markdown("⚠️ **Cons**")
-                for c in cons[:3]:
-                    st.write(f"- {c}")
-
-    with st.expander("Copy build summary"):
-        summary = build_summary_text(build, idx)
-        st.code(summary, language="text")
-        st.download_button(
-            "Download summary (TXT)",
-            data=summary.encode("utf-8"),
-            file_name=f"build_{idx}_summary.txt",
-            mime="text/plain",
-            key=f"dl_summary_{idx}",
-        )
-
-    with st.expander("Details (more specs for searching / compatibility)"):
-        c1, c2, c3 = st.columns(3)
-
-        with c1:
-            st.markdown("**CPU**")
-            show_if_present("Socket", build.get("cpu_socket"))
-            show_if_present("Cores", build.get("cpu_cores"))
-            show_if_present("Brand", build.get("cpu_brand"))
-            show_if_present("Series", build.get("cpu_series"))
-            show_if_present("Model #", build.get("cpu_model_number"))
-
-        with c2:
-            st.markdown("**GPU**")
-            show_if_present("VRAM (GB)", build.get("gpu_vram_gb"))
-            show_if_present("Brand", build.get("gpu_brand"))
-            show_if_present("Chipset", build.get("gpu_chipset"))
-            show_if_present("Model #", build.get("gpu_model_number"))
-
-        with c3:
-            st.markdown("**Motherboard / RAM / PSU**")
-            show_if_present("MB socket", build.get("mb_socket"))
-            show_if_present("MB DDR", build.get("mb_ddr"))
-            show_if_present("Chipset", build.get("mb_chipset"))
-            show_if_present("Form factor", build.get("mb_form_factor"))
-            show_if_present("RAM DDR", build.get("ram_ddr"))
-            show_if_present("PSU wattage", build.get("psu_wattage"))
-            show_if_present("Efficiency", build.get("psu_efficiency"))
-
-    st.divider()
-
-# -----------------------------
-# Main action
+# Main
 # -----------------------------
 if st.button("Generate Builds", type="primary"):
-    with st.spinner("Generating best builds..."):
-        df = recommend_builds_from_csv_dir(
-            data_dir=DATA_DIR,
-            industry=industry,
-            total_budget=float(budget),
-            top_k=TOP_K_BASE
-        )
+    df = recommend_builds_from_csv_dir(
+        DATA_DIR, industry, float(budget), TOP_K_BASE
+    )
 
-    if df is None or df.empty:
-        st.warning("No compatible builds found under these constraints. Try increasing your budget.")
-    else:
-        ranked = apply_user_weights(df, perf_vs_value=perf_vs_value, include_util=include_util)
+    ranked = apply_user_weights(df, perf_vs_value)
+    shown = select_diverse_builds(ranked, DISPLAY_TOP)
+    shown = shown.sort_values("total_price")
 
-        # Select the top builds (with CPU+GPU uniqueness if enabled)
-        if make_unique:
-            shown_df = select_diverse_builds(
-                ranked,
-                n=DISPLAY_TOP,
-                require_unique_cpu_gpu=require_unique_cpu_gpu,
-                part_repeat_penalty=part_repeat_penalty,
-                part_cols=get_part_cols(ranked)
+    builds = shown.to_dict(orient="records")
+
+    ai_notes = None
+    if enable_ai and ai_go:
+        minimal = [
+            {
+                "rank": i + 1,
+                "price": b.get("total_price"),
+                "cpu": b.get("cpu"),
+                "gpu": b.get("gpu"),
+                "ram": b.get("ram_total_gb"),
+                "psu": b.get("psu_wattage"),
+                "draw": b.get("est_draw_w"),
+            }
+            for i, b in enumerate(builds)
+        ]
+        sig = builds_signature(minimal, industry, float(budget))
+        with st.spinner("AI is analyzing builds..."):
+            ai_notes = ai_analyze_builds_cached(
+                sig, minimal, industry, float(budget), OPENAI_MODEL
             )
-        else:
-            shown_df = ranked.head(DISPLAY_TOP)
+        if isinstance(ai_notes, dict) and ai_notes.get("__error__"):
+            st.warning(ai_notes["__error__"])
+            ai_notes = None
 
-        # Display order: cheapest -> most expensive
-        if "total_price" in shown_df.columns:
-            shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
+    for i, b in enumerate(builds, start=1):
+        st.subheader(f"Build {i} — {money(b.get('total_price'))}")
+        st.write(f"CPU: {b.get('cpu')}")
+        st.write(f"GPU: {b.get('gpu')}")
+        st.write(f"RAM: {b.get('ram_total_gb')} GB")
+        st.write(f"PSU: {b.get('psu_wattage')} W")
+        part_link("Search parts", b.get("cpu"), [b.get("gpu")])
 
-        shown_builds = shown_df.to_dict(orient="records")
+        if ai_notes and i in ai_notes:
+            st.markdown("**AI Notes**")
+            for p in ai_notes[i]["pros"]:
+                st.write(f"✅ {p}")
+            for c in ai_notes[i]["cons"]:
+                st.write(f"⚠️ {c}")
 
-        # AI analysis (single call for all 5)
-        ai_map = None
-        if use_ai:
-            builds_minimal = make_builds_minimal_for_ai(shown_builds)
-            sig = builds_signature(builds_minimal, industry, float(budget))
-            with st.spinner("AI is analyzing the top builds..."):
-                ai_map = ai_analyze_builds_cached(sig, builds_minimal, industry, float(budget), OPENAI_MODEL)
-
-            # If there was an error, show it once
-            if isinstance(ai_map, dict) and ai_map.get("__error__"):
-                st.warning(f"AI notes unavailable: {ai_map['__error__']}")
-                ai_map = None
-
-        st.success(f"Generated {len(ranked)} ranked builds. Showing {len(shown_builds)} build(s) ordered by total price.")
-
-        # Render cards; AI notes use the displayed order (1..5)
-        for i, b in enumerate(shown_builds, start=1):
-            notes = ai_map.get(i) if isinstance(ai_map, dict) else None
-            build_card(b, i, ai_notes=notes)
-
-        st.download_button(
-            "Download ranked builds (CSV)",
-            data=ranked.to_csv(index=False).encode("utf-8"),
-            file_name=f"top_{TOP_K_BASE}_{industry}_{int(budget)}.csv",
-            mime="text/csv"
-        )
+        st.divider()
