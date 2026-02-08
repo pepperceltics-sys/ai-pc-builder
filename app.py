@@ -145,9 +145,26 @@ def get_part_cols(df):
 
 
 # =============================
-# Uniqueness (CPU+GPU combo hard requirement)
+# Uniqueness selector
+# - NEW: Require unique CPU AND unique GPU across displayed results (if possible)
 # =============================
-def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_penalty=0.0, part_cols=None):
+def select_diverse_builds(
+    df,
+    n=5,
+    require_unique_cpu=True,
+    require_unique_gpu=True,
+    part_repeat_penalty=0.0,
+    part_cols=None,
+):
+    """
+    Select up to n builds from a ranked dataframe, preferring:
+      - unique CPU (no repeats) if require_unique_cpu
+      - unique GPU (no repeats) if require_unique_gpu
+      - optional general part repeat discouragement (part_repeat_penalty)
+
+    If strict uniqueness can't fill n results (dataset/budget too tight),
+    the function will fill remaining slots with the best remaining builds.
+    """
     if df is None or df.empty:
         return df
 
@@ -155,14 +172,18 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
     rows = df.to_dict(orient="records")
 
     selected_idx = []
-    seen_cpu_gpu = set()
+    seen_cpu = set()
+    seen_gpu = set()
     part_counts = {}
 
     def norm(v):
         return clean_str(v).lower()
 
-    def cpu_gpu_key(r):
-        return (norm(r.get("cpu")), norm(r.get("gpu")))
+    def cpu_key(r):
+        return norm(r.get("cpu"))
+
+    def gpu_key(r):
+        return norm(r.get("gpu"))
 
     def row_parts(r):
         if not part_cols:
@@ -173,10 +194,13 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
         if len(selected_idx) >= n:
             break
 
-        if require_unique_cpu_gpu:
-            key = cpu_gpu_key(r)
-            if key in seen_cpu_gpu:
-                continue
+        ck = cpu_key(r)
+        gk = gpu_key(r)
+
+        if require_unique_cpu and ck and ck in seen_cpu:
+            continue
+        if require_unique_gpu and gk and gk in seen_gpu:
+            continue
 
         if part_repeat_penalty and part_cols:
             parts = row_parts(r)
@@ -186,11 +210,16 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
                 continue
 
         selected_idx.append(i)
-        if require_unique_cpu_gpu:
-            seen_cpu_gpu.add(cpu_gpu_key(r))
+
+        if require_unique_cpu and ck:
+            seen_cpu.add(ck)
+        if require_unique_gpu and gk:
+            seen_gpu.add(gk)
+
         for p in row_parts(r):
             part_counts[p] = part_counts.get(p, 0) + 1
 
+    # Fill remaining slots if strict constraints couldn't produce n builds
     if len(selected_idx) < n:
         for i in range(len(rows)):
             if i in selected_idx:
@@ -278,7 +307,8 @@ with st.expander("Display & ranking options"):
 
     st.markdown("### Uniqueness (top 5 variety)")
     make_unique = st.checkbox("Make top 5 builds more unique", value=True)
-    require_unique_cpu_gpu = st.checkbox("Require unique CPU + GPU combos", value=True)
+    require_unique_cpu = st.checkbox("Require unique CPUs (top 5)", value=True)
+    require_unique_gpu = st.checkbox("Require unique GPUs (top 5)", value=True)
     part_repeat_penalty = st.slider("Discourage repeating parts (optional)", 0.0, 2.0, 0.0, 0.05)
 
     st.markdown("### AI commentary (no API)")
@@ -305,7 +335,12 @@ def build_card(build: dict, idx: int):
 
         cpu_name = build.get("cpu", "—")
         st.write(f"**CPU (Model):** {cpu_name} — {money(build.get('cpu_price'))}")
-        part_link("CPU", cpu_name, [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"], use=link_source)
+        part_link(
+            "CPU",
+            cpu_name,
+            [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
+            use=link_source,
+        )
 
         gpu_name = build.get("gpu", "—")
         st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
@@ -313,14 +348,24 @@ def build_card(build: dict, idx: int):
 
         ram_name = build.get("ram", "—")
         st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
-        part_link("RAM", ram_name, [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"], use=link_source)
+        part_link(
+            "RAM",
+            ram_name,
+            [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
+            use=link_source,
+        )
 
     with parts_right:
         st.markdown("**Platform & power**")
 
         mb_name = build.get("motherboard", "—")
         st.write(f"**Motherboard (Model):** {mb_name} — {money(build.get('mb_price'))}")
-        part_link("Motherboard", mb_name, [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"], use=link_source)
+        part_link(
+            "Motherboard",
+            mb_name,
+            [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
+            use=link_source,
+        )
 
         psu_name = build.get("psu", "—")
         st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
@@ -331,7 +376,13 @@ def build_card(build: dict, idx: int):
     with st.expander("Copy build summary"):
         summary = build_summary_text(build, idx)
         st.code(summary, language="text")
-        st.download_button("Download summary (TXT)", data=summary.encode("utf-8"), file_name=f"build_{idx}_summary.txt", mime="text/plain", key=f"dl_summary_{idx}")
+        st.download_button(
+            "Download summary (TXT)",
+            data=summary.encode("utf-8"),
+            file_name=f"build_{idx}_summary.txt",
+            mime="text/plain",
+            key=f"dl_summary_{idx}",
+        )
 
     with st.expander("Details (more specs for searching / compatibility)"):
         c1, c2, c3 = st.columns(3)
@@ -383,14 +434,15 @@ if st.button("Generate Builds", type="primary"):
             shown_df = select_diverse_builds(
                 ranked,
                 n=DISPLAY_TOP,
-                require_unique_cpu_gpu=require_unique_cpu_gpu,
+                require_unique_cpu=require_unique_cpu,
+                require_unique_gpu=require_unique_gpu,
                 part_repeat_penalty=part_repeat_penalty,
                 part_cols=get_part_cols(ranked),
             )
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        # Display order: cheapest -> most expensive
+        # Display order: cheapest -> most expensive (within selected top group)
         if "total_price" in shown_df.columns:
             shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
 
