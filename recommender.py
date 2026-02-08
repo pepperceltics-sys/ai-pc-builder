@@ -25,15 +25,13 @@ def mins(industry):
     return dict(min_cores=6, min_vram=8,  min_ram=16, min_psu=550)
 
 # -------------------------
-# NEW: Reasonable caps (NOT strict fractions)
-# These prevent runaway expensive single parts while still allowing realistic builds.
-# Floors prevent "MB <= $100" / "PSU <= $100" failures.
+# Reasonable per-part caps (NOT strict fractions)
+# Avoids "MB <= $100" / "PSU <= $100" failures at lower budgets.
 # -------------------------
 MAX_FRAC = dict(cpu=0.65, gpu=0.80, ram=0.45, mb=0.40, psu=0.30)
 MIN_FLOOR = dict(cpu=0.0, gpu=0.0, ram=0.0, mb=120.0, psu=80.0)
 
 def part_cap(total_budget: float, part: str) -> float:
-    # cap = max(floor, fraction of budget), also never exceed total budget
     cap = max(MIN_FLOOR.get(part, 0.0), float(total_budget) * MAX_FRAC.get(part, 1.0))
     return min(cap, float(total_budget))
 
@@ -191,9 +189,7 @@ def recommend_builds(
     mb_df  = priced(mb_df)
     psu_df = priced(psu_df)
 
-    # -------------------------
-    # UPDATED: prune by requirements + REASONABLE caps (not strict fractions)
-    # -------------------------
+    # Prune by requirements + reasonable caps
     cpu_cap = part_cap(total_budget, "cpu")
     gpu_cap = part_cap(total_budget, "gpu")
     ram_cap = part_cap(total_budget, "ram")
@@ -276,7 +272,7 @@ def recommend_builds(
     PSU_PER_PAIR = 12
     MBRAM_BUNDLES_PER_PAIR = 26
 
-    # UPDATED: slightly more emphasis on spending near budget
+    # Slightly more emphasis on spending near budget
     PERF_WEIGHT = 0.70
     UTIL_WEIGHT = 0.30
     UTIL_TARGET = 0.95
@@ -297,7 +293,6 @@ def recommend_builds(
 
     for _, gpu in gpu_top.iterrows():
         for _, cpu in cpu_top.head(CPU_PER_GPU).iterrows():
-
             if pd.isna(cpu["cpu_socket"]) or str(cpu["cpu_socket"]).strip() == "":
                 continue
 
@@ -329,7 +324,7 @@ def recommend_builds(
 
                     total_price = float(cpu["price"] + gpu["price"] + mb["price"] + ram["price"] + psu["price"])
                     if total_price > total_budget:
-                        continue
+                        continue  # hard budget wall
 
                     perf_score = (
                         W["cpu"] * norm01(cpu["cpu_perf"], cpu_lo, cpu_hi) +
