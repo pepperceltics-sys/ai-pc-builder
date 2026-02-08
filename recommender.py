@@ -84,7 +84,7 @@ def util_score(total_price: float, budget: float, target: float = 0.95) -> float
     return float(np.clip(1.0 - abs(u - target) / target, 0.0, 1.0))
 
 # -------------------------
-# Load CSVs (single folder)
+# Load CSVs
 # -------------------------
 def load_csv_parts(data_dir: str = "data") -> dict:
     data_path = Path(data_dir)
@@ -334,6 +334,10 @@ def recommend_builds(
                     u = util_score(total_price, total_budget, UTIL_TARGET)
                     final_score = PERF_WEIGHT * perf_score + UTIL_WEIGHT * u
 
+                    psu_w = float(psu["wattage"])
+                    headroom_w = psu_w - float(draw)
+                    headroom_pct = (headroom_w / float(draw)) if float(draw) > 0 else 0.0
+
                     build = {
                         "industry": industry,
                         "final_score": round(final_score, 4),
@@ -353,18 +357,22 @@ def recommend_builds(
                         "motherboard": safe_str(mb.get("model")),
                         "mb_socket": safe_str(mb.get("socket")),
                         "mb_ddr": safe_str(mb.get("mb_ddr")),
+                        "mb_ram_slots": int(mb.get("ram_slots", 0)),
                         "mb_price": float(mb["price"]),
 
                         "ram": safe_str(ram.get("model")),
                         "ram_total_gb": int(round(float(ram["total_ram_gb"]))) if pd.notna(ram["total_ram_gb"]) else None,
                         "ram_ddr": safe_str(ram.get("ram_ddr")),
+                        "ram_modules": int(ram.get("modules", 0)),
                         "ram_price": float(ram["price"]),
 
                         "psu": safe_str(psu.get("model")),
-                        "psu_wattage": int(round(float(psu["wattage"]))),
+                        "psu_wattage": int(round(psu_w)),
                         "psu_price": float(psu["price"]),
 
                         "est_draw_w": int(round(draw)),
+                        "psu_headroom_w": int(round(headroom_w)),
+                        "psu_headroom_pct": round(float(headroom_pct), 3),
                     }
                     push(final_score, build)
 
