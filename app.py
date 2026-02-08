@@ -1,8 +1,6 @@
 import streamlit as st
 from urllib.parse import quote_plus
 import numpy as np
-import json
-import time
 
 from recommender import recommend_builds_from_csv_dir
 
@@ -21,8 +19,6 @@ TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
 
-st.divider()
-
 # =============================
 # Session state (persist results across reruns)
 # =============================
@@ -30,10 +26,19 @@ if "ranked_df" not in st.session_state:
     st.session_state.ranked_df = None
 if "shown_builds" not in st.session_state:
     st.session_state.shown_builds = None
-
-# Manual "AI" summary paste box state
 if "ai_text_manual" not in st.session_state:
     st.session_state.ai_text_manual = ""
+
+# ✅ Clear cached results when inputs change (prevents stale over-budget displays)
+params = (industry, float(budget))
+if "last_params" not in st.session_state:
+    st.session_state.last_params = params
+elif st.session_state.last_params != params:
+    st.session_state.last_params = params
+    st.session_state.ranked_df = None
+    st.session_state.shown_builds = None
+
+st.divider()
 
 
 # =============================
@@ -56,7 +61,9 @@ def clean_str(v) -> str:
 
 
 def safe_float_series(s):
-    return np.array([float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s])
+    return np.array(
+        [float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s]
+    )
 
 
 def minmax_norm(arr):
@@ -196,7 +203,7 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
 
 
 # =============================
-# Slider-based re-ranking (+ optional "spend budget" preference)
+# Slider-based re-ranking (+ budget utilization)
 # =============================
 def apply_user_weights(df, perf_vs_value: float, include_util: bool):
     if df is None or df.empty:
@@ -237,30 +244,23 @@ def apply_user_weights(df, perf_vs_value: float, include_util: bool):
     return out
 
 
-def rank_by_budget_utilization(df, budget_value: float, weight: float = 0.65):
-    """
-    Push results closer to budget.
-    weight=0 -> ignore budget utilization
-    weight=1 -> mostly "closest-to-budget" ranking
-    """
+def rank_by_budget_utilization(df, budget_value: float, weight: float = 0.75):
     if df is None or df.empty or "total_price" not in df.columns:
         return df
 
     out = df.copy()
     prices = safe_float_series(out["total_price"])
     util = np.where(np.isfinite(prices) & (prices > 0), prices / float(budget_value), 0.0)
-    util = np.clip(util, 0.0, 1.2)  # allow slight over for scoring, we filter later
+    util = np.clip(util, 0.0, 1.0)
     util_norm = minmax_norm(util)
 
-    # If user_score exists, blend; otherwise just use utilization
     if "user_score" in out.columns:
         score = (1.0 - weight) * minmax_norm(safe_float_series(out["user_score"])) + weight * util_norm
     else:
         score = util_norm
 
     out["budget_fit_score"] = score
-    out = out.sort_values("budget_fit_score", ascending=False, kind="mergesort")
-    return out
+    return out.sort_values("budget_fit_score", ascending=False, kind="mergesort")
 
 
 # =============================
@@ -268,48 +268,21 @@ def rank_by_budget_utilization(df, budget_value: float, weight: float = 0.65):
 # =============================
 with st.expander("Display & ranking options"):
     link_source = st.selectbox("Part lookup links", ["google", "pcpartpicker"], index=0)
-    st.caption("Google is more forgiving with imperfect part names; PCPartPicker is nicer when names are exact.")
 
     st.markdown("### Preference sliders")
-    perf_vs_value = st.slider(
-        "Value  ⟵───  Performance",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.6,
-        step=0.05,
-        help="Moves top results toward cheaper/better-value builds (left) or higher performance builds (right).",
-    )
-    include_util = st.checkbox(
-        "Include 'utility' score (if available)",
-        value=True,
-        help="Keeps a small preference for util_score in the ranking if your recommender provides it.",
-    )
+    perf_vs_value = st.slider("Value  ⟵───  Performance", 0.0, 1.0, 0.6, 0.05)
+    include_util = st.checkbox("Include 'utility' score (if available)", value=True)
 
-    st.markdown("### Use more of the budget")
-    spend_weight = st.slider(
-        "Prefer builds closer to your budget",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.75,
-        step=0.05,
-        help="Higher values push results closer to the budget instead of picking very cheap value builds.",
-    )
+    st.markdown("### Spend closer to budget")
+    spend_weight = st.slider("Prefer builds closer to your budget", 0.0, 1.0, 0.75, 0.05)
 
     st.markdown("### Uniqueness (top 5 variety)")
     make_unique = st.checkbox("Make top 5 builds more unique", value=True)
     require_unique_cpu_gpu = st.checkbox("Require unique CPU + GPU combos", value=True)
-    part_repeat_penalty = st.slider(
-        "Discourage repeating parts (optional)",
-        min_value=0.0,
-        max_value=2.0,
-        value=0.0,
-        step=0.05,
-        help="0.0 = only enforce CPU+GPU uniqueness. Higher values allow more repetition.",
-    )
+    part_repeat_penalty = st.slider("Discourage repeating parts (optional)", 0.0, 2.0, 0.0, 0.05)
 
     st.markdown("### AI commentary (no API)")
     use_manual_ai = st.checkbox("Show/paste AI commentary for the top 5 builds", value=True)
-    st.caption("This avoids API rate limits. Generate a summary in ChatGPT and paste it into the box below.")
 
 st.divider()
 
@@ -332,12 +305,7 @@ def build_card(build: dict, idx: int):
 
         cpu_name = build.get("cpu", "—")
         st.write(f"**CPU (Model):** {cpu_name} — {money(build.get('cpu_price'))}")
-        part_link(
-            "CPU",
-            cpu_name,
-            [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
-            use=link_source,
-        )
+        part_link("CPU", cpu_name, [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"], use=link_source)
 
         gpu_name = build.get("gpu", "—")
         st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
@@ -345,24 +313,14 @@ def build_card(build: dict, idx: int):
 
         ram_name = build.get("ram", "—")
         st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
-        part_link(
-            "RAM",
-            ram_name,
-            [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
-            use=link_source,
-        )
+        part_link("RAM", ram_name, [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"], use=link_source)
 
     with parts_right:
         st.markdown("**Platform & power**")
 
         mb_name = build.get("motherboard", "—")
         st.write(f"**Motherboard (Model):** {mb_name} — {money(build.get('mb_price'))}")
-        part_link(
-            "Motherboard",
-            mb_name,
-            [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
-            use=link_source,
-        )
+        part_link("Motherboard", mb_name, [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"], use=link_source)
 
         psu_name = build.get("psu", "—")
         st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
@@ -373,94 +331,51 @@ def build_card(build: dict, idx: int):
     with st.expander("Copy build summary"):
         summary = build_summary_text(build, idx)
         st.code(summary, language="text")
-        st.download_button(
-            "Download summary (TXT)",
-            data=summary.encode("utf-8"),
-            file_name=f"build_{idx}_summary.txt",
-            mime="text/plain",
-            key=f"dl_summary_{idx}",
-        )
+        st.download_button("Download summary (TXT)", data=summary.encode("utf-8"), file_name=f"build_{idx}_summary.txt", mime="text/plain", key=f"dl_summary_{idx}")
 
     with st.expander("Details (more specs for searching / compatibility)"):
         c1, c2, c3 = st.columns(3)
-
         with c1:
             st.markdown("**CPU**")
             show_if_present("Socket", build.get("cpu_socket"))
             show_if_present("Cores", build.get("cpu_cores"))
-            show_if_present("Brand", build.get("cpu_brand"))
-            show_if_present("Series", build.get("cpu_series"))
-            show_if_present("Model #", build.get("cpu_model_number"))
-
         with c2:
             st.markdown("**GPU**")
             show_if_present("VRAM (GB)", build.get("gpu_vram_gb"))
-            show_if_present("Brand", build.get("gpu_brand"))
-            show_if_present("Chipset", build.get("gpu_chipset"))
-            show_if_present("Model #", build.get("gpu_model_number"))
-
         with c3:
             st.markdown("**Motherboard / RAM / PSU**")
             show_if_present("MB socket", build.get("mb_socket"))
             show_if_present("MB DDR", build.get("mb_ddr"))
-            show_if_present("Chipset", build.get("mb_chipset"))
-            show_if_present("Form factor", build.get("mb_form_factor"))
             show_if_present("RAM DDR", build.get("ram_ddr"))
             show_if_present("PSU wattage", build.get("psu_wattage"))
-            show_if_present("Efficiency", build.get("psu_efficiency"))
 
     st.divider()
 
 
 # =============================
-# Generate builds (stores results in session_state)
+# Generate builds
 # =============================
-def call_recommender_with_fallbacks(industry_value: str, budget_value: float, top_k: int):
-    """
-    Workaround for overly strict or buggy budget logic inside recommender.py:
-    - Try requested budget first
-    - If empty, retry with larger budgets
-    - Always filter results back down to <= original budget in app.py
-    """
-    fallback_multipliers = [1.0, 1.25, 1.5, 2.0]
-    last_df = None
-
-    for m in fallback_multipliers:
-        attempt_budget = float(budget_value) * m
-        df = recommend_builds_from_csv_dir(
-            data_dir=DATA_DIR,
-            industry=industry_value,
-            total_budget=attempt_budget,
-            top_k=top_k,
-        )
-        last_df = df
-        if df is not None and not df.empty:
-            # Filter back to original budget (if total_price exists)
-            if "total_price" in df.columns:
-                prices = safe_float_series(df["total_price"])
-                df = df[np.isfinite(prices)]
-                df = df[df["total_price"].astype(float) <= float(budget_value)]
-            if df is not None and not df.empty:
-                return df, m
-
-    return last_df, None
-
-
 if st.button("Generate Builds", type="primary"):
     with st.spinner("Generating best builds..."):
-        df, used_multiplier = call_recommender_with_fallbacks(industry, float(budget), TOP_K_BASE)
+        df = recommend_builds_from_csv_dir(
+            data_dir=DATA_DIR,
+            industry=industry,
+            total_budget=float(budget),
+            top_k=TOP_K_BASE,
+        )
+
+    # Hard safety filter (never show over-budget builds)
+    if df is not None and not df.empty and "total_price" in df.columns:
+        df = df[df["total_price"].astype(float) <= float(budget)]
 
     if df is None or df.empty:
         st.session_state.ranked_df = None
         st.session_state.shown_builds = None
-        st.warning("No compatible builds found under these constraints. Try increasing your budget or changing industry.")
+        st.warning(
+            "No compatible builds found under these constraints at this budget. "
+            "Try increasing budget OR switching industry, OR your dataset may not have parts that meet the minimum requirements."
+        )
     else:
-        if used_multiplier and used_multiplier > 1.0:
-            st.info(
-                f"Note: I had to widen the internal search budget to {used_multiplier:.2f}× to find candidates, "
-                "then filtered back down to your budget."
-            )
-
         ranked = apply_user_weights(df, perf_vs_value=perf_vs_value, include_util=include_util)
         ranked = rank_by_budget_utilization(ranked, budget_value=float(budget), weight=float(spend_weight))
 
@@ -475,7 +390,7 @@ if st.button("Generate Builds", type="primary"):
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        # Display order: cheapest -> most expensive (still within top picks)
+        # Display order: cheapest -> most expensive
         if "total_price" in shown_df.columns:
             shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
 
@@ -492,24 +407,11 @@ if st.session_state.shown_builds:
 
     if use_manual_ai:
         st.markdown("## AI Commentary (Top 5 Builds)")
-        st.caption(
-            "Generate a short summary in ChatGPT and paste it here. "
-            "Markdown is supported, and it will persist during your session."
-        )
-
         st.session_state.ai_text_manual = st.text_area(
             "Paste AI summary",
             value=st.session_state.ai_text_manual,
             height=180,
-            placeholder=(
-                "Suggested format:\n"
-                "- Overall recommendation (2–4 sentences)\n"
-                "- Key tradeoffs (3–6 bullets)\n"
-                "- Best pick for most people + why\n"
-                "- One line per build: 'Build #X best for ...'\n"
-            ),
         ).strip()
-
         if st.session_state.ai_text_manual:
             st.markdown(st.session_state.ai_text_manual)
             st.divider()
@@ -529,16 +431,5 @@ if st.session_state.shown_builds:
             file_name=f"top_{TOP_K_BASE}_{industry}_{int(budget)}.csv",
             mime="text/csv",
         )
-
-    with st.expander("Diagnostics (helps debug budget issues)"):
-        if ranked is not None and "total_price" in ranked.columns and not ranked.empty:
-            prices = safe_float_series(ranked["total_price"])
-            prices = prices[np.isfinite(prices)]
-            if prices.size:
-                st.write(f"Budget: {money(budget)}")
-                st.write(f"Candidate builds returned: {len(ranked)}")
-                st.write(f"Min total: {money(prices.min())}")
-                st.write(f"Max total: {money(prices.max())}")
-                st.write(f"Median total: {money(float(np.median(prices)))}")
 else:
     st.info("Click **Generate Builds** to see recommendations.")
