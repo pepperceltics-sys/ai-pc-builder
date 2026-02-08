@@ -6,13 +6,6 @@ from pathlib import Path
 # -------------------------
 # Industry templates
 # -------------------------
-FRACTIONS = {
-    "gaming":           dict(gpu=0.40, cpu=0.25, ram=0.10, mb=0.10, psu=0.05),
-    "office":           dict(cpu=0.35, gpu=0.05, ram=0.15, mb=0.15, psu=0.10),
-    "engineering":      dict(cpu=0.35, gpu=0.20, ram=0.15, mb=0.10, psu=0.10),
-    "content_creation": dict(cpu=0.30, gpu=0.30, ram=0.20, mb=0.05, psu=0.05),
-}
-
 WEIGHTS = {
     "office":           dict(cpu=0.50, gpu=0.05, ram=0.30, mb=0.10, psu=0.05),
     "gaming":           dict(cpu=0.25, gpu=0.55, ram=0.10, mb=0.05, psu=0.05),
@@ -30,6 +23,19 @@ def mins(industry):
     if industry == "content_creation":
         return dict(min_cores=8, min_vram=10, min_ram=32, min_psu=650)
     return dict(min_cores=6, min_vram=8,  min_ram=16, min_psu=550)
+
+# -------------------------
+# NEW: Reasonable caps (NOT strict fractions)
+# These prevent runaway expensive single parts while still allowing realistic builds.
+# Floors prevent "MB <= $100" / "PSU <= $100" failures.
+# -------------------------
+MAX_FRAC = dict(cpu=0.65, gpu=0.80, ram=0.45, mb=0.40, psu=0.30)
+MIN_FLOOR = dict(cpu=0.0, gpu=0.0, ram=0.0, mb=120.0, psu=80.0)
+
+def part_cap(total_budget: float, part: str) -> float:
+    # cap = max(floor, fraction of budget), also never exceed total budget
+    cap = max(MIN_FLOOR.get(part, 0.0), float(total_budget) * MAX_FRAC.get(part, 1.0))
+    return min(cap, float(total_budget))
 
 # -------------------------
 # Helpers
@@ -139,17 +145,11 @@ def recommend_builds(
     top_k: int = 50,
     random_state: int = 42,
 ):
-    req = mins(industry)
-    frac = FRACTIONS[industry]
-    W = WEIGHTS[industry]
+    if industry not in WEIGHTS:
+        industry = "gaming"
 
-    bud = {
-        "cpu": total_budget * frac["cpu"],
-        "gpu": total_budget * frac["gpu"],
-        "ram": total_budget * frac["ram"],
-        "mb":  total_budget * frac["mb"],
-        "psu": total_budget * frac["psu"],
-    }
+    req = mins(industry)
+    W = WEIGHTS[industry]
 
     cpu_df, gpu_df, ram_df, mb_df, psu_df = cpu_df.copy(), gpu_df.copy(), ram_df.copy(), mb_df.copy(), psu_df.copy()
 
@@ -191,12 +191,25 @@ def recommend_builds(
     mb_df  = priced(mb_df)
     psu_df = priced(psu_df)
 
-    # prune by industry + hard caps
-    cpu_f = cpu_df[(cpu_df["cores"] >= req["min_cores"]) & (cpu_df["price"] <= bud["cpu"])].copy()
-    gpu_f = gpu_df[(gpu_df["vram_gb"] >= req["min_vram"]) & (gpu_df["price"] <= bud["gpu"])].copy()
-    ram_f = ram_df[(ram_df["total_ram_gb"].fillna(0) >= req["min_ram"]) & (ram_df["modules"] > 0) & (ram_df["price"] <= bud["ram"])].copy()
-    mb_f  = mb_df[(mb_df["ram_slots"] > 0) & (mb_df["price"] <= bud["mb"])].copy()
-    psu_f = psu_df[(psu_df["wattage"] >= req["min_psu"]) & (psu_df["price"] <= bud["psu"])].copy()
+    # -------------------------
+    # UPDATED: prune by requirements + REASONABLE caps (not strict fractions)
+    # -------------------------
+    cpu_cap = part_cap(total_budget, "cpu")
+    gpu_cap = part_cap(total_budget, "gpu")
+    ram_cap = part_cap(total_budget, "ram")
+    mb_cap  = part_cap(total_budget, "mb")
+    psu_cap = part_cap(total_budget, "psu")
+
+    cpu_f = cpu_df[(cpu_df["cores"] >= req["min_cores"]) & (cpu_df["price"] <= cpu_cap)].copy()
+    gpu_f = gpu_df[(gpu_df["vram_gb"] >= req["min_vram"]) & (gpu_df["price"] <= gpu_cap)].copy()
+    ram_f = ram_df[
+        (ram_df["total_ram_gb"].fillna(0) >= req["min_ram"]) &
+        (ram_df["modules"] > 0) &
+        (ram_df["price"] <= ram_cap)
+    ].copy()
+    mb_f = mb_df[(mb_df["ram_slots"] > 0) & (mb_df["price"] <= mb_cap)].copy()
+    psu_f = psu_df[(psu_df["wattage"] >= req["min_psu"]) & (psu_df["price"] <= psu_cap)].copy()
+
     if "min_slots" in req:
         mb_f = mb_f[mb_f["ram_slots"] >= req["min_slots"]].copy()
 
@@ -211,11 +224,11 @@ def recommend_builds(
     psu_f["psu_perf"] = psu_f["wattage"]
 
     # Candidate pools
-    cpu_top = cpu_f.sort_values(["cpu_perf", "price"], ascending=[False, True]).head(200)
-    gpu_top = gpu_f.sort_values(["gpu_perf", "price"], ascending=[False, True]).head(260)
-    ram_top = ram_f.sort_values(["ram_perf", "price"], ascending=[False, True]).head(260)
-    mb_top  = mb_f.sort_values(["mb_perf",  "price"], ascending=[False, True]).head(240)
-    psu_top = psu_f.sort_values(["psu_perf", "price"], ascending=[False, True]).head(200)
+    cpu_top = cpu_f.sort_values(["cpu_perf", "price"], ascending=[False, True]).head(220)
+    gpu_top = gpu_f.sort_values(["gpu_perf", "price"], ascending=[False, True]).head(300)
+    ram_top = ram_f.sort_values(["ram_perf", "price"], ascending=[False, True]).head(300)
+    mb_top  = mb_f.sort_values(["mb_perf",  "price"], ascending=[False, True]).head(260)
+    psu_top = psu_f.sort_values(["psu_perf", "price"], ascending=[False, True]).head(220)
 
     cpu_lo, cpu_hi = cpu_top["cpu_perf"].min(), cpu_top["cpu_perf"].max()
     gpu_lo, gpu_hi = gpu_top["gpu_perf"].min(), gpu_top["gpu_perf"].max()
@@ -259,12 +272,13 @@ def recommend_builds(
         return float(psu_row["wattage"]) >= 0.90 * est_draw(cpu_row, gpu_row)
 
     # Search throttles
-    CPU_PER_GPU = 60
-    PSU_PER_PAIR = 10
-    MBRAM_BUNDLES_PER_PAIR = 22
+    CPU_PER_GPU = 70
+    PSU_PER_PAIR = 12
+    MBRAM_BUNDLES_PER_PAIR = 26
 
-    PERF_WEIGHT = 0.80
-    UTIL_WEIGHT = 0.20
+    # UPDATED: slightly more emphasis on spending near budget
+    PERF_WEIGHT = 0.70
+    UTIL_WEIGHT = 0.30
     UTIL_TARGET = 0.95
 
     KEEP = top_k * 8
