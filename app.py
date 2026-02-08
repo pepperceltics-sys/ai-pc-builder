@@ -1,6 +1,9 @@
 import streamlit as st
 from urllib.parse import quote_plus
 import numpy as np
+import json
+import hashlib
+import time
 
 from recommender import recommend_builds_from_csv_dir
 
@@ -19,6 +22,10 @@ TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
 
+# AI config (use a cheap/fast model by default)
+OPENAI_MODEL = "gpt-4o-mini"
+AI_TTL_SECONDS = 24 * 3600
+
 # =============================
 # Session state (persist results across reruns)
 # =============================
@@ -26,10 +33,18 @@ if "ranked_df" not in st.session_state:
     st.session_state.ranked_df = None
 if "shown_builds" not in st.session_state:
     st.session_state.shown_builds = None
+
+# Manual AI paste box (kept as fallback)
 if "ai_text_manual" not in st.session_state:
     st.session_state.ai_text_manual = ""
 
-# ✅ Clear cached results when inputs change (prevents stale over-budget displays)
+# Auto AI summary
+if "ai_auto_summary" not in st.session_state:
+    st.session_state.ai_auto_summary = ""
+if "ai_last_sig" not in st.session_state:
+    st.session_state.ai_last_sig = ""
+
+# ✅ Clear cached results when inputs change (prevents stale displays)
 params = (industry, float(budget))
 if "last_params" not in st.session_state:
     st.session_state.last_params = params
@@ -37,6 +52,8 @@ elif st.session_state.last_params != params:
     st.session_state.last_params = params
     st.session_state.ranked_df = None
     st.session_state.shown_builds = None
+    st.session_state.ai_auto_summary = ""
+    st.session_state.ai_last_sig = ""
 
 st.divider()
 
@@ -61,9 +78,7 @@ def clean_str(v) -> str:
 
 
 def safe_float_series(s):
-    return np.array(
-        [float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s]
-    )
+    return np.array([float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s])
 
 
 def minmax_norm(arr):
@@ -117,24 +132,12 @@ def part_link(label: str, part_name: str, extras: list[str], use="google"):
 
 def build_summary_text(build: dict, idx: int) -> str:
     lines = []
-    lines.append(
-        f"Build #{idx} — Total: {money(build.get('total_price'))} — Industry: {str(build.get('industry','')).capitalize()}"
-    )
-    lines.append(
-        f"CPU: {build.get('cpu','—')} ({build.get('cpu_cores','—')} cores, socket {build.get('cpu_socket','—')}) — {money(build.get('cpu_price'))}"
-    )
-    lines.append(
-        f"GPU: {build.get('gpu','—')} ({build.get('gpu_vram_gb','—')}GB VRAM) — {money(build.get('gpu_price'))}"
-    )
-    lines.append(
-        f"RAM: {build.get('ram','—')} ({build.get('ram_total_gb','—')}GB, DDR{build.get('ram_ddr','—')}) — {money(build.get('ram_price'))}"
-    )
-    lines.append(
-        f"Motherboard: {build.get('motherboard','—')} (socket {build.get('mb_socket','—')}, DDR{build.get('mb_ddr','—')}) — {money(build.get('mb_price'))}"
-    )
-    lines.append(
-        f"PSU: {build.get('psu','—')} ({build.get('psu_wattage','—')}W) — {money(build.get('psu_price'))}"
-    )
+    lines.append(f"Build #{idx} — Total: {money(build.get('total_price'))} — Industry: {str(build.get('industry','')).capitalize()}")
+    lines.append(f"CPU: {build.get('cpu','—')} ({build.get('cpu_cores','—')} cores, socket {build.get('cpu_socket','—')}) — {money(build.get('cpu_price'))}")
+    lines.append(f"GPU: {build.get('gpu','—')} ({build.get('gpu_vram_gb','—')}GB VRAM) — {money(build.get('gpu_price'))}")
+    lines.append(f"RAM: {build.get('ram','—')} ({build.get('ram_total_gb','—')}GB, DDR{build.get('ram_ddr','—')}) — {money(build.get('ram_price'))}")
+    lines.append(f"Motherboard: {build.get('motherboard','—')} (socket {build.get('mb_socket','—')}, DDR{build.get('mb_ddr','—')}) — {money(build.get('mb_price'))}")
+    lines.append(f"PSU: {build.get('psu','—')} ({build.get('psu_wattage','—')}W) — {money(build.get('psu_price'))}")
     lines.append(f"Est. draw: ~{build.get('est_draw_w','—')}W")
     return "\n".join(lines)
 
@@ -146,7 +149,7 @@ def get_part_cols(df):
 
 # =============================
 # Uniqueness selector
-# - NEW: Require unique CPU AND unique GPU across displayed results (if possible)
+# - Require unique CPU AND unique GPU across displayed results (if possible)
 # =============================
 def select_diverse_builds(
     df,
@@ -156,15 +159,6 @@ def select_diverse_builds(
     part_repeat_penalty=0.0,
     part_cols=None,
 ):
-    """
-    Select up to n builds from a ranked dataframe, preferring:
-      - unique CPU (no repeats) if require_unique_cpu
-      - unique GPU (no repeats) if require_unique_gpu
-      - optional general part repeat discouragement (part_repeat_penalty)
-
-    If strict uniqueness can't fill n results (dataset/budget too tight),
-    the function will fill remaining slots with the best remaining builds.
-    """
     if df is None or df.empty:
         return df
 
@@ -219,7 +213,7 @@ def select_diverse_builds(
         for p in row_parts(r):
             part_counts[p] = part_counts.get(p, 0) + 1
 
-    # Fill remaining slots if strict constraints couldn't produce n builds
+    # Fill remaining slots if strict constraints can't find n
     if len(selected_idx) < n:
         for i in range(len(rows)):
             if i in selected_idx:
@@ -293,6 +287,108 @@ def rank_by_budget_utilization(df, budget_value: float, weight: float = 0.75):
 
 
 # =============================
+# AI prompt + caching
+# =============================
+def builds_signature(industry: str, budget: float, builds: list[dict]) -> str:
+    """
+    Stable signature for the displayed top builds.
+    If this doesn't change, we reuse cached AI output.
+    """
+    minimal = []
+    for b in builds:
+        minimal.append({
+            "industry": industry,
+            "budget": round(float(budget), 2),
+            "total_price": round(float(b.get("total_price", 0.0) or 0.0), 2),
+            "cpu": clean_str(b.get("cpu")),
+            "gpu": clean_str(b.get("gpu")),
+            "ram": clean_str(b.get("ram")),
+            "motherboard": clean_str(b.get("motherboard")),
+            "psu": clean_str(b.get("psu")),
+            "cpu_cores": b.get("cpu_cores"),
+            "gpu_vram_gb": b.get("gpu_vram_gb"),
+            "ram_total_gb": b.get("ram_total_gb"),
+            "psu_wattage": b.get("psu_wattage"),
+        })
+    payload = json.dumps(minimal, sort_keys=True)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def build_ai_prompt(industry: str, budget: float, builds: list[dict]) -> str:
+    lines = []
+    lines.append("You are a PC building expert. Compare these 5 PC builds for the given use-case and budget.")
+    lines.append(f"Use-case/industry: {industry}")
+    lines.append(f"Budget: ${budget:,.0f}")
+    lines.append("")
+    lines.append("Requirements for your answer:")
+    lines.append("- Keep it concise and practical.")
+    lines.append("- Start with an overall best pick and why (2-4 sentences).")
+    lines.append("- Then list each build with: best-for, pros, cons (each in 1 short line).")
+    lines.append("- Call out any balance issues (e.g., CPU too weak for GPU, insufficient PSU headroom, RAM mismatch).")
+    lines.append("- Prefer builds that spend near the budget if performance gains make sense.")
+    lines.append("")
+    lines.append("Builds:")
+    for i, b in enumerate(builds, start=1):
+        lines.append(f"\nBuild #{i} (Total ${float(b.get('total_price',0.0) or 0.0):,.2f})")
+        lines.append(f"- CPU: {b.get('cpu','—')} ({b.get('cpu_cores','—')} cores, socket {b.get('cpu_socket','—')})")
+        lines.append(f"- GPU: {b.get('gpu','—')} ({b.get('gpu_vram_gb','—')}GB VRAM)")
+        lines.append(f"- RAM: {b.get('ram','—')} ({b.get('ram_total_gb','—')}GB, DDR{b.get('ram_ddr','—')})")
+        lines.append(f"- Motherboard: {b.get('motherboard','—')} (socket {b.get('mb_socket','—')}, DDR{b.get('mb_ddr','—')})")
+        lines.append(f"- PSU: {b.get('psu','—')} ({b.get('psu_wattage','—')}W)")
+        lines.append(f"- Est draw: ~{b.get('est_draw_w','—')}W")
+    return "\n".join(lines)
+
+
+def get_openai_api_key() -> str:
+    # Try common secret keys (you said it's already in Streamlit secrets)
+    for k in ["OPENAI_API_KEY", "openai_api_key", "OPENAI_KEY", "openai_key"]:
+        if k in st.secrets and str(st.secrets[k]).strip():
+            return str(st.secrets[k]).strip()
+    return ""
+
+
+@st.cache_data(show_spinner=False, ttl=AI_TTL_SECONDS)
+def ai_summary_cached(signature: str, prompt: str, model: str) -> str:
+    """
+    Cached AI call by signature. Long TTL reduces rate-limit pain.
+    """
+    api_key = get_openai_api_key()
+    if not api_key:
+        return "AI summary unavailable: missing OpenAI API key in Streamlit secrets."
+
+    # Import OpenAI SDK lazily
+    try:
+        from openai import OpenAI
+        from openai import RateLimitError, APIError, APITimeoutError
+    except Exception:
+        return "AI summary unavailable: OpenAI SDK not installed. Add `openai` to requirements.txt."
+
+    client = OpenAI(api_key=api_key)
+
+    # Light retry/backoff on rate limit or transient API errors
+    delays = [1.0, 2.0, 4.0]
+    for attempt in range(len(delays) + 1):
+        try:
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that gives succinct PC build advice."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.4,
+            )
+            text = resp.choices[0].message.content or ""
+            return text.strip() if text.strip() else "AI summary returned empty text."
+        except (RateLimitError, APITimeoutError, APIError) as e:
+            if attempt >= len(delays):
+                # Return a friendly message (and do NOT crash app)
+                return f"AI notes unavailable: rate limit or transient API error. Please try again later.\n\nDetails: {type(e).__name__}"
+            time.sleep(delays[attempt])
+        except Exception as e:
+            return f"AI notes unavailable due to an unexpected error: {type(e).__name__}"
+
+
+# =============================
 # UI controls
 # =============================
 with st.expander("Display & ranking options"):
@@ -311,8 +407,10 @@ with st.expander("Display & ranking options"):
     require_unique_gpu = st.checkbox("Require unique GPUs (top 5)", value=True)
     part_repeat_penalty = st.slider("Discourage repeating parts (optional)", 0.0, 2.0, 0.0, 0.05)
 
-    st.markdown("### AI commentary (no API)")
-    use_manual_ai = st.checkbox("Show/paste AI commentary for the top 5 builds", value=True)
+    st.markdown("### AI commentary")
+    auto_ai = st.checkbox("Auto-generate AI comparison (cached)", value=True)
+    st.caption("Uses OpenAI once per unique top-5 set, then reuses cached output for ~24 hours.")
+    use_manual_ai = st.checkbox("Manual paste fallback box", value=False)
 
 st.divider()
 
@@ -335,12 +433,7 @@ def build_card(build: dict, idx: int):
 
         cpu_name = build.get("cpu", "—")
         st.write(f"**CPU (Model):** {cpu_name} — {money(build.get('cpu_price'))}")
-        part_link(
-            "CPU",
-            cpu_name,
-            [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
-            use=link_source,
-        )
+        part_link("CPU", cpu_name, [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"], use=link_source)
 
         gpu_name = build.get("gpu", "—")
         st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
@@ -348,24 +441,14 @@ def build_card(build: dict, idx: int):
 
         ram_name = build.get("ram", "—")
         st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
-        part_link(
-            "RAM",
-            ram_name,
-            [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
-            use=link_source,
-        )
+        part_link("RAM", ram_name, [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"], use=link_source)
 
     with parts_right:
         st.markdown("**Platform & power**")
 
         mb_name = build.get("motherboard", "—")
         st.write(f"**Motherboard (Model):** {mb_name} — {money(build.get('mb_price'))}")
-        part_link(
-            "Motherboard",
-            mb_name,
-            [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
-            use=link_source,
-        )
+        part_link("Motherboard", mb_name, [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"], use=link_source)
 
         psu_name = build.get("psu", "—")
         st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
@@ -422,6 +505,8 @@ if st.button("Generate Builds", type="primary"):
     if df is None or df.empty:
         st.session_state.ranked_df = None
         st.session_state.shown_builds = None
+        st.session_state.ai_auto_summary = ""
+        st.session_state.ai_last_sig = ""
         st.warning(
             "No compatible builds found under these constraints at this budget. "
             "Try increasing budget OR switching industry, OR your dataset may not have parts that meet the minimum requirements."
@@ -449,16 +534,37 @@ if st.button("Generate Builds", type="primary"):
         st.session_state.ranked_df = ranked
         st.session_state.shown_builds = shown_df.to_dict(orient="records")
 
+        # ✅ AUTO AI: compute only if enabled, and only when build signature changes
+        if auto_ai and st.session_state.shown_builds:
+            sig = builds_signature(industry, float(budget), st.session_state.shown_builds)
+            if sig != st.session_state.ai_last_sig:
+                prompt = build_ai_prompt(industry, float(budget), st.session_state.shown_builds)
+                with st.spinner("Generating AI comparison (cached)..."):
+                    st.session_state.ai_auto_summary = ai_summary_cached(sig, prompt, OPENAI_MODEL)
+                st.session_state.ai_last_sig = sig
+
 
 # =============================
-# Render saved builds + manual AI summary
+# Render saved builds + AI summary
 # =============================
 if st.session_state.shown_builds:
     shown_builds = st.session_state.shown_builds
     ranked = st.session_state.ranked_df
 
+    # Auto AI summary section
+    if auto_ai:
+        st.markdown("## AI Comparison (Top 5 Builds)")
+        if st.session_state.ai_auto_summary:
+            st.markdown(st.session_state.ai_auto_summary)
+        else:
+            st.caption("AI comparison will appear here after generation.")
+
+        st.divider()
+
+    # Manual fallback paste box (optional)
     if use_manual_ai:
-        st.markdown("## AI Commentary (Top 5 Builds)")
+        st.markdown("## Manual AI Commentary (Fallback)")
+        st.caption("If the API ever rate-limits, you can paste a summary here.")
         st.session_state.ai_text_manual = st.text_area(
             "Paste AI summary",
             value=st.session_state.ai_text_manual,
