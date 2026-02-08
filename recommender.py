@@ -26,7 +26,6 @@ def mins(industry):
 
 # -------------------------
 # Reasonable per-part caps (NOT strict fractions)
-# Avoids "MB <= $100" / "PSU <= $100" failures at lower budgets.
 # -------------------------
 MAX_FRAC = dict(cpu=0.65, gpu=0.80, ram=0.45, mb=0.40, psu=0.30)
 MIN_FLOOR = dict(cpu=0.0, gpu=0.0, ram=0.0, mb=120.0, psu=80.0)
@@ -272,7 +271,6 @@ def recommend_builds(
     PSU_PER_PAIR = 12
     MBRAM_BUNDLES_PER_PAIR = 26
 
-    # Slightly more emphasis on spending near budget
     PERF_WEIGHT = 0.70
     UTIL_WEIGHT = 0.30
     UTIL_TARGET = 0.95
@@ -324,7 +322,7 @@ def recommend_builds(
 
                     total_price = float(cpu["price"] + gpu["price"] + mb["price"] + ram["price"] + psu["price"])
                     if total_price > total_budget:
-                        continue  # hard budget wall
+                        continue
 
                     perf_score = (
                         W["cpu"] * norm01(cpu["cpu_perf"], cpu_lo, cpu_hi) +
