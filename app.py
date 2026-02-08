@@ -2,7 +2,6 @@ import streamlit as st
 from urllib.parse import quote_plus
 import numpy as np
 import json
-import hashlib
 import time
 
 from recommender import recommend_builds_from_csv_dir
@@ -22,6 +21,8 @@ TOP_K_BASE = 1000
 DISPLAY_TOP = 5
 DATA_DIR = "data"
 
+st.divider()
+
 # =============================
 # Session state (persist results across reruns)
 # =============================
@@ -33,8 +34,6 @@ if "shown_builds" not in st.session_state:
 # Manual "AI" summary paste box state
 if "ai_text_manual" not in st.session_state:
     st.session_state.ai_text_manual = ""
-
-st.divider()
 
 
 # =============================
@@ -57,9 +56,7 @@ def clean_str(v) -> str:
 
 
 def safe_float_series(s):
-    return np.array(
-        [float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s]
-    )
+    return np.array([float(x) if str(x).strip().lower() not in ("", "nan", "none") else np.nan for x in s])
 
 
 def minmax_norm(arr):
@@ -199,7 +196,7 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
 
 
 # =============================
-# Slider-based re-ranking
+# Slider-based re-ranking (+ optional "spend budget" preference)
 # =============================
 def apply_user_weights(df, perf_vs_value: float, include_util: bool):
     if df is None or df.empty:
@@ -240,6 +237,32 @@ def apply_user_weights(df, perf_vs_value: float, include_util: bool):
     return out
 
 
+def rank_by_budget_utilization(df, budget_value: float, weight: float = 0.65):
+    """
+    Push results closer to budget.
+    weight=0 -> ignore budget utilization
+    weight=1 -> mostly "closest-to-budget" ranking
+    """
+    if df is None or df.empty or "total_price" not in df.columns:
+        return df
+
+    out = df.copy()
+    prices = safe_float_series(out["total_price"])
+    util = np.where(np.isfinite(prices) & (prices > 0), prices / float(budget_value), 0.0)
+    util = np.clip(util, 0.0, 1.2)  # allow slight over for scoring, we filter later
+    util_norm = minmax_norm(util)
+
+    # If user_score exists, blend; otherwise just use utilization
+    if "user_score" in out.columns:
+        score = (1.0 - weight) * minmax_norm(safe_float_series(out["user_score"])) + weight * util_norm
+    else:
+        score = util_norm
+
+    out["budget_fit_score"] = score
+    out = out.sort_values("budget_fit_score", ascending=False, kind="mergesort")
+    return out
+
+
 # =============================
 # UI controls
 # =============================
@@ -260,6 +283,16 @@ with st.expander("Display & ranking options"):
         "Include 'utility' score (if available)",
         value=True,
         help="Keeps a small preference for util_score in the ranking if your recommender provides it.",
+    )
+
+    st.markdown("### Use more of the budget")
+    spend_weight = st.slider(
+        "Prefer builds closer to your budget",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.75,
+        step=0.05,
+        help="Higher values push results closer to the budget instead of picking very cheap value builds.",
     )
 
     st.markdown("### Uniqueness (top 5 variety)")
@@ -382,21 +415,54 @@ def build_card(build: dict, idx: int):
 # =============================
 # Generate builds (stores results in session_state)
 # =============================
-if st.button("Generate Builds", type="primary"):
-    with st.spinner("Generating best builds..."):
+def call_recommender_with_fallbacks(industry_value: str, budget_value: float, top_k: int):
+    """
+    Workaround for overly strict or buggy budget logic inside recommender.py:
+    - Try requested budget first
+    - If empty, retry with larger budgets
+    - Always filter results back down to <= original budget in app.py
+    """
+    fallback_multipliers = [1.0, 1.25, 1.5, 2.0]
+    last_df = None
+
+    for m in fallback_multipliers:
+        attempt_budget = float(budget_value) * m
         df = recommend_builds_from_csv_dir(
             data_dir=DATA_DIR,
-            industry=industry,
-            total_budget=float(budget),
-            top_k=TOP_K_BASE,
+            industry=industry_value,
+            total_budget=attempt_budget,
+            top_k=top_k,
         )
+        last_df = df
+        if df is not None and not df.empty:
+            # Filter back to original budget (if total_price exists)
+            if "total_price" in df.columns:
+                prices = safe_float_series(df["total_price"])
+                df = df[np.isfinite(prices)]
+                df = df[df["total_price"].astype(float) <= float(budget_value)]
+            if df is not None and not df.empty:
+                return df, m
+
+    return last_df, None
+
+
+if st.button("Generate Builds", type="primary"):
+    with st.spinner("Generating best builds..."):
+        df, used_multiplier = call_recommender_with_fallbacks(industry, float(budget), TOP_K_BASE)
 
     if df is None or df.empty:
         st.session_state.ranked_df = None
         st.session_state.shown_builds = None
-        st.warning("No compatible builds found under these constraints. Try increasing your budget.")
+        st.warning("No compatible builds found under these constraints. Try increasing your budget or changing industry.")
     else:
+        if used_multiplier and used_multiplier > 1.0:
+            st.info(
+                f"Note: I had to widen the internal search budget to {used_multiplier:.2f}× to find candidates, "
+                "then filtered back down to your budget."
+            )
+
         ranked = apply_user_weights(df, perf_vs_value=perf_vs_value, include_util=include_util)
+        ranked = rank_by_budget_utilization(ranked, budget_value=float(budget), weight=float(spend_weight))
 
         if make_unique:
             shown_df = select_diverse_builds(
@@ -409,7 +475,7 @@ if st.button("Generate Builds", type="primary"):
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        # Display order: cheapest -> most expensive
+        # Display order: cheapest -> most expensive (still within top picks)
         if "total_price" in shown_df.columns:
             shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
 
@@ -463,5 +529,16 @@ if st.session_state.shown_builds:
             file_name=f"top_{TOP_K_BASE}_{industry}_{int(budget)}.csv",
             mime="text/csv",
         )
+
+    with st.expander("Diagnostics (helps debug budget issues)"):
+        if ranked is not None and "total_price" in ranked.columns and not ranked.empty:
+            prices = safe_float_series(ranked["total_price"])
+            prices = prices[np.isfinite(prices)]
+            if prices.size:
+                st.write(f"Budget: {money(budget)}")
+                st.write(f"Candidate builds returned: {len(ranked)}")
+                st.write(f"Min total: {money(prices.min())}")
+                st.write(f"Max total: {money(prices.max())}")
+                st.write(f"Median total: {money(float(np.median(prices)))}")
 else:
     st.info("Click **Generate Builds** to see recommendations.")
