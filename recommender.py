@@ -55,6 +55,15 @@ def safe_str(x, default="Unknown"):
     s = str(x).strip()
     return s if s else default
 
+def get_optional(row, *keys, default=None):
+    """Try multiple column names in a Series-like object."""
+    for k in keys:
+        if k in row and pd.notna(row.get(k)):
+            v = row.get(k)
+            if str(v).strip() != "":
+                return v
+    return default
+
 def priced(df):
     df = df.copy()
     df["price"] = to_num(df.get("price"), np.nan)
@@ -338,6 +347,26 @@ def recommend_builds(
                     headroom_w = psu_w - float(draw)
                     headroom_pct = (headroom_w / float(draw)) if float(draw) > 0 else 0.0
 
+                    # Optional fields for better searchability
+                    cpu_brand = safe_str(get_optional(cpu, "brand", "manufacturer", default=""))
+                    cpu_series = safe_str(get_optional(cpu, "series", default=""))
+                    cpu_model_number = safe_str(get_optional(cpu, "model_number", "sku", "part_number", default=""))
+
+                    gpu_brand = safe_str(get_optional(gpu, "brand", "manufacturer", default=""))
+                    gpu_chipset = safe_str(get_optional(gpu, "chipset", "gpu_chipset", default=""))
+                    gpu_model_number = safe_str(get_optional(gpu, "model_number", "sku", "part_number", default=""))
+
+                    mb_chipset = safe_str(get_optional(mb, "chipset", "mb_chipset", default=""))
+                    mb_form_factor = safe_str(get_optional(mb, "form_factor", "mb_form_factor", default=""))
+                    mb_model_number = safe_str(get_optional(mb, "model_number", "sku", "part_number", default=""))
+
+                    ram_brand = safe_str(get_optional(ram, "brand", "manufacturer", default=""))
+                    ram_model_number = safe_str(get_optional(ram, "model_number", "sku", "part_number", default=""))
+
+                    psu_brand = safe_str(get_optional(psu, "brand", "manufacturer", default=""))
+                    psu_eff = safe_str(get_optional(psu, "efficiency", "80_plus", "rating", default=""))
+                    psu_model_number = safe_str(get_optional(psu, "model_number", "sku", "part_number", default=""))
+
                     build = {
                         "industry": industry,
                         "final_score": round(final_score, 4),
@@ -349,26 +378,40 @@ def recommend_builds(
                         "cpu_socket": safe_str(cpu.get("cpu_socket")),
                         "cpu_cores": int(cpu["cores"]),
                         "cpu_price": float(cpu["price"]),
+                        "cpu_brand": cpu_brand,
+                        "cpu_series": cpu_series,
+                        "cpu_model_number": cpu_model_number,
 
                         "gpu": safe_str(gpu.get("model")),
                         "gpu_vram_gb": round(float(gpu["vram_gb"]), 1),
                         "gpu_price": float(gpu["price"]),
+                        "gpu_brand": gpu_brand,
+                        "gpu_chipset": gpu_chipset,
+                        "gpu_model_number": gpu_model_number,
 
                         "motherboard": safe_str(mb.get("model")),
                         "mb_socket": safe_str(mb.get("socket")),
                         "mb_ddr": safe_str(mb.get("mb_ddr")),
                         "mb_ram_slots": int(mb.get("ram_slots", 0)),
                         "mb_price": float(mb["price"]),
+                        "mb_chipset": mb_chipset,
+                        "mb_form_factor": mb_form_factor,
+                        "mb_model_number": mb_model_number,
 
                         "ram": safe_str(ram.get("model")),
                         "ram_total_gb": int(round(float(ram["total_ram_gb"]))) if pd.notna(ram["total_ram_gb"]) else None,
                         "ram_ddr": safe_str(ram.get("ram_ddr")),
                         "ram_modules": int(ram.get("modules", 0)),
                         "ram_price": float(ram["price"]),
+                        "ram_brand": ram_brand,
+                        "ram_model_number": ram_model_number,
 
                         "psu": safe_str(psu.get("model")),
                         "psu_wattage": int(round(psu_w)),
                         "psu_price": float(psu["price"]),
+                        "psu_brand": psu_brand,
+                        "psu_efficiency": psu_eff,
+                        "psu_model_number": psu_model_number,
 
                         "est_draw_w": int(round(draw)),
                         "psu_headroom_w": int(round(headroom_w)),
