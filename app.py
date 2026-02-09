@@ -58,14 +58,6 @@ def clean_str(v) -> str:
     return s
 
 
-def build_search_query(part_name: str, extras: list[str]) -> str:
-    base = clean_str(part_name)
-    extras_clean = [clean_str(e) for e in extras if clean_str(e)]
-    if not base and not extras_clean:
-        return ""
-    return " ".join([base] + extras_clean).strip()
-
-
 def google_search_url(query: str) -> str:
     return f"https://www.google.com/search?q={quote_plus(query)}"
 
@@ -74,22 +66,45 @@ def pcpp_search_url(query: str) -> str:
     return f"https://pcpartpicker.com/search/?q={quote_plus(query)}"
 
 
-def part_link(label: str, part_name: str, extras: list[str], use="google"):
-    q = build_search_query(part_name, extras)
-    if not q:
+def build_search_query(*parts) -> str:
+    """
+    Builds a clean, specific search query.
+    Ignores empty/unknown values and deduplicates tokens lightly.
+    """
+    tokens = []
+    for p in parts:
+        s = clean_str(p)
+        if not s:
+            continue
+        s_up = s.upper()
+        if s_up in ("UNKNOWN", "N/A", "NA"):
+            continue
+        tokens.append(s)
+
+    # light dedupe while preserving order
+    seen = set()
+    out = []
+    for t in tokens:
+        key = t.strip().lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(t.strip())
+
+    return " ".join(out).strip()
+
+
+def part_links_row(query: str):
+    if not query:
         st.caption("Lookup: —")
         return
-    url = google_search_url(q) if use == "google" else pcpp_search_url(q)
-    st.caption(f"Lookup: [{label}]({url})")
-
-
-def get_part_cols(df):
-    candidates = ["cpu", "gpu", "ram", "motherboard", "psu"]
-    return [c for c in candidates if c in df.columns]
+    g = google_search_url(query)
+    p = pcpp_search_url(query)
+    st.caption(f"Lookup: [Google]({g})  |  [PCPartPicker]({p})")
 
 
 # =============================
-# Beginner checks + summary
+# Beginner checks + summary (unchanged)
 # =============================
 def compute_checks(build: dict, budget_value: float) -> dict:
     cpu_socket = clean_str(build.get("cpu_socket")).lower()
@@ -109,7 +124,7 @@ def compute_checks(build: dict, budget_value: float) -> dict:
     used_pct = (total / float(budget_value)) if float(budget_value) > 0 else 0.0
     leftover = float(budget_value) - total
 
-    checks = {
+    return {
         "socket_match": bool(cpu_socket and mb_socket and cpu_socket == mb_socket),
         "ddr_match": bool(ram_ddr and mb_ddr and ram_ddr != "UNKNOWN" and mb_ddr != "UNKNOWN" and ram_ddr == mb_ddr),
         "ram_slots_ok": bool(ram_modules > 0 and mb_slots > 0 and ram_modules <= mb_slots),
@@ -121,7 +136,6 @@ def compute_checks(build: dict, budget_value: float) -> dict:
         "budget_leftover": leftover,
         "over_budget": total > float(budget_value) + 1e-6,
     }
-    return checks
 
 
 def performance_tier(industry: str, cpu_cores: int, gpu_vram: float, ram_gb: int) -> str:
@@ -154,10 +168,6 @@ def performance_tier(industry: str, cpu_cores: int, gpu_vram: float, ram_gb: int
 
 
 def beginner_summary(build: dict, checks: dict) -> list[str]:
-    """
-    Rule-based “AI-like” bullet summary.
-    Keeps it simple and beginner-focused.
-    """
     cpu_cores = int(build.get("cpu_cores") or 0)
     gpu_vram = float(build.get("gpu_vram_gb") or 0.0)
     ram_gb = int(build.get("ram_total_gb") or 0)
@@ -172,15 +182,10 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
     bullets.append(f"**What it’s best for:** {tier}.")
     bullets.append(f"**Budget fit:** Uses ~{used_pct:.0f}% of your budget ({money(total)}), leftover {money(leftover)}.")
 
-    # Balance heuristic: is GPU share very high/low?
     gpu_price = float(build.get("gpu_price") or 0.0)
     cpu_price = float(build.get("cpu_price") or 0.0)
-    if total > 0:
-        gpu_share = gpu_price / total
-        cpu_share = cpu_price / total
-    else:
-        gpu_share = 0.0
-        cpu_share = 0.0
+    gpu_share = (gpu_price / total) if total > 0 else 0.0
+    cpu_share = (cpu_price / total) if total > 0 else 0.0
 
     if build.get("industry") == "gaming":
         if gpu_share >= 0.55:
@@ -202,7 +207,6 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
         else:
             bullets.append("**Why it’s good:** Plenty of RAM for everyday multitasking.")
 
-    # PSU headroom guidance
     hr = checks["psu_headroom_pct"]
     if hr < 0.15:
         bullets.append("**Watch out:** PSU headroom is tight (<15%). A bit more wattage is safer for future upgrades.")
@@ -211,11 +215,9 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
     else:
         bullets.append("**Great:** PSU has healthy headroom (30%+), good for upgrades.")
 
-    # If any compatibility check fails (rare if recommender is correct)
     if not (checks["socket_match"] and checks["ddr_match"] and checks["ram_slots_ok"]):
         bullets.append("**Warning:** One or more compatibility checks is failing—double check before buying parts.")
 
-    # Simple “next upgrade”
     if build.get("industry") == "gaming":
         bullets.append("**Next upgrade idea:** GPU first (biggest gaming gains).")
     elif build.get("industry") == "content_creation":
@@ -273,12 +275,9 @@ def select_diverse_builds(df, n=5, require_unique_cpu=True, require_unique_gpu=T
 
 
 # =============================
-# Options (simplified)
+# Options
 # =============================
 with st.expander("Options"):
-    link_source = st.selectbox("Part lookup links", ["google", "pcpartpicker"], index=0)
-    st.caption("Google is more forgiving with imperfect names; PCPartPicker is nicer when names are exact.")
-
     st.markdown("### Variety in the top 5")
     make_unique = st.checkbox("Make top 5 builds more unique", value=True)
     require_unique_cpu = st.checkbox("Require unique CPUs (top 5)", value=True)
@@ -286,7 +285,6 @@ with st.expander("Options"):
 
     st.markdown("### Manual AI commentary")
     use_manual_ai = st.checkbox("Show AI commentary box (paste from ChatGPT)", value=True)
-    st.caption("Optional: paste an AI comparison here. No API calls = no rate limits.")
 
 st.divider()
 
@@ -304,12 +302,11 @@ def build_card(build: dict, idx: int, budget_value: float):
     with right:
         st.metric("Total", money(build.get("total_price")))
 
-    # --- Budget utilization meter
+    # --- Budget utilization
     used_pct = max(0.0, min(1.0, checks["budget_used_pct"]))
     st.markdown("**Budget utilization**")
     st.progress(used_pct)
     st.caption(f"Uses {money(build.get('total_price'))} of {money(budget_value)} • Leftover: {money(checks['budget_leftover'])}")
-    st.caption("Tip: If leftover is large, your dataset may not include mid-priced parts to spend the remaining budget cleanly.")
 
     # --- Compatibility badges
     st.markdown("**Compatibility checks**")
@@ -323,41 +320,15 @@ def build_card(build: dict, idx: int, budget_value: float):
                 st.warning(label_bad)
             st.caption(help_text)
 
-    badge(
-        b1,
-        checks["socket_match"],
-        "✅ CPU socket",
-        "⚠️ CPU socket",
-        "CPU and motherboard socket must match (otherwise it won’t fit).",
-    )
-    badge(
-        b2,
-        checks["ddr_match"],
-        "✅ RAM type",
-        "⚠️ RAM type",
-        "DDR version (DDR4/DDR5) must match motherboard support.",
-    )
-    badge(
-        b3,
-        checks["ram_slots_ok"],
-        "✅ RAM slots",
-        "⚠️ RAM slots",
-        "Your RAM kit must fit in the available motherboard DIMM slots.",
-    )
+    badge(b1, checks["socket_match"], "✅ CPU socket", "⚠️ CPU socket", "CPU and motherboard socket must match.")
+    badge(b2, checks["ddr_match"], "✅ RAM type", "⚠️ RAM type", "DDR version (DDR4/DDR5) must match motherboard.")
+    badge(b3, checks["ram_slots_ok"], "✅ RAM slots", "⚠️ RAM slots", "RAM kit must fit available DIMM slots.")
 
     psu_headroom_ok = checks["psu_ok"] and checks["psu_headroom_pct"] >= 0.15
-    badge(
-        b4,
-        psu_headroom_ok,
-        "✅ PSU headroom",
-        "⚠️ PSU headroom",
-        "Aim for ~15–30%+ headroom over estimated draw for stability/upgrades.",
-    )
+    badge(b4, psu_headroom_ok, "✅ PSU headroom", "⚠️ PSU headroom", "Aim for ~15–30%+ headroom for upgrades.")
 
     if checks["psu_ok"]:
         st.caption(f"Estimated draw: ~{int(checks['est_draw_w'])}W • PSU: {int(checks['psu_w'])}W • Headroom: {checks['psu_headroom_pct']*100:.0f}%")
-    else:
-        st.warning("PSU may be underpowered relative to estimated draw (check your dataset / estimates).")
 
     # --- Beginner summary
     st.markdown("### Beginner Summary (why this build makes sense)")
@@ -371,48 +342,79 @@ def build_card(build: dict, idx: int, budget_value: float):
 
     with parts_left:
         st.markdown("**Core components**")
-        st.caption("These determine most of your performance.")
 
-        cpu_name = build.get("cpu", "—")
-        st.write(f"**CPU:** {cpu_name} — {money(build.get('cpu_price'))}")
-        st.caption("CPU matters most for productivity, simulation, and some games at high FPS.")
-        part_link("CPU", cpu_name, [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"], use=link_source)
+        # CPU search query (more specific)
+        cpu_query = build_search_query(
+            build.get("cpu_brand"),
+            build.get("cpu"),
+            build.get("cpu_model_number"),
+            f"{build.get('cpu_cores','')} core",
+            build.get("cpu_socket"),
+        )
+        st.write(f"**CPU:** {build.get('cpu','—')} — {money(build.get('cpu_price'))}")
+        part_links_row(cpu_query)
 
-        gpu_name = build.get("gpu", "—")
-        st.write(f"**GPU:** {gpu_name} — {money(build.get('gpu_price'))}")
-        st.caption("GPU matters most for gaming FPS, 3D work, and GPU-accelerated editing.")
-        part_link("GPU", gpu_name, [f"{build.get('gpu_vram_gb','')}GB VRAM"], use=link_source)
+        # GPU search query (chipset/model number/VRAM help a lot)
+        gpu_query = build_search_query(
+            build.get("gpu_brand"),
+            build.get("gpu_chipset"),
+            build.get("gpu"),
+            build.get("gpu_model_number"),
+            f"{build.get('gpu_vram_gb','')}GB",
+        )
+        st.write(f"**GPU:** {build.get('gpu','—')} — {money(build.get('gpu_price'))}")
+        part_links_row(gpu_query)
 
-        ram_name = build.get("ram", "—")
-        st.write(f"**RAM:** {ram_name} — {money(build.get('ram_price'))}")
-        st.caption("More RAM helps multitasking, creation work, and engineering tools.")
-        part_link("RAM", ram_name, [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"], use=link_source)
+        # RAM search query
+        ram_query = build_search_query(
+            build.get("ram_brand"),
+            build.get("ram"),
+            build.get("ram_model_number"),
+            f"{build.get('ram_total_gb','')}GB",
+            f"DDR{build.get('ram_ddr','')}",
+            f"{build.get('ram_modules','')}x",
+        )
+        st.write(f"**RAM:** {build.get('ram','—')} — {money(build.get('ram_price'))}")
+        part_links_row(ram_query)
 
     with parts_right:
         st.markdown("**Platform & power**")
-        st.caption("These keep things compatible and stable.")
 
-        mb_name = build.get("motherboard", "—")
-        st.write(f"**Motherboard:** {mb_name} — {money(build.get('mb_price'))}")
-        st.caption("Motherboard determines CPU compatibility, RAM type, and upgrade options.")
-        part_link("Motherboard", mb_name, [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"], use=link_source)
+        # Motherboard search query
+        mb_query = build_search_query(
+            build.get("motherboard"),
+            build.get("mb_model_number"),
+            build.get("mb_chipset"),
+            build.get("mb_form_factor"),
+            build.get("mb_socket"),
+            f"DDR{build.get('mb_ddr','')}",
+        )
+        st.write(f"**Motherboard:** {build.get('motherboard','—')} — {money(build.get('mb_price'))}")
+        part_links_row(mb_query)
 
-        psu_name = build.get("psu", "—")
-        st.write(f"**PSU:** {psu_name} — {money(build.get('psu_price'))}")
-        st.caption("PSU quality/headroom matters for stability and future upgrades.")
-        part_link("PSU", psu_name, [f"{build.get('psu_wattage','')}W"], use=link_source)
+        # PSU search query
+        psu_query = build_search_query(
+            build.get("psu_brand"),
+            build.get("psu"),
+            build.get("psu_model_number"),
+            f"{build.get('psu_wattage','')}W",
+            build.get("psu_efficiency"),
+        )
+        st.write(f"**PSU:** {build.get('psu','—')} — {money(build.get('psu_price'))}")
+        part_links_row(psu_query)
+
+        st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
 
     with st.expander("Copy build summary"):
         summary = (
             f"Build #{idx}\n"
             f"Industry: {build.get('industry','')}\n"
             f"Total: {money(build.get('total_price'))}\n\n"
-            f"CPU: {build.get('cpu','—')} ({build.get('cpu_cores','—')} cores, socket {build.get('cpu_socket','—')}) — {money(build.get('cpu_price'))}\n"
-            f"GPU: {build.get('gpu','—')} ({build.get('gpu_vram_gb','—')}GB VRAM) — {money(build.get('gpu_price'))}\n"
-            f"RAM: {build.get('ram','—')} ({build.get('ram_total_gb','—')}GB, DDR{build.get('ram_ddr','—')}) — {money(build.get('ram_price'))}\n"
-            f"Motherboard: {build.get('motherboard','—')} (socket {build.get('mb_socket','—')}, DDR{build.get('mb_ddr','—')}) — {money(build.get('mb_price'))}\n"
-            f"PSU: {build.get('psu','—')} ({build.get('psu_wattage','—')}W) — {money(build.get('psu_price'))}\n"
-            f"Est. draw: ~{build.get('est_draw_w','—')}W\n"
+            f"CPU: {build.get('cpu','—')} — {money(build.get('cpu_price'))}\n"
+            f"GPU: {build.get('gpu','—')} — {money(build.get('gpu_price'))}\n"
+            f"RAM: {build.get('ram','—')} — {money(build.get('ram_price'))}\n"
+            f"Motherboard: {build.get('motherboard','—')} — {money(build.get('mb_price'))}\n"
+            f"PSU: {build.get('psu','—')} — {money(build.get('psu_price'))}\n"
         )
         st.code(summary, language="text")
         st.download_button(
@@ -438,7 +440,7 @@ if st.button("Generate Builds", type="primary"):
             top_k=TOP_K_BASE,
         )
 
-    # Hard safety filter: never show over-budget builds
+    # Safety: never show over-budget builds
     if df is not None and not df.empty and "total_price" in df.columns:
         df = df[df["total_price"].astype(float) <= float(budget)]
 
@@ -459,7 +461,7 @@ if st.button("Generate Builds", type="primary"):
         else:
             shown_df = ranked.head(DISPLAY_TOP)
 
-        # Display order: cheapest -> most expensive (within selected top group)
+        # Display cheapest -> most expensive in selected top group
         if "total_price" in shown_df.columns:
             shown_df = shown_df.sort_values("total_price", ascending=True, kind="mergesort")
 
