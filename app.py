@@ -100,9 +100,6 @@ def build_search_query(part_name: str, extras: list[str]) -> str:
 def google_search_url(q: str) -> str:
     return f"https://www.google.com/search?q={quote_plus(q)}"
 
-def google_shopping_url(q: str) -> str:
-    return f"https://www.google.com/search?tbm=shop&q={quote_plus(q)}"
-
 def pcpp_search_url(q: str) -> str:
     return f"https://pcpartpicker.com/search/?q={quote_plus(q)}"
 
@@ -121,8 +118,12 @@ def microcenter_search_url(q: str) -> str:
 def bh_search_url(q: str) -> str:
     return f"https://www.bhphotovideo.com/c/search?Ntt={quote_plus(q)}"
 
+def google_shopping_url(q: str) -> str:
+    return f"https://www.google.com/search?tbm=shop&q={quote_plus(q)}"
+
 def ebay_search_url(q: str) -> str:
     return f"https://www.ebay.com/sch/i.html?_nkw={quote_plus(q)}"
+
 
 STORE_URLS = {
     "google": google_search_url,
@@ -136,23 +137,8 @@ STORE_URLS = {
     "ebay": ebay_search_url,
 }
 
-BEGINNER_FRIENDLY_STORES = [
-    "google",
-    "pcpartpicker",
-    "bestbuy",
-    "amazon",
-    "newegg",
-    "microcenter",
-    "bhphoto",
-]
 
-ADVANCED_STORES = [
-    "googleshopping",
-    "ebay",
-]
-
-
-def part_link(label: str, part_name: str, extras: list[str], use="google"):
+def part_link(label: str, part_name: str, extras: list[str], use="google", show_more=False):
     q = build_search_query(part_name, extras)
     if not q:
         st.caption("Lookup: —")
@@ -162,19 +148,10 @@ def part_link(label: str, part_name: str, extras: list[str], use="google"):
     url = fn(q)
     st.caption(f"Lookup: [{label}]({url})")
 
-    # Optional: show more stores without clutter
-    # Uses globals set from the Options expander below.
-    if globals().get("show_more_stores", False):
+    if show_more:
         with st.expander("More stores"):
             cols = st.columns(3)
-            # Respect beginner-friendly toggle
-            if globals().get("beginner_only_stores", True):
-                keys = BEGINNER_FRIENDLY_STORES
-            else:
-                keys = list(STORE_URLS.keys())
-
-            # Put current store first, then others
-            keys = [k for k in keys if k in STORE_URLS]
+            keys = list(STORE_URLS.keys())
             ordered = [use] + [k for k in keys if k != use]
 
             for i, k in enumerate(ordered):
@@ -270,7 +247,7 @@ def select_diverse_builds(df, n=5, require_unique_cpu_gpu=True, part_repeat_pena
 
 
 # =============================
-# Slider-based re-ranking
+# Slider-based re-ranking (kept exactly as you had it)
 # =============================
 def apply_user_weights(df, perf_vs_value: float, include_util: bool):
     if df is None or df.empty:
@@ -315,37 +292,14 @@ def apply_user_weights(df, perf_vs_value: float, include_util: bool):
 # UI controls
 # =============================
 with st.expander("Display & ranking options"):
-    st.markdown("### Part lookup links")
-
-    beginner_only_stores = st.checkbox(
-        "Beginner-friendly stores only",
-        value=True,
-        help="Hides advanced options like eBay and Google Shopping unless you turn this off.",
-    )
-
-    store_choices = BEGINNER_FRIENDLY_STORES if beginner_only_stores else list(STORE_URLS.keys())
-
-    # Keep selection stable across reruns
-    if "link_source" not in st.session_state:
-        st.session_state.link_source = "google"
-    if st.session_state.link_source not in store_choices:
-        st.session_state.link_source = "google"
-
+    # --- NEW: extended store links
     link_source = st.selectbox(
-        "Primary part lookup",
-        store_choices,
-        index=store_choices.index(st.session_state.link_source),
-        help="This is the main link shown under each part.",
+        "Part lookup links",
+        ["google", "pcpartpicker", "bestbuy", "amazon", "newegg", "microcenter", "bhphoto", "googleshopping", "ebay"],
+        index=0,
     )
-    st.session_state.link_source = link_source
-
-    show_more_stores = st.checkbox(
-        "Show additional store links under each part",
-        value=False,
-        help="Adds a 'More stores' expander under each part so the UI stays clean.",
-    )
-
-    st.caption("Google is forgiving; PCPartPicker is best when part names are exact; stores help beginners shop directly.")
+    show_more_stores = st.checkbox("Show more store links under each part", value=False)
+    st.caption("Google is forgiving; PCPartPicker is best when names are exact; stores help beginners shop directly.")
 
     st.markdown("### Preference sliders")
     perf_vs_value = st.slider(
@@ -404,11 +358,18 @@ def build_card(build: dict, idx: int):
             cpu_name,
             [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
             use=link_source,
+            show_more=show_more_stores,
         )
 
         gpu_name = build.get("gpu", "—")
         st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
-        part_link("GPU", gpu_name, [f"{build.get('gpu_vram_gb','')}GB VRAM"], use=link_source)
+        part_link(
+            "GPU",
+            gpu_name,
+            [f"{build.get('gpu_vram_gb','')}GB VRAM"],
+            use=link_source,
+            show_more=show_more_stores,
+        )
 
         ram_name = build.get("ram", "—")
         st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
@@ -417,6 +378,7 @@ def build_card(build: dict, idx: int):
             ram_name,
             [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
             use=link_source,
+            show_more=show_more_stores,
         )
 
     with parts_right:
@@ -429,11 +391,18 @@ def build_card(build: dict, idx: int):
             mb_name,
             [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
             use=link_source,
+            show_more=show_more_stores,
         )
 
         psu_name = build.get("psu", "—")
         st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
-        part_link("PSU", psu_name, [f"{build.get('psu_wattage','')}W"], use=link_source)
+        part_link(
+            "PSU",
+            psu_name,
+            [f"{build.get('psu_wattage','')}W"],
+            use=link_source,
+            show_more=show_more_stores,
+        )
 
         st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
 
