@@ -74,6 +74,10 @@ def build_search_query(part_name: str, extras: list[str]) -> str:
         return ""
     return " ".join([base] + extras_clean).strip()
 
+
+# =============================
+# Search providers (FIXED)
+# =============================
 def google_url(q):        return f"https://www.google.com/search?q={quote_plus(q)}"
 def pcpp_url(q):          return f"https://pcpartpicker.com/search/?q={quote_plus(q)}"
 def bestbuy_url(q):       return f"https://www.bestbuy.com/site/searchpage.jsp?st={quote_plus(q)}"
@@ -84,17 +88,30 @@ def bh_url(q):            return f"https://www.bhphotovideo.com/c/search?Ntt={qu
 def ebay_url(q):          return f"https://www.ebay.com/sch/i.html?_nkw={quote_plus(q)}"
 def google_shop_url(q):   return f"https://www.google.com/search?tbm=shop&q={quote_plus(q)}"
 
-
+# Keys MUST match what you put in the selectbox
 SEARCH_PROVIDERS = {
-    "Google": google_url,
-    "PCPartPicker": pcpp_url,
-    "Best Buy": bestbuy_url,
-    "Amazon": amazon_url,
-    "Newegg": newegg_url,
-    "Micro Center": microcenter_url,
-    "B&H Photo": bh_url,
-    "Google Shopping": google_shop_url,
-    "eBay": ebay_url,
+    "google": google_url,
+    "pcpartpicker": pcpp_url,
+    "bestbuy": bestbuy_url,
+    "amazon": amazon_url,
+    "newegg": newegg_url,
+    "microcenter": microcenter_url,
+    "bhphoto": bh_url,
+    "googleshopping": google_shop_url,
+    "ebay": ebay_url,
+}
+
+def part_link(label: str, part_name: str, extras: list[str], use="google"):
+    q = build_search_query(part_name, extras)
+    if not q:
+        st.caption("Lookup: —")
+        return
+
+    use_key = clean_str(use).lower()
+    fn = SEARCH_PROVIDERS.get(use_key, google_url)
+    url = fn(q)
+    st.caption(f"Lookup: [{label}]({url})")
+
 
 def build_summary_text(build: dict, idx: int) -> str:
     lines = []
@@ -189,8 +206,12 @@ def select_diverse_builds(
 # UI controls (simplified)
 # =============================
 with st.expander("Options"):
-    link_source = st.selectbox("Part lookup links", ["google", "pcpartpicker"], index=0)
-    st.caption("Google works best with imperfect names; PCPartPicker is best when names are exact.")
+    link_source = st.selectbox(
+        "Part lookup links",
+        ["google", "pcpartpicker", "bestbuy", "amazon", "newegg", "microcenter", "bhphoto", "googleshopping", "ebay"],
+        index=0,
+    )
+    st.caption("Choose where part lookup links should open.")
 
     st.markdown("### Variety in the top 5")
     make_unique = st.checkbox("Make top 5 builds more unique", value=True)
