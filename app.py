@@ -74,23 +74,27 @@ def build_search_query(part_name: str, extras: list[str]) -> str:
         return ""
     return " ".join([base] + extras_clean).strip()
 
+def google_url(q):        return f"https://www.google.com/search?q={quote_plus(q)}"
+def pcpp_url(q):          return f"https://pcpartpicker.com/search/?q={quote_plus(q)}"
+def bestbuy_url(q):       return f"https://www.bestbuy.com/site/searchpage.jsp?st={quote_plus(q)}"
+def amazon_url(q):        return f"https://www.amazon.com/s?k={quote_plus(q)}"
+def newegg_url(q):        return f"https://www.newegg.com/p/pl?d={quote_plus(q)}"
+def microcenter_url(q):   return f"https://www.microcenter.com/search/search_results.aspx?Ntt={quote_plus(q)}"
+def bh_url(q):            return f"https://www.bhphotovideo.com/c/search?Ntt={quote_plus(q)}"
+def ebay_url(q):          return f"https://www.ebay.com/sch/i.html?_nkw={quote_plus(q)}"
+def google_shop_url(q):   return f"https://www.google.com/search?tbm=shop&q={quote_plus(q)}"
 
-def google_search_url(query: str) -> str:
-    return f"https://www.google.com/search?q={quote_plus(query)}"
 
-
-def pcpp_search_url(query: str) -> str:
-    return f"https://pcpartpicker.com/search/?q={quote_plus(query)}"
-
-
-def part_link(label: str, part_name: str, extras: list[str], use="google"):
-    q = build_search_query(part_name, extras)
-    if not q:
-        st.caption("Lookup: —")
-        return
-    url = google_search_url(q) if use == "google" else pcpp_search_url(q)
-    st.caption(f"Lookup: [{label}]({url})")
-
+SEARCH_PROVIDERS = {
+    "Google": google_url,
+    "PCPartPicker": pcpp_url,
+    "Best Buy": bestbuy_url,
+    "Amazon": amazon_url,
+    "Newegg": newegg_url,
+    "Micro Center": microcenter_url,
+    "B&H Photo": bh_url,
+    "Google Shopping": google_shop_url,
+    "eBay": ebay_url,
 
 def build_summary_text(build: dict, idx: int) -> str:
     lines = []
