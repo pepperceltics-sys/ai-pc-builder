@@ -12,6 +12,23 @@ st.set_page_config(page_title="AI PC Builder", layout="wide")
 st.title("AI PC Builder")
 st.caption("Select an industry + budget. Builds are generated from CSVs stored in /data.")
 
+# --- UI polish (no logic changes)
+st.markdown("""
+<style>
+.block-container {padding-top: 1.2rem; padding-bottom: 2.5rem;}
+h1 {margin-bottom: 0.25rem;}
+div[data-testid="stMetricValue"] {font-size: 1.4rem;}
+pre {border-radius: 12px;}
+</style>
+""", unsafe_allow_html=True)
+
+top_left, top_right = st.columns([3, 2], vertical_alignment="center")
+with top_left:
+    st.markdown("### Build a PC that makes sense (even if you're new)")
+    st.caption("We’ll generate compatible builds near your budget and explain what to upgrade next.")
+with top_right:
+    st.info("Tip: If your leftover budget is large, your dataset may be missing mid-priced parts.", icon="💡")
+
 industry = st.selectbox("Industry", ["gaming", "office", "engineering", "content_creation"])
 budget = st.number_input("Budget (USD)", min_value=300, max_value=10000, value=2000, step=50)
 
@@ -141,7 +158,7 @@ def get_part_cols(df):
 
 
 # =============================
-# Beginner checks + basic comments (from your earlier code)
+# Beginner checks + summary
 # =============================
 def compute_checks(build: dict, budget_value: float) -> dict:
     cpu_socket = clean_str(build.get("cpu_socket")).lower()
@@ -220,7 +237,6 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
     bullets.append(f"**What it’s best for:** {tier}.")
     bullets.append(f"**Budget fit:** Uses ~{used_pct:.0f}% of your budget ({money(total)}), leftover {money(leftover)}.")
 
-    # PSU headroom guidance
     hr = checks["psu_headroom_pct"]
     if hr < 0.15:
         bullets.append("**Watch out:** PSU headroom is tight (<15%). A bit more wattage is safer for future upgrades.")
@@ -229,11 +245,9 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
     else:
         bullets.append("**Great:** PSU has healthy headroom (30%+), good for upgrades.")
 
-    # If any compatibility check fails (rare if recommender is correct)
     if not (checks["socket_match"] and checks["ddr_match"] and checks["ram_slots_ok"]):
         bullets.append("**Warning:** One or more compatibility checks is failing—double check before buying parts.")
 
-    # Simple “next upgrade”
     if build.get("industry") == "gaming":
         bullets.append("**Next upgrade idea:** GPU first (biggest gaming gains).")
     elif build.get("industry") == "content_creation":
@@ -294,7 +308,6 @@ def select_diverse_builds(
         if require_unique_gpu and gk:
             seen_gpu.add(gk)
 
-    # Fill remaining slots if strict constraints can't find n
     if len(selected_idx) < n:
         for i in range(len(rows)):
             if i in selected_idx:
@@ -307,189 +320,185 @@ def select_diverse_builds(
 
 
 # =============================
-# UI controls (simplified)
+# UI controls (cleaner)
 # =============================
-with st.expander("Options"):
+with st.expander("⚙️ Options", expanded=False):
+    st.markdown("#### Part lookup destination")
     link_source = st.selectbox(
-        "Part lookup links",
+        "Open links in…",
         ["google", "pcpartpicker", "bestbuy", "amazon", "newegg", "microcenter", "bhphoto", "googleshopping", "ebay"],
         index=0,
+        label_visibility="collapsed",
     )
-    st.caption("Choose where part lookup links should open.")
+    st.caption("Google works best with imperfect names; PCPartPicker is best when names are exact.")
 
-    st.markdown("### Variety in the top 5")
-    make_unique = st.checkbox("Make top 5 builds more unique", value=True)
-    require_unique_cpu = st.checkbox("Require unique CPUs (top 5)", value=True)
-    require_unique_gpu = st.checkbox("Require unique GPUs (top 5)", value=True)
+    st.divider()
+    st.markdown("#### Variety in the top 5")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        make_unique = st.checkbox("Make top 5 more unique", value=True)
+    with c2:
+        require_unique_cpu = st.checkbox("Unique CPUs", value=True)
+    with c3:
+        require_unique_gpu = st.checkbox("Unique GPUs", value=True)
 
-    st.markdown("### Manual AI commentary")
+    st.divider()
+    st.markdown("#### Manual AI commentary")
     use_manual_ai = st.checkbox("Show AI commentary box (paste from ChatGPT)", value=True)
 
 st.divider()
 
 
 # =============================
-# Build card
+# Build card (styled + tabs)
 # =============================
 def build_card(build: dict, idx: int, budget_value: float):
     checks = compute_checks(build, budget_value)
 
-    left, right = st.columns([3, 1])
-    with left:
-        st.subheader(f"Build #{idx}")
-        st.caption(f"{build.get('industry', '').capitalize()} build")
-    with right:
-        st.metric("Total", money(build.get("total_price")))
+    with st.container(border=True):
+        header_l, header_r = st.columns([3, 1], vertical_alignment="center")
+        with header_l:
+            st.markdown(f"## Build #{idx}")
+            st.caption(f"{build.get('industry', '').replace('_',' ').title()} • beginner-friendly")
+        with header_r:
+            st.metric("Total", money(build.get("total_price")))
 
-    # --- Budget utilization meter
-    used_pct = max(0.0, min(1.0, checks["budget_used_pct"]))
-    st.markdown("**Budget utilization**")
-    st.progress(used_pct)
-    st.caption(
-        f"Uses {money(build.get('total_price'))} of {money(budget_value)} • Leftover: {money(checks['budget_leftover'])}"
-    )
+        used_pct = max(0.0, min(1.0, checks["budget_used_pct"]))
+        m1, m2, m3 = st.columns(3)
+        with m1:
+            st.metric("Budget Used", f"{used_pct*100:.0f}%")
+        with m2:
+            st.metric("Leftover", money(checks["budget_leftover"]))
+        with m3:
+            st.metric("Est. Draw", f"{int(checks['est_draw_w'] or 0)} W")
 
-    # --- Compatibility badges
-    st.markdown("**Compatibility checks**")
-    b1, b2, b3, b4 = st.columns(4)
+        st.progress(used_pct)
 
-    def badge(col, ok: bool, label_ok: str, label_bad: str, help_text: str):
-        with col:
-            if ok:
-                st.success(label_ok)
-            else:
-                st.warning(label_bad)
-            st.caption(help_text)
+        st.markdown("#### Compatibility checks")
+        b1, b2, b3, b4 = st.columns(4)
 
-    badge(
-        b1,
-        checks["socket_match"],
-        "✅ CPU socket",
-        "⚠️ CPU socket",
-        "CPU and motherboard socket must match (otherwise it won’t fit).",
-    )
-    badge(
-        b2,
-        checks["ddr_match"],
-        "✅ RAM type",
-        "⚠️ RAM type",
-        "DDR version (DDR4/DDR5) must match motherboard support.",
-    )
-    badge(
-        b3,
-        checks["ram_slots_ok"],
-        "✅ RAM slots",
-        "⚠️ RAM slots",
-        "Your RAM kit must fit in the available motherboard DIMM slots.",
-    )
+        def status(col, ok: bool, title: str, ok_text="OK", bad_text="Check"):
+            with col:
+                if ok:
+                    st.success(f"{title}: {ok_text}")
+                else:
+                    st.warning(f"{title}: {bad_text}")
 
-    psu_headroom_ok = checks["psu_ok"] and checks["psu_headroom_pct"] >= 0.15
-    badge(
-        b4,
-        psu_headroom_ok,
-        "✅ PSU headroom",
-        "⚠️ PSU headroom",
-        "Aim for ~15–30%+ headroom over estimated draw for stability/upgrades.",
-    )
+        status(b1, checks["socket_match"], "CPU socket")
+        status(b2, checks["ddr_match"], "RAM type")
+        status(b3, checks["ram_slots_ok"], "RAM slots")
 
-    if checks["psu_ok"]:
-        st.caption(
-            f"Estimated draw: ~{int(checks['est_draw_w'])}W • PSU: {int(checks['psu_w'])}W • Headroom: {checks['psu_headroom_pct']*100:.0f}%"
-        )
-    else:
-        st.warning("PSU may be underpowered relative to estimated draw (check your dataset / estimates).")
+        psu_headroom_ok = checks["psu_ok"] and checks["psu_headroom_pct"] >= 0.15
+        status(b4, psu_headroom_ok, "PSU headroom", ok_text="Good", bad_text="Tight")
 
-    # --- Beginner summary
-    st.markdown("### Beginner Summary (why this build makes sense)")
-    for b in beginner_summary(build, checks):
-        st.write(f"- {b}")
+        if checks["psu_ok"]:
+            st.caption(
+                f"PSU: {int(checks['psu_w'] or 0)}W • "
+                f"Headroom: {checks['psu_headroom_pct']*100:.0f}%"
+            )
+        else:
+            st.warning("PSU may be underpowered relative to estimated draw (check your dataset / estimates).")
 
-    st.divider()
-
-    parts_left, parts_right = st.columns([2, 2])
-
-    with parts_left:
-        st.markdown("**Core components**")
-
-        cpu_name = build.get("cpu", "—")
-        st.write(f"**CPU (Model):** {cpu_name} — {money(build.get('cpu_price'))}")
-        st.caption("CPU matters most for productivity, simulation, and some games at high FPS.")
-        part_link(
-            "CPU",
-            cpu_name,
-            [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
-            use=link_source,
+        tab_overview, tab_parts, tab_details, tab_copy = st.tabs(
+            ["✅ Overview", "🧩 Parts", "🔎 Details", "📋 Copy"]
         )
 
-        gpu_name = build.get("gpu", "—")
-        st.write(f"**GPU (Model):** {gpu_name} — {money(build.get('gpu_price'))}")
-        st.caption("GPU matters most for gaming FPS, 3D work, and GPU-accelerated editing.")
-        part_link("GPU", gpu_name, [f"{build.get('gpu_vram_gb','')}GB VRAM"], use=link_source)
+        with tab_overview:
+            st.markdown("#### Beginner Summary (why this build makes sense)")
+            for b in beginner_summary(build, checks):
+                st.write(f"- {b}")
 
-        ram_name = build.get("ram", "—")
-        st.write(f"**RAM (Model):** {ram_name} — {money(build.get('ram_price'))}")
-        st.caption("More RAM helps multitasking, creation work, and engineering tools.")
-        part_link(
-            "RAM",
-            ram_name,
-            [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
-            use=link_source,
-        )
+        with tab_parts:
+            left, right = st.columns(2)
 
-    with parts_right:
-        st.markdown("**Platform & power**")
+            with left:
+                st.markdown("### Core components")
+                st.caption("These determine most of your performance.")
 
-        mb_name = build.get("motherboard", "—")
-        st.write(f"**Motherboard (Model):** {mb_name} — {money(build.get('mb_price'))}")
-        st.caption("Motherboard determines CPU compatibility, RAM type, and upgrade options.")
-        part_link(
-            "Motherboard",
-            mb_name,
-            [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
-            use=link_source,
-        )
+                cpu_name = build.get("cpu", "—")
+                st.markdown(f"**CPU:** {cpu_name}  \n{money(build.get('cpu_price'))}")
+                st.caption("CPU matters most for productivity, simulation, and some games at high FPS.")
+                part_link(
+                    "CPU",
+                    cpu_name,
+                    [f"{build.get('cpu_cores','')} cores", f"socket {build.get('cpu_socket','')}"],
+                    use=link_source,
+                )
 
-        psu_name = build.get("psu", "—")
-        st.write(f"**PSU (Model):** {psu_name} — {money(build.get('psu_price'))}")
-        st.caption("PSU quality/headroom matters for stability and future upgrades.")
-        part_link("PSU", psu_name, [f"{build.get('psu_wattage','')}W"], use=link_source)
+                st.divider()
 
-        st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
+                gpu_name = build.get("gpu", "—")
+                st.markdown(f"**GPU:** {gpu_name}  \n{money(build.get('gpu_price'))}")
+                st.caption("GPU matters most for gaming FPS, 3D work, and GPU-accelerated editing.")
+                part_link("GPU", gpu_name, [f"{build.get('gpu_vram_gb','')}GB VRAM"], use=link_source)
 
-    with st.expander("Copy build summary"):
-        summary = build_summary_text(build, idx)
-        st.code(summary, language="text")
-        st.download_button(
-            "Download summary (TXT)",
-            data=summary.encode("utf-8"),
-            file_name=f"build_{idx}_summary.txt",
-            mime="text/plain",
-            key=f"dl_summary_{idx}",
-        )
+                st.divider()
 
-    with st.expander("Details (more specs for searching / compatibility)"):
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.markdown("**CPU**")
-            show_if_present("Socket", build.get("cpu_socket"))
-            show_if_present("Cores", build.get("cpu_cores"))
-        with c2:
-            st.markdown("**GPU**")
-            show_if_present("VRAM (GB)", build.get("gpu_vram_gb"))
-        with c3:
-            st.markdown("**Motherboard / RAM / PSU**")
-            show_if_present("MB socket", build.get("mb_socket"))
-            show_if_present("MB DDR", build.get("mb_ddr"))
-            show_if_present("RAM DDR", build.get("ram_ddr"))
-            show_if_present("PSU wattage", build.get("psu_wattage"))
+                ram_name = build.get("ram", "—")
+                st.markdown(f"**RAM:** {ram_name}  \n{money(build.get('ram_price'))}")
+                st.caption("More RAM helps multitasking, creation work, and engineering tools.")
+                part_link(
+                    "RAM",
+                    ram_name,
+                    [f"{build.get('ram_total_gb','')}GB", f"DDR{build.get('ram_ddr','')}"],
+                    use=link_source,
+                )
 
-    st.divider()
+            with right:
+                st.markdown("### Platform & power")
+                st.caption("These keep things compatible and stable.")
+
+                mb_name = build.get("motherboard", "—")
+                st.markdown(f"**Motherboard:** {mb_name}  \n{money(build.get('mb_price'))}")
+                st.caption("Motherboard determines CPU compatibility, RAM type, and upgrade options.")
+                part_link(
+                    "Motherboard",
+                    mb_name,
+                    [f"socket {build.get('mb_socket','')}", f"DDR{build.get('mb_ddr','')}"],
+                    use=link_source,
+                )
+
+                st.divider()
+
+                psu_name = build.get("psu", "—")
+                st.markdown(f"**PSU:** {psu_name}  \n{money(build.get('psu_price'))}")
+                st.caption("PSU quality/headroom matters for stability and future upgrades.")
+                part_link("PSU", psu_name, [f"{build.get('psu_wattage','')}W"], use=link_source)
+
+                st.caption(f"Estimated system draw: ~{build.get('est_draw_w','—')} W")
+
+        with tab_details:
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                st.markdown("**CPU**")
+                show_if_present("Socket", build.get("cpu_socket"))
+                show_if_present("Cores", build.get("cpu_cores"))
+            with c2:
+                st.markdown("**GPU**")
+                show_if_present("VRAM (GB)", build.get("gpu_vram_gb"))
+            with c3:
+                st.markdown("**Motherboard / RAM / PSU**")
+                show_if_present("MB socket", build.get("mb_socket"))
+                show_if_present("MB DDR", build.get("mb_ddr"))
+                show_if_present("RAM DDR", build.get("ram_ddr"))
+                show_if_present("PSU wattage", build.get("psu_wattage"))
+
+        with tab_copy:
+            summary = build_summary_text(build, idx)
+            st.code(summary, language="text")
+            st.download_button(
+                "Download summary (TXT)",
+                data=summary.encode("utf-8"),
+                file_name=f"build_{idx}_summary.txt",
+                mime="text/plain",
+                key=f"dl_summary_{idx}",
+            )
 
 
 # =============================
 # Generate builds
 # =============================
-if st.button("Generate Builds", type="primary"):
+if st.button("🚀 Generate Builds", type="primary", use_container_width=True):
     with st.spinner("Generating best builds..."):
         df = recommend_builds_from_csv_dir(
             data_dir=DATA_DIR,
