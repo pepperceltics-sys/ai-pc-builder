@@ -10,7 +10,7 @@ from recommender import recommend_builds_from_csv_dir
 # =============================
 st.set_page_config(page_title="AI PC Builder", layout="wide")
 
-# Fix: add a little top padding so the title never gets clipped
+# Fix title clipping + small UI polish
 st.markdown(
     """
     <style>
@@ -319,23 +319,25 @@ def build_card(build: dict, idx: int, budget_value: float):
         used_pct = max(0.0, min(1.0, checks["budget_used_pct"]))
         st.markdown("**Budget utilization**")
         st.progress(used_pct)
-        st.caption(f"Uses {money(build.get('total_price'))} of {money(budget_value)} • Leftover: {money(checks['budget_leftover'])}")
+        st.caption(
+            f"Uses {money(build.get('total_price'))} of {money(budget_value)} • "
+            f"Leftover: {money(checks['budget_leftover'])}"
+        )
 
-        # Compatibility badges
+        # Compatibility badges (NO detailed captions underneath)
         st.markdown("**Compatibility checks**")
         b1, b2, b3, b4 = st.columns(4)
 
-        def badge(col, ok: bool, label_ok: str, label_bad: str, help_text: str):
+        def badge(col, ok: bool, label_ok: str, label_bad: str):
             with col:
                 st.success(label_ok) if ok else st.warning(label_bad)
-                st.caption(help_text)
 
-        badge(b1, checks["socket_match"], "✅ CPU socket", "⚠️ CPU socket", "CPU and motherboard socket must match.")
-        badge(b2, checks["ddr_match"], "✅ RAM type", "⚠️ RAM type", "DDR version (DDR4/DDR5) must match the motherboard.")
-        badge(b3, checks["ram_slots_ok"], "✅ RAM slots", "⚠️ RAM slots", "Your RAM kit must fit available DIMM slots.")
+        badge(b1, checks["socket_match"], "✅ CPU socket", "⚠️ CPU socket")
+        badge(b2, checks["ddr_match"], "✅ RAM type", "⚠️ RAM type")
+        badge(b3, checks["ram_slots_ok"], "✅ RAM slots", "⚠️ RAM slots")
 
         psu_headroom_ok = checks["psu_ok"] and checks["psu_headroom_pct"] >= 0.15
-        badge(b4, psu_headroom_ok, "✅ PSU headroom", "⚠️ PSU headroom", "Aim for ~15–30%+ headroom over estimated draw.")
+        badge(b4, psu_headroom_ok, "✅ PSU headroom", "⚠️ PSU headroom")
 
         # Beginner summary
         st.markdown("### Beginner Summary (why this build makes sense)")
