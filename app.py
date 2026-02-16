@@ -72,13 +72,6 @@ def clean_str(v) -> str:
     return s
 
 
-def show_if_present(label: str, value):
-    s = clean_str(value)
-    if not s:
-        return
-    st.write(f"**{label}:** {s}")
-
-
 def build_search_query(part_name: str, extras: list[str]) -> str:
     base = clean_str(part_name)
     extras_clean = [clean_str(e) for e in extras if clean_str(e)]
@@ -111,6 +104,7 @@ SEARCH_PROVIDERS = {
     "googleshopping": google_shop_url,
     "ebay": ebay_url,
 }
+
 
 def part_link(label: str, part_name: str, extras: list[str], use="google"):
     q = build_search_query(part_name, extras)
@@ -145,11 +139,6 @@ def build_summary_text(build: dict, idx: int) -> str:
     return "\n".join(lines)
 
 
-def get_part_cols(df):
-    candidates = ["cpu", "gpu", "ram", "motherboard", "psu"]
-    return [c for c in candidates if c in df.columns]
-
-
 # =============================
 # Beginner checks + summary
 # =============================
@@ -177,11 +166,8 @@ def compute_checks(build: dict, budget_value: float) -> dict:
         "ram_slots_ok": bool(ram_modules > 0 and mb_slots > 0 and ram_modules <= mb_slots),
         "psu_ok": bool(psu_w > 0 and est_draw > 0 and psu_w >= est_draw),
         "psu_headroom_pct": headroom_pct,
-        "est_draw_w": est_draw,
-        "psu_w": psu_w,
         "budget_used_pct": used_pct,
         "budget_leftover": leftover,
-        "over_budget": total > float(budget_value) + 1e-6,
     }
 
 
@@ -218,34 +204,13 @@ def beginner_summary(build: dict, checks: dict) -> list[str]:
         f"**What it’s best for:** {performance_tier(build.get('industry',''), cpu_cores, gpu_vram, ram_gb)}.",
         f"**Budget fit:** Uses ~{used_pct:.0f}% of your budget ({money(total)}), leftover {money(leftover)}.",
     ]
-
-    hr = checks["psu_headroom_pct"]
-    if hr < 0.15:
-        bullets.append("**Watch out:** PSU headroom is tight (<15%). A bit more wattage is safer for future upgrades.")
-    elif hr < 0.30:
-        bullets.append("**Good:** PSU headroom is reasonable (~15–30%).")
-    else:
-        bullets.append("**Great:** PSU has healthy headroom (30%+), good for upgrades.")
-
-    if not (checks["socket_match"] and checks["ddr_match"] and checks["ram_slots_ok"]):
-        bullets.append("**Warning:** One or more compatibility checks is failing—double check before buying parts.")
-
-    if build.get("industry") == "gaming":
-        bullets.append("**Next upgrade idea:** GPU first (biggest gaming gains).")
-    elif build.get("industry") == "content_creation":
-        bullets.append("**Next upgrade idea:** RAM or GPU (depends on editing apps and codec).")
-    elif build.get("industry") == "engineering":
-        bullets.append("**Next upgrade idea:** RAM (often the first bottleneck).")
-    else:
-        bullets.append("**Next upgrade idea:** SSD/RAM (not included in this dataset).")
-
     return bullets
 
 
 # =============================
 # Uniqueness selector
 # =============================
-def select_diverse_builds(df, n=5, require_unique_cpu=True, require_unique_gpu=True, part_cols=None):
+def select_diverse_builds(df, n=5, require_unique_cpu=True, require_unique_gpu=True):
     if df is None or df.empty:
         return df
 
@@ -288,7 +253,6 @@ with st.expander("Options"):
         ["google", "pcpartpicker", "bestbuy", "amazon", "newegg", "microcenter", "bhphoto", "googleshopping", "ebay"],
         index=0,
     )
-    st.caption("Google works best with imperfect names; PCPartPicker is best when names are exact.")
 
     st.markdown("### Variety in the top 5")
     make_unique = st.checkbox("Make top 5 builds more unique", value=True)
@@ -304,11 +268,11 @@ st.divider()
 # =============================
 # Build card
 # =============================
-def build_card(build: dict, idx: int, budget_value: float):
+def build_card(build: dict, idx: int, budget_value: float) -> None:
     checks = compute_checks(build, budget_value)
 
     with st.container(border=True):
-        left, right = st.columns([3, 1], vertical_alignment="center")
+        left, right = st.columns([3, 1])
         with left:
             st.subheader(f"Build #{idx}")
             st.caption(f"{build.get('industry', '').replace('_',' ').title()} build")
@@ -324,23 +288,25 @@ def build_card(build: dict, idx: int, budget_value: float):
             f"Leftover: {money(checks['budget_leftover'])}"
         )
 
-        # Compatibility badges (NO detailed captions underneath)
+        # Compatibility badges (icons ONLY, no extra text)
         st.markdown("**Compatibility checks**")
         b1, b2, b3, b4 = st.columns(4)
 
         def badge(col, ok: bool, label_ok: str, label_bad: str):
             with col:
-                st.success(label_ok) if ok else st.warning(label_bad)
+                if ok:
+                    st.success(label_ok)
+                else:
+                    st.warning(label_bad)
 
         badge(b1, checks["socket_match"], "✅ CPU socket", "⚠️ CPU socket")
         badge(b2, checks["ddr_match"], "✅ RAM type", "⚠️ RAM type")
         badge(b3, checks["ram_slots_ok"], "✅ RAM slots", "⚠️ RAM slots")
-
         psu_headroom_ok = checks["psu_ok"] and checks["psu_headroom_pct"] >= 0.15
         badge(b4, psu_headroom_ok, "✅ PSU headroom", "⚠️ PSU headroom")
 
         # Beginner summary
-        st.markdown("### Beginner Summary (why this build makes sense)")
+        st.markdown("### Beginner Summary")
         for b in beginner_summary(build, checks):
             st.write(f"- {b}")
 
@@ -393,6 +359,8 @@ def build_card(build: dict, idx: int, budget_value: float):
                 key=f"dl_summary_{idx}",
             )
 
+    return None  # important: prevents Streamlit 'magic' from dumping objects
+
 
 # =============================
 # Generate builds
@@ -423,7 +391,6 @@ if st.button("Generate Builds", type="primary"):
                 n=DISPLAY_TOP,
                 require_unique_cpu=require_unique_cpu,
                 require_unique_gpu=require_unique_gpu,
-                part_cols=get_part_cols(ranked),
             )
         else:
             shown_df = ranked.head(DISPLAY_TOP)
@@ -449,12 +416,6 @@ if st.session_state.shown_builds:
             "Paste AI summary",
             value=st.session_state.ai_text_manual,
             height=180,
-            placeholder=(
-                "Suggested format:\n"
-                "- Overall recommendation (2–4 sentences)\n"
-                "- One line per build: best-for + key pros/cons\n"
-                "- Any compatibility/balance warnings\n"
-            ),
         ).strip()
         if st.session_state.ai_text_manual:
             st.markdown(st.session_state.ai_text_manual)
@@ -466,7 +427,7 @@ if st.session_state.shown_builds:
     )
 
     for i, b in enumerate(shown_builds, start=1):
-        build_card(b, i, float(budget))
+        _ = build_card(b, i, float(budget))  # assign to avoid Streamlit 'magic' output
 
     if ranked is not None:
         st.download_button(
